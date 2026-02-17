@@ -1,13 +1,14 @@
 // главная страница
-
+---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.jsx';
-import BlobBackground from '../components/BlobBackground.jsx';
+// import BlobBackground from '../components/BlobBackground.jsx';
 import InfoCard from '../components/InfoCard.astro';
 
 const title = "my portfolio";
-<Layout title = {title}>
-    <BlobBackground client:visible />
+---
+<Layout title={title}>
+    <!-- <BlobBackground client:visible /> -->
     <main class="main-content">
         <Header client:load />
         <!-- Hero-секция с заголовком -->

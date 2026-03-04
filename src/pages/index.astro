@@ -1,63 +1,18 @@
-// главная страница
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.jsx';
-// import BlobBackground from '../components/BlobBackground.jsx';
-import InfoCard from '../components/InfoCard.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Education from '../components/Education.astro';
 
-const title = "my portfolio";
+const title = 'JavaScript Trainee Resume – Arina Makovchik';
 ---
 <Layout title={title}>
-    <!-- <BlobBackground client:visible /> -->
-    <main class="main-content">
-        <Header client:load />
-        <!-- Hero-секция с заголовком -->
-        <section class="hero-section">
-            <div class="hero-container">
-                <!-- Большой заголовок с текстурой -->
-                <h1 class="hero-title">
-                    JavaScript<br />
-                    Trainee,<br />
-                    resume
-                </h1>
-                <!-- Три карточки внизу -->
-                <div class="info-cards">
-                    <InfoCard
-                        title="About"
-                        content="BSUIR Branch MRC 2023-2027\nYandex Practicum Fullstack 2025-2026\nPortfolio Works 2025-2026"
-                    />
-                    <InfoCard
-                        title="Contact"
-                        content="makovchikarina@icloud.com\n+375 29 501-81-09\ntg: @ichbinrisha"
-                    />
-                    <InfoCard
-                        title="Information"
-                        content="github.com/ArishaMak"
-                    />
-                </div>
-            </div>
-        </section>
-        <!-- About Me -->
-        <div class="content-sections">
-            <section id="about" class="about-section">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-grid">
-                    <div class="about-photo-wrapper">
-                        <img
-                            src="/images/kobep.png"
-                            alt="Arina Makovchik"
-                            class="about-photo"
-                        />
-                        <a href="#" class="cover-letter-btn">
-                            Cover letter
-                        </a>
-                    </div>
-                    <div class="about-text">
-                        <p>I am genuinely interested in joining Andersen’s JavaScript Trainee Program. Your corporate culture, focused on teamwork and the development of high-quality products, reflects my vision of a supportive and growth-oriented working environment. I see Andersen as the ideal place to strengthen my practical JavaScript skills, gain hands-on experience, and contribute to real-world projects. With a solid academic foundation in Full Stack Development and practical experience gained through the YandexPracticum Full Stack Developer course, I am eager to apply my knowledge in practice, continuously learn from more experienced professionals, and develop as a JavaScript specialist within your team.</p>
-                        <p>I have completed the Full Stack Developer course at YandexPracticum, covering a comprehensive JavaScript curriculum including HTML/CSS, responsive layouts with Flexbox and Grid, DOM manipulation, event handling, API integration, asynchronous programming, TypeScript basics, OOP principles, and React with routing, state management, and testing. Through multiple hands-on projects, I built interactive web applications, implemented RESTful APIs, and practiced code modularization and deployment workflows. Additionally, I have foundational experience with relational databases, including designing and querying MySQL databases during my college studies, which enhances my backend and data management skills.</p>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
+  <main class="main-content">
+    <Header />
+    <Hero />
+    <About />
+    <Education />
+    <skills />
+  </main>
 </Layout>

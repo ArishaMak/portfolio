@@ -1,0 +1,16 @@
+---
+const { title, content } = Astro.props;
+
+const lines = content ? content.split('\n').filter((line) => line.trim() !== '') : [];
+---
+
+<div class="info-card">
+  <h3 class="card-title">{title}</h3>
+
+  <div class="card-content">
+    {lines.map((line) => (
+      <p class="card-line">{line}</p>
+    ))}
+  </div>
+</div>
+

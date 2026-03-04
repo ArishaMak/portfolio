@@ -1,0 +1,28 @@
+---
+import InfoCard from './InfoCard.astro';
+import '../assets/styles/sections/hero.css';
+---
+<section class="section hero">
+  <div class="hero__layout">
+    <h1 class="hero__title">
+      JavaScript<br />
+      Trainee,<br />
+      resume
+    </h1>
+
+    <div class="hero__cards">
+      <InfoCard
+        title="About"
+        content="BSUIR Branch MRC 2023–2027\nYandex Practicum Fullstack 2025–2026\nPortfolio Works 2025–2026"
+      />
+      <InfoCard
+        title="Contact"
+        content="makovchikarina@icloud.com\n+375 29 501-81-09\ntg: @ichbinrisha"
+      />
+      <InfoCard
+        title="Information"
+        content="github.com/ArishaMak"
+      />
+    </div>
+  </div>
+</section>

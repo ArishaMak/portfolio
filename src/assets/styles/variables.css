@@ -1,5 +1,5 @@
 /* src/assets/styles/variables.css */
-
+@import "../fonts/fonts.css";
 /* Базовые (по умолчанию – светлая тема) */
 :root {
     /* Семантические цвета */

@@ -26,10 +26,10 @@
     /* Веса шрифтов */
     --fw-regular: 400;
     --fw-semibold: 600;
-    --fw-bold: 700;
+    --fw-bold: 1000;
 
     /* Layout */
-    --page-max-width: 1200px;
+    --page-max-width: 1920px;
     --page-padding-x: clamp(1.5rem, 4vw, 3rem);
     --section-gap: clamp(3rem, 6vw, 5rem);
 

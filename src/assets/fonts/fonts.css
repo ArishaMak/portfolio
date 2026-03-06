@@ -6,7 +6,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('../fonts/inter-v12-latin-regular.woff2') format('woff2');
+    src: url('./Inter-Regular.woff2') format('woff2');
 }
 
 /* Semi Bold */
@@ -15,7 +15,7 @@
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url('../fonts/inter-v12-latin-600.woff2') format('woff2');
+    src: url('./InterDisplay-SemiBold.woff2') format('woff2');
 }
 
 
@@ -27,7 +27,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('../fonts/poppins-v20-latin-regular.woff2') format('woff2');
+    src: url('./poppins-regular-webfont.woff2') format('woff2');
 }
 
 /* Bold */
@@ -36,5 +36,5 @@
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('../fonts/poppins-v20-latin-700.woff2') format('woff2');
+    src: url('./poppins-semibold-webfont.woff2') format('woff2');
 }

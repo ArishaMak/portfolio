@@ -3,26 +3,40 @@ import InfoCard from './InfoCard.astro';
 import '../assets/styles/sections/hero.css';
 ---
 <section class="section hero">
-  <div class="hero__layout">
-    <h1 class="hero__title">
-      JavaScript<br />
-      Trainee,<br />
-      resume
-    </h1>
+  <div class="hero__container page">
+    
+    <div class="hero__layout">
+      <h1 class="hero__title">
+        <span class="hero__title-shadow" aria-hidden="true">
+          JavaScript<br />
+          Trainee,<br />
+          resume
+        </span>
+        <span class="hero__title-main">
+          JavaScript<br />
+          Trainee,<br />
+          resume
+        </span>
+      </h1>
 
-    <div class="hero__cards">
-      <InfoCard
-        title="About"
-        content="BSUIR Branch MRC 2023–2027\nYandex Practicum Fullstack 2025–2026\nPortfolio Works 2025–2026"
-      />
-      <InfoCard
-        title="Contact"
-        content="makovchikarina@icloud.com\n+375 29 501-81-09\ntg: @ichbinrisha"
-      />
-      <InfoCard
-        title="Information"
-        content="github.com/ArishaMak"
-      />
+      <div class="hero__cards">
+        <InfoCard
+          title="About"
+          content="BSUIR Branch MRC 2023–2027\nYandex Practicum Fullstack 2025–2026\nPortfolio Works 2025–2026"
+        />
+        <InfoCard
+          title="Contact"
+          content="makovchikarina@icloud.com\n+375 29 501-81-09\ntg: @ichbinrisha"
+        />
+        <InfoCard
+          title="Information"
+          content="github.com/ArishaMak"
+        />
+      </div>
     </div>
+
+    <div class="hero__blob hero__blob--left-large"></div>
+    <div class="hero__blob hero__blob--right-large"></div>
+    <div class="hero__blob hero__blob--right-small"></div>
   </div>
 </section>

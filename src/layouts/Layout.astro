@@ -1,4 +1,8 @@
 ---
+import '../assets/styles/variables.css';
+import '../assets/styles/global.css';
+import '../assets/fonts/fonts.css';
+
 const { title = "Arina N. Makovchik • JavaScript Trainee • Resume" } = Astro.props;
 ---
 
@@ -8,14 +12,7 @@ const { title = "Arina N. Makovchik • JavaScript Trainee • Resume" } = Astro
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-image.png" />
-
-    import '../assets/fonts/fonts.css';
-    
-    <!-- Base styles -->
-    import '../assets/styles/variables.css';
-    import '../assets/styles/global.css';
   </head>
 
   <body>

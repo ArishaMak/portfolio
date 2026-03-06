@@ -3,41 +3,69 @@
     top: 0;
     z-index: 20;
     padding-block: 0.75rem;
-    background: color-mix(in srgb, var(--color-page-bg) 90%, transparent);
-    backdrop-filter: blur(18px);
+    background: transparent;
+    pointer-events: none;
+    /* Чтобы клики проходили сквозь хедер (но не сквозь кнопки) */
 }
 
 .header__inner {
-    display: flex;
-    justify-content: center;
+    pointer-events: auto;
+    /* Возвращаем кликабельность контенту */
 }
 
 .header__nav-list {
-    display: flex;
-    gap: 1.25rem;
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-    background: var(--color-surface-soft);
-    box-shadow: var(--shadow-soft);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    align-items: center;
+    background: transparent;
+    box-shadow: none;
 }
 
 .header__nav-link {
-    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 120px;
+    height: 50px;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-decoration: none;
-    color: var(--color-text-muted);
-    padding: 0.3rem 0.7rem;
-    border-radius: 999px;
-    transition: background 0.18s ease, color 0.18s ease;
+    color: var(--color-text-primary, #111111);
+    background: transparent;
+    border: 1.5px solid var(--color-text-primary, #111111);
+    border-radius: var(--radius-pill);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.header__nav-link:active {
+    background: var(--color-accent, #1d4bff);
+    color: var(--color-accent);
+    border: 1.5px solid var(--color-text-primary, #111111);
 }
 
 .header__nav-link:hover {
-    background: var(--color-accent-soft);
-    color: var(--color-accent);
+    background: var(--color-accent, #1d4bff);
+    opacity: 50%;
+    border: 1.5px solid transparent;
+    color: var(--color-page-bg, #f7f3f6);
 }
 
-@media (max-width: 700px) {
+/* на планшет */
+@media (max-width: 1024px) {
     .header__nav-list {
+        display: flex;
         overflow-x: auto;
-        padding-inline: 0.6rem;
+        padding-bottom: 1rem;
+        gap: 0.75rem;
+        /* Скрываем скроллбар */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .header__nav-list::-webkit-scrollbar {
+        display: none;
     }
 }

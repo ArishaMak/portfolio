@@ -1,8 +1,9 @@
 .header {
     position: sticky;
-    top: 0;
+    top: 50px;
     z-index: 20;
-    padding-block: 0.75rem;
+    padding-block: 0rem;
+    margin: 0;
     background: transparent;
     pointer-events: none;
     /* Чтобы клики проходили сквозь хедер (но не сквозь кнопки) */
@@ -26,10 +27,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 120px;
-    height: 50px;
+    min-width: 140px;
+    height: 74px;
     padding: 0.5rem 1.5rem;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     font-weight: 500;
     text-decoration: none;
     color: var(--color-text-primary, #111111);
@@ -40,12 +41,6 @@
     white-space: nowrap;
 }
 
-.header__nav-link:active {
-    background: var(--color-accent, #1d4bff);
-    color: var(--color-accent);
-    border: 1.5px solid var(--color-text-primary, #111111);
-}
-
 .header__nav-link:hover {
     background: var(--color-accent, #1d4bff);
     opacity: 50%;
@@ -53,12 +48,21 @@
     color: var(--color-page-bg, #f7f3f6);
 }
 
+.header__nav-link:active {
+    background: var(--color-accent, #1d4bff);
+    color: var(--color-accent);
+    opacity: 90%;
+    border: 1.5px solid var(--color-text-primary, #111111);
+}
+
 /* на планшет */
 @media (max-width: 1024px) {
     .header__nav-list {
         display: flex;
-        overflow-x: auto;
-        padding-bottom: 1rem;
+        flex-wrap: wrap;
+        max-width: 600px;
+        overflow-x: visible;
+        padding-bottom: 0;
         gap: 0.75rem;
         /* Скрываем скроллбар */
         -ms-overflow-style: none;
@@ -66,6 +70,13 @@
     }
 
     .header__nav-list::-webkit-scrollbar {
-        display: none;
+        display: block;
+    }
+
+    .header__nav-link {
+        min-width: 120px;
+        height: 54px;
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
     }
 }

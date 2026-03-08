@@ -1,12 +1,11 @@
 .hero {
     display: flex;
     flex-direction: column;
-    /*align-items: center;*/
-    justify-content: space-between;
     position: relative;
-    min-height: clamp(640px, 90vh, 900px);
-    padding-block: clamp(60px, 6.5vh, 108px);
-    /*padding-inline: clamp(45px, 5.5vw, 110px);*/
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-block: clamp(2rem, 5vh, 4rem);
+    width: 100%;
 }
 
 .hero__container {
@@ -17,11 +16,12 @@
 }
 
 .hero__layout {
+    flex: 1;
     width: 100%;
-    /*max-width: 840px;*/
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
     gap: clamp(3rem, 5vh, 4rem);
     position: relative;
     z-index: 10;
@@ -39,20 +39,19 @@
     animation: hero-blob-float 10s ease-in-out infinite alternate;
 }
 
-/* 1. Левый большой элемент (частично за экраном) */
+/* 1. Левый большой элемент */
 .hero__blob--left-large {
     width: clamp(220px, 24.5vw, 471px);
     aspect-ratio: 470 / 420;
     position: absolute;
     left: clamp(-3rem, 7vw, 10.5vw);
-    /* чуть выходит за экран на маленьких */
     top: 50%;
     transform: translateY(-50%);
     background-image: url('/images/galaxy-blob-2.png');
     opacity: 0.6;
 }
 
-/* 2. Правый крупный элемент (382×339 по макету) */
+/* 2. Правый крупный элемент */
 .hero__blob--right-large {
     width: clamp(220px, 26.5vw, 382px);
     aspect-ratio: 382 / 339;
@@ -63,7 +62,7 @@
     transform: rotate(20deg);
 }
 
-/* 3. Правый маленький элемент (213×225 по макету) */
+/* 3. Правый маленький элемент */
 .hero__blob--right-small {
     width: clamp(140px, 15vw, 213px);
     aspect-ratio: 213 / 225;
@@ -78,11 +77,14 @@
     display: inline-block;
     font-family: var(--font-display);
     font-weight: var(--fw-bold);
-    /* Адаптив: ~44px телефон, ~90–110px планшет, ~112px десктоп */
-    font-size: clamp(2.75rem, 8vw, 7rem);
-    line-height: 0.9;
-    letter-spacing: 0;
-    margin-bottom: clamp(1.5rem, 3vh, 3rem);
+    /* Оптимизированный clamp: не перекрывает карточки на промежуточных экранах */
+    font-size: clamp(3.5rem, 8vw, 9rem);
+    width: 100%;
+    line-height: 1.15;
+    /* Немного уменьшен для лучшей компоновки */
+    word-spacing: 0.2em;
+    margin: 0 0 clamp(2rem, 4vh, 3.5rem) 0;
+    /* Нижний отступ с запасом */
 }
 
 .hero__title-main,
@@ -93,7 +95,7 @@
 .hero__title-shadow {
     position: absolute;
     inset: 0;
-    transform: translate(-0.08em, -0.01em);
+    transform: translate(-0.04em, -0.02em);
     color: #1d4bff;
     z-index: 0;
 }
@@ -102,7 +104,7 @@
     position: relative;
     z-index: 1;
     background-image: url('/images/ковер.png');
-    background-size: 50% auto;
+    background-size: 300px auto;
     background-repeat: repeat;
     background-position: center;
     -webkit-background-clip: text;
@@ -115,38 +117,37 @@
 .hero__cards {
     align-self: stretch;
     display: grid;
+    /* 1fr вместо жесткого minmax — карточки растягиваются на всю ширину */
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.25rem, 2vw, 2rem);
-    margin-top: clamp(1.5rem, 4vh, 3rem);
+    gap: clamp(2rem, 6.7vw, 8rem);
+    /* 130px на 1920px, плавно уменьшается */
     width: 100%;
+    margin-top: auto;
+    padding-bottom: clamp(1.5rem, 2vh, 2.5rem);
 }
 
 .info-card {
     position: relative;
-    /* фиксированные отступы как в макете — не изменяются при масштабировании */
-    padding: 40px 25px;
-    min-height: 168px;
-    height: auto;
+    /* Фиксированная высота с border-box */
+    height: 168px;
+    padding: clamp(1.5rem, 2vw, 2rem) clamp(1.5rem, 2vw, 1.75rem);
     border-radius: 24px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.1);
-    /* Полупрозрачный белый */
     backdrop-filter: blur(30px);
-    /* Размытие фона */
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
-/* Типографика карточек hero */
 .card-title {
     font-family: var(--font-base);
     font-weight: var(--fw-semibold);
-    /* 17px → 22px: уменьшаем минимум, чтобы текст не упирался в max-height */
-    font-size: clamp(1.25rem, 2vw, 1.75rem);
-    /* при изменении ширины также немного гуляет межстрочный интервал */
-    line-height: clamp(1.1, 1.05 + 0.2vw, 1.3);
+    color: var(--color-page-bg);
+    font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+    line-height: 1.1;
     margin-bottom: 0.5rem;
 }
 
@@ -154,17 +155,17 @@
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    flex: 1;
+    /* Занимает доступное место */
+    color: var(--color-page-bg);
 }
 
 .card-line {
     font-family: var(--font-base);
-    /* 14px → 17px: больше диапазон для адаптации под высоту карточки */
-    font-size: clamp(0.9rem, 1.2vw, 1.25rem);
-    /* более свободный межстрочный интервал на широких экранах */
-    line-height: 1.4;
+    font-size: clamp(0.875rem, 1.1vw, 1.125rem);
+    line-height: 1.2;
 }
 
-/* Эффект текстуры внутри карточки */
 .info-card::before {
     content: "";
     position: absolute;
@@ -173,15 +174,15 @@
     background-size: cover;
     background-position: center;
     opacity: 0.5;
-    /* Очень слабая видимость текстуры */
     z-index: -1;
 }
 
-/* планшет */
 @media (max-width: 1023.98px) {
     .hero__cards {
         grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: min-content;
+        /* Только 2 колонки */
+        gap: clamp(1.5rem, 5vw, 2.5rem);
+        /* Адаптивный gap для планшета */
     }
 
     .hero__blob--left-large {
@@ -189,15 +190,30 @@
         opacity: 0.55;
     }
 
+    /* Третья карточка вторая колонка */
     .info-card:nth-child(3) {
         grid-column-start: 2;
     }
+
+    .hero__title {
+        font-size: clamp(3rem, 7vw, 7rem);
+        /* Меньше на планшете */
+    }
 }
 
-/* мобилка */
-@media (max-width: 767.98px) {
+@media (max-width: 639.98px) {
     .hero__cards {
         grid-template-columns: 1fr;
-        /* 1 колонка */
+        gap: clamp(1rem, 4vw, 1.5rem);
+    }
+
+    .info-card:nth-child(3) {
+        grid-column-start: 1;
+    }
+
+    .hero__blob--left-large,
+    .hero__blob--right-large {
+        display: none;
+        /* Скрываем галактики на мобайле */
     }
 }

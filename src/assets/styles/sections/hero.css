@@ -2,10 +2,11 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
-    padding-block: clamp(2rem, 5vh, 4rem);
+    min-height: calc(100vh - 120px);
+    min-height: calc(100svh - 120px);
     width: 100%;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 .hero__container {
@@ -22,7 +23,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap: clamp(3rem, 5vh, 4rem);
+    gap: clamp(2rem, 4vh, 3rem);
     position: relative;
     z-index: 10;
 }
@@ -35,41 +36,78 @@
     background-size: contain;
     background-position: center;
     z-index: 5;
-    filter: saturate(1.4) contrast(1.1) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
+    filter: saturate(1.4) contrast(1.1)
+        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
+        /* 2. Средний слой для объема */
+        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
+        /* 3. Ближний слой для четкости */
+        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
     animation: hero-blob-float 10s ease-in-out infinite alternate;
 }
 
-/* 1. Левый большой элемент */
 .hero__blob--left-large {
-    width: clamp(220px, 24.5vw, 471px);
+    width: clamp(260px, 29vw, 530px);
     aspect-ratio: 470 / 420;
     position: absolute;
-    left: clamp(-3rem, 7vw, 10.5vw);
-    top: 50%;
-    transform: translateY(-50%);
-    background-image: url('/images/galaxy-blob-2.png');
-    opacity: 0.6;
-}
-
-/* 2. Правый крупный элемент */
-.hero__blob--right-large {
-    width: clamp(220px, 26.5vw, 382px);
-    aspect-ratio: 382 / 339;
-    background-image: url('/images/galaxy-blob-2.png');
-    right: clamp(-3rem, 3vw, 4rem);
-    top: clamp(1rem, 6vh, 4rem);
-    z-index: 3;
-    transform: rotate(20deg);
-}
-
-/* 3. Правый маленький элемент */
-.hero__blob--right-small {
-    width: clamp(140px, 15vw, 213px);
-    aspect-ratio: 213 / 225;
+    /* Сдвигаем в нижний левый угол */
+    bottom: -15%;
+    left: -20vw;
+    top: auto;
+    /* Сбрасываем старое позиционирование */
+    transform: none;
     background-image: url('/images/galaxy-blob-1.png');
-    right: clamp(0.5rem, 7vw, 6rem);
-    top: clamp(30%, 40%, 45%);
+    filter: saturate(1.4) contrast(1.1);
+    z-index: 1;
+}
+
+.hero__blob--right-large {
+    /*width: 26.5vw;*/
+    max-width: 180px;
+    min-width: 130px;
+    aspect-ratio: 382 / 339;
+    right: 20vh;
+    top: -180px;
     z-index: 3;
+    transform: rotate(-10deg);
+    background-image: url('/images/galaxy-blob-2.png');
+}
+
+/* Синий слой (подложка) */
+.blob-layer--back {
+    background-color: #1d4bff;
+    z-index: 1;
+    transform: translate(15px, 12px);
+    opacity: 0.5;
+    filter: blur(30px);
+}
+
+/* Графика сверху */
+.blob-layer--front {
+    background-image: url('/images/galaxy-blob-2.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 2;
+    filter: saturate(1.4) contrast(1.1) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
+}
+
+/* Маленький правый блоб */
+.hero__blob--right-small {
+    /*width: 15vw;*/
+    max-width: 400px;
+    min-width: 380px;
+    aspect-ratio: 213 / 225;
+    right: 15vw;
+    top: -140px;
+    z-index: 2;
+    background-image: url('/images/galaxy-blob-1.png');
+    filter: saturate(1.2) contrast(1.1)
+        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
+        /* 2. Средний слой для объема */
+        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
+        /* 3. Ближний слой для четкости */
+        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
+    animation: hero-blob-float 10s ease-in-out infinite alternate;
 }
 
 .hero__title {
@@ -77,14 +115,11 @@
     display: inline-block;
     font-family: var(--font-display);
     font-weight: var(--fw-bold);
-    /* Оптимизированный clamp: не перекрывает карточки на промежуточных экранах */
     font-size: clamp(3.5rem, 8vw, 9rem);
     width: 100%;
     line-height: 1.15;
-    /* Немного уменьшен для лучшей компоновки */
     word-spacing: 0.2em;
     margin: 0 0 clamp(2rem, 4vh, 3.5rem) 0;
-    /* Нижний отступ с запасом */
 }
 
 .hero__title-main,
@@ -111,16 +146,20 @@
     background-clip: text;
     color: transparent;
     filter:
-        saturate(1.1) contrast(1.15) drop-shadow(0px 208px 125px rgba(0, 0, 0, 0.16)) drop-shadow(0px 369px 148px rgba(0, 0, 0, 0.18)) drop-shadow(0px 577px 162px rgba(0, 0, 0, 0.2));
+        saturate(1.1) contrast(1.15)
+        /* 1. Самый мягкий и глубокий слой (Ambient) */
+        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
+        /* 2. Средний слой для объема */
+        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
+        /* 3. Ближний слой для четкости */
+        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
 }
 
 .hero__cards {
     align-self: stretch;
     display: grid;
-    /* 1fr вместо жесткого minmax — карточки растягиваются на всю ширину */
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(2rem, 6.7vw, 8rem);
-    /* 130px на 1920px, плавно уменьшается */
     width: 100%;
     margin-top: auto;
     padding-bottom: clamp(1.5rem, 2vh, 2.5rem);
@@ -128,7 +167,6 @@
 
 .info-card {
     position: relative;
-    /* Фиксированная высота с border-box */
     height: 168px;
     padding: clamp(1.5rem, 2vw, 2rem) clamp(1.5rem, 2vw, 1.75rem);
     border-radius: 24px;
@@ -140,6 +178,10 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    filter:
+        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
+        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
+        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
 }
 
 .card-title {
@@ -149,6 +191,10 @@
     font-size: clamp(1.125rem, 1.8vw, 1.5rem);
     line-height: 1.1;
     margin-bottom: 0.5rem;
+    filter:
+        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
+        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
+        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
 }
 
 .card-content {
@@ -156,7 +202,6 @@
     flex-direction: column;
     gap: 0.4rem;
     flex: 1;
-    /* Занимает доступное место */
     color: var(--color-page-bg);
 }
 
@@ -164,6 +209,10 @@
     font-family: var(--font-base);
     font-size: clamp(0.875rem, 1.1vw, 1.125rem);
     line-height: 1.2;
+    filter:
+        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
+        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
+        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
 }
 
 .info-card::before {
@@ -177,27 +226,33 @@
     z-index: -1;
 }
 
-@media (max-width: 1023.98px) {
+@media (max-width: 1024px) {
     .hero__cards {
         grid-template-columns: repeat(2, 1fr);
-        /* Только 2 колонки */
         gap: clamp(1.5rem, 5vw, 2.5rem);
-        /* Адаптивный gap для планшета */
     }
 
     .hero__blob--left-large {
         left: clamp(0rem, 5vw, 6rem);
         opacity: 0.55;
     }
+    
+    .hero__blob--right-large {
+        right: 2vh;
+        max-width: 130px;
+        min-width: 120px;
+    }
 
-    /* Третья карточка вторая колонка */
+    .hero__blob--right-small {
+        right: 2vh;
+    }
+
     .info-card:nth-child(3) {
         grid-column-start: 2;
     }
 
     .hero__title {
         font-size: clamp(3rem, 7vw, 7rem);
-        /* Меньше на планшете */
     }
 }
 
@@ -214,6 +269,5 @@
     .hero__blob--left-large,
     .hero__blob--right-large {
         display: none;
-        /* Скрываем галактики на мобайле */
     }
 }

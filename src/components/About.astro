@@ -2,28 +2,49 @@
 import '../assets/styles/sections/about.css';
 ---
 <section id="about" class="section about">
-  <h2 class="section__title">About Me</h2>
-
   <div class="about__grid">
-    <div class="about__photo-block">
-      <img
-        src="/images/kobep.png"
-        alt="Portrait of Arina Makovchik"
-        class="about__photo"
-        loading="lazy"
-      />
-      <a href="#cover-letter" class="about__cover-button">
-        Cover letter
-      </a>
+    <div class="about__header">
+      <div class="about__title-wrapper">
+        <span class="about__bracket" aria-hidden="true">
+          <svg width="100" height="229" viewBox="0 0 100 229" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M64.731 12.1557C66.2999 12.3285 66.8177 9.93267 67.0806 8.55646C67.9564 3.97105 66.6557 1.66632 62.3052 1.17328C51.8702 -0.00934006 41.1918 4.78078 42.049 17.8565C42.7028 27.8289 44.4429 37.2952 44.5483 47.4152C44.6909 61.1069 44.8699 75.4352 40.9292 88.6811C36.2733 104.331 18.9096 120.708 3.21506 118.979C0.420436 118.671 0.464301 114.26 2.26939 112.638C6.60234 108.742 13.3024 106.455 18.6405 105.347C25.2298 103.98 31.7305 106.085 35.8529 111.946C40.094 117.975 38.6513 126.594 37.6631 133.628C35.9127 146.089 34.1164 157.275 34.6303 169.968C35.1324 182.37 34.0586 201.094 41.9198 210.814C49.0453 219.623 57.5709 226.025 68.5894 226.973C81.3206 228.068 93.0138 210.128 98.428 199.259" stroke="#0038FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <h2 class="about__title">About<br />Me</h2>
+      </div>
     </div>
-
-    <div class="about__text" id="cover-letter">
-      <p>
-        I am genuinely interested in joining Andersen’s JavaScript Trainee Program...
-      </p>
-      <p>
-        I have completed the Full Stack Developer course at YandexPracticum...
-      </p>
+    <h3 class="about__name">Arina N.<br />Makovchik</h3>
+    <div class="about__content">
+      <div class="about__image-box">
+        <img src="/images/my-photo.PNG" alt="Arina N. Makovchik" class="about__image" />
+      </div>
+      <div class="about__text-wrapper">
+        <div class="about__description">
+          <p>
+            I am genuinely interested in joining Andersen’s JavaScript Trainee Program.
+            Your corporate culture, focused on teamwork and the development of high-quality products,
+            reflects my vision of a supportive and growth-oriented working environment.
+            I see Andersen as the ideal place to strengthen my practical JavaScript skills,
+            gain hands-on experience, and contribute to real-world projects.
+            With a solid academic foundation in Full Stack Development and practical experience
+            gained through the YandexPracticum Full Stack Developer course, I am eager to apply my knowledge in practice,
+            continuously learn from more experienced professionals, and develop as a JavaScript specialist within your team.
+          </p>
+          <p>
+            I have completed the Full Stack Developer course at YandexPracticum,
+            covering a comprehensive JavaScript curriculum including HTML/CSS, responsive layouts
+            with Flexbox and Grid, DOM manipulation, event handling, API integration, asynchronous programming,
+            TypeScript basics, OOP principles, and React with routing, state management, and testing.
+            Through multiple hands-on projects, I built interactive web applications, implemented RESTful APIs,
+            and practiced code modularization and deployment workflows. Additionally, I have foundational experience
+            with relational databases, including designing and querying MySQL databases during my college studies,
+            which enhances my backend and data management skills.
+          </p>
+        </div>
+          <a href="/path-to--resume.pdf" class="about__cta" target="_blank">
+          Cover letter
+        </a>
+      </div>
     </div>
   </div>
 </section>

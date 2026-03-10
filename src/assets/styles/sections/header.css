@@ -1,10 +1,23 @@
+.hero,
+.skills,
+.projects,
+.about,
+.contact {
+    scroll-margin-top: 120px;
+    /* 50px top + 55px кнопки + 15px запас */
+}
+
+/* Дополнительно для плавной прокрутки */
+html {
+    scroll-behavior: smooth;
+}
+
 .header {
     position: sticky;
-    top: 50px;
+    top: 10px;
     z-index: 20;
     padding-block: 0rem;
     margin: 0;
-    background: transparent;
     pointer-events: none;
     /* Чтобы клики проходили сквозь хедер (но не сквозь кнопки) */
 }
@@ -34,7 +47,11 @@
     font-weight: 500;
     text-decoration: none;
     color: var(--color-text-primary, #111111);
-    background: transparent;
+    /* 1. Убираем полную прозрачность и добавляем легкий тон */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(15px);
+    /*padding-block: 20px;*/
     border: 1.5px solid var(--color-text-primary, #111111);
     border-radius: var(--radius-pill);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -53,6 +70,13 @@
     color: var(--color-accent);
     opacity: 90%;
     border: 1.5px solid var(--color-text-primary, #111111);
+}
+
+/* Активная навигация */
+.header__nav-link[aria-current="page"] {
+    background: var(--color-accent, #1d4bff);
+    color: var(--color-page-bg, #f7f3f6);
+    opacity: 0.9;
 }
 
 /* на планшет */

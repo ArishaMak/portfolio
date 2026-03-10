@@ -1,45 +1,210 @@
+.about {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    /* Добавьте это обязательно! */
+    overflow: visible;
+    /* ИЗМЕНЕНО: чтобы скобку было видно */
+    width: 100%;
+    background-color: var(--color-page-bg);
+}
+
 .about__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr);
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    align-items: flex-start;
-}
-
-.about__photo-block {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.about__photo {
+    /* 12-колоночная сетка как в дизайне */
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto auto;
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: start;
     width: 100%;
-    border-radius: var(--radius-lg);
+    margin: 0 auto;
+    position: relative;
+    overflow: visible;
+        /* Контекст для скобки */
+}
+
+/* Левая часть: Заголовок */
+.about__header {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+    /*position: sticky;*/
+    /*top: 120px;*/
+    width: 100%;
+    /* Фиксация при скролле */
+    overflow: visible;
+}
+
+.about__title-wrapper {
+    grid-column: 1 / span 4;
+    align-items: flex-start;
+    gap: 1rem;
+    position: relative;
+    display: inline-flex;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    position: relative;
+}
+
+.about__bracket {
+    position: absolute;
+    left: 40px;
+    transform: translate(-100%, -50%);
+    top: 90px;
+    z-index: 10;
+    display: block;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.about__bracket svg {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    height: auto;
+    overflow: visible;
+}
+
+.about__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    font-weight: var(--fw-regular);
+    color: var(--color-text-primary);
+    text-transform: none;
+    z-index: 1;
+}
+
+/* Правая часть: Контент */
+.about__content {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: inherit;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Контейнер для фото */
+.about__image-box {
+    grid-column: 1 / span 5;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+    overflow: visible;
+    position: relative;
+}
+
+/* Сама фотография */
+.about__image {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    border-radius: inherit;
+    filter:
+        saturate(1.1);
 }
 
-.about__cover-button {
-    align-self: flex-start;
-    padding: 0.6rem 1.3rem;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--color-text);
-    font-size: 0.9rem;
-    text-decoration: none;
-    color: var(--color-text);
-    background: var(--color-surface-soft);;
-    backdrop-filter: blur(12px);
-}
-
-.about__text {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--color-muted);
+.about__text-wrapper {
+    grid-column: 6 / span 8;
+    padding-left: 20px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-@media (max-width: 900px) {
+.about__name {
+    grid-column: 6 / span 5;
+    grid-row: 1;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    color: var(--color-text-primary);
+}
+
+.about__description {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-family: var(--font-base);
+    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    line-height: 1.6;
+    color: rgba(17, 17, 17, 0.8);
+}
+
+.text-accent {
+    color: #1d4bff;
+    font-weight: 500;
+}
+
+/* Кнопка Cover Letter */
+.about__cta {
+    align-self: flex-start;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Размеры и отступы как у навигации */
+    min-width: 140px;
+    height: 74px;
+    padding: 0.5rem 2.5rem;
+
+    /* Типографика */
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--color-text-primary, #111111);
+
+    /* Стили из хедера: эффект стекла */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(15px);
+
+    /* Границы и радиус */
+    border: 1.5px solid var(--color-text-primary, #111111);
+    border-radius: var(--radius-pill, 100px);
+
+    /* Анимация как в хедере */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.about__cta:hover {
+    /* Эффект при наведении из хедера */
+    background: var(--color-accent, #1d4bff);
+    border-color: transparent;
+    color: var(--color-page-bg, #f7f3f6);
+    opacity: 0.5;
+    /* Значение из вашего селектора .header__nav-link:hover */
+}
+
+.about__cta:active {
+    background: var(--color-accent, #1d4bff);
+    color: var(--color-page-bg, #f7f3f6);
+    opacity: 0.9;
+    border: 1.5px solid var(--color-text-primary, #111111);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
     .about__grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .about__header {
+        position: static;
+    }
+
+    .about__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .about__image-box {
+        max-width: 400px;
     }
 }

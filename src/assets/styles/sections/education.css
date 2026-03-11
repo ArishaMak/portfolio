@@ -21,7 +21,7 @@
     flex-direction: column;
     gap: 2rem;
     align-self: end;
-    margin-bottom: 10rem;
+    margin-bottom: 5rem;
 }
 
 .education__title-wrapper {
@@ -49,20 +49,36 @@
 
 .education__bracket--right {
     transform: scaleX(-1);
-    /* Зеркалим вторую скобку */
+}
+
+.education__year-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.education__year-item strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: var(--fw-semibold, 600);
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.education__year-item span {
+    display: block;
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    color: var(--color-text-muted);
+    font-weight: var(--fw-regular, 400);
 }
 
 .education__years {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    font-family: var(--font-body);
-}
-
-.education__year-item strong {
-    display: block;
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
+    gap: 2.5rem;
+    margin-top: 1rem;
 }
 
 .education__main {
@@ -89,12 +105,9 @@
     align-items: center;
     max-width: 686px;
     max-height: 474px;
-    /* Размеры из переменных навигации */
     min-width: var(--nav-link-min-width, 140px);
     height: var(--nav-link-height, 74px);
     padding: 0.5rem 2.5rem;
-
-    /* Типографика */
     font-size: 1.1rem;
     font-weight: 500;
     text-decoration: none;

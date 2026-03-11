@@ -63,7 +63,6 @@
     background-image: url('/images/galaxy-blob-2.png');
 }
 
-/* Синий слой (подложка) */
 .blob-layer--back {
     background-color: #1d4bff;
     z-index: 1;
@@ -72,7 +71,6 @@
     filter: blur(30px);
 }
 
-/* Графика сверху */
 .blob-layer--front {
     background-image: url('/images/galaxy-blob-2.png');
     background-size: contain;
@@ -82,7 +80,6 @@
     filter: saturate(1.4) contrast(1.1) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
 }
 
-/* Маленький правый блоб */
 .hero__blob--right-small {
     max-width: 400px;
     min-width: 380px;
@@ -105,6 +102,7 @@
     font-weight: var(--fw-boldб 800);
     font-size: clamp(3.5rem, 8vw, 9rem);
     width: 100%;
+    cursor: default;
     line-height: 1.15;
     word-spacing: 0.2em;
     margin: 0 0 clamp(2rem, 4vh, 3.5rem) 0;
@@ -121,6 +119,7 @@
     transform: translate(-0.04em, -0.02em);
     color: var(--color-accent, #1d4bff);
     z-index: calc(var(--z-back) - 1);
+    pointer-events: none;
 }
 
 .hero__title-main {
@@ -136,38 +135,30 @@
     filter: var(--hero-filter) var(--shadow-deep);
 }
 
-/*новое*/
-
-/* Контейнер для буквы, чтобы она вела себя как символ в строке */
-.char {
+/*.char {
     display: inline-block;
     opacity: 0;
     transform: translateY(20px);
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-}
+}*/
 
-/* Класс, который JS добавит для запуска анимации */
-.char.is-visible {
+/*.char.is-visible {
     opacity: 1;
     transform: translateY(0);
-}
+}*/
 
-/* Чтобы пробелы не схлопывались */
-.char.whitespace {
+/*.char.whitespace {
     width: 0.25em;
-}
+}*/
 
-/* Сохраняем логику прозрачного текста с фоном-ковром для каждой буквы */
-.hero__title-main .char {
+/*.hero__title-main .char {
     background-image: inherit;
     background-size: 300px auto;
     background-repeat: repeat;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-}
-
-/**/
+}*/
 
 .hero__cards {
     align-self: stretch;
@@ -230,6 +221,63 @@
     background-position: center;
     opacity: 0.5;
     z-index: -1;
+}
+
+.letter {
+    display: inline-block;
+    will-change: transform;
+    background-image: inherit;
+    background-size: inherit;
+    background-clip: inherit;
+    -webkit-background-clip: inherit;
+    position: relative;
+    animation-delay: var(--animation-delay, 0s);
+    transition: transform 0.3s ease;
+}
+
+.is-loading .letter {
+    animation: bounceIn 0.8s cubic-bezier(0.36, 0, 0.66, -0.56) both;
+    animation-delay: var(--animation-delay);
+}
+
+.letter.jump-on-hover {
+    animation: jump-single 0.5s ease-out forwards;
+}
+
+/*@keyframes jump-wave {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}*/
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes jump-single {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 1024px) {

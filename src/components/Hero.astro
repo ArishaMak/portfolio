@@ -45,56 +45,75 @@ import '../assets/styles/sections/hero.css';
 </section>
 <script>
   function initHeroAnimation() {
-    // Выбираем оба слоя заголовка
     const mainTitle = document.querySelector('.hero__title-main');
     const shadowTitle = document.querySelector('.hero__title-shadow');
+    const heroTitle = document.querySelector('.hero__title');
     
     if (!mainTitle || !shadowTitle) return;
 
-    // Массив строк, которые мы хотим отобразить (соответствует вашему HTML)
-    const lines = ["JavaScript", "Trainee,", "resume"];
+    // Очищаем контейнеры перед заполнением
+    const textLines = ["JavaScript", "Trainee,", "resume"];
 
-    // Функция для очистки и заполнения заголовка спанами
-    const fillTitle = (container) => {
-      container.innerHTML = ''; // Полная очистка от служебного мусора Astro
-      
-      lines.forEach((lineText, lineIndex) => {
+    const fillTitle = (container, isShadow) => {
+      container.innerHTML = ''; 
+      let globalCharIndex = 0; // Общий счетчик для ВСЕХ букв во всех строках
+
+      textLines.forEach((lineText, lineIndex) => {
         const lineChars = lineText.split('');
         
         lineChars.forEach((char) => {
           const span = document.createElement('span');
-          span.classList.add('char');
-          if (char === ' ') span.classList.add('whitespace');
-          span.textContent = char;
+          span.classList.add('letter');
+          
+          if (char === ' ') {
+            span.innerHTML = '&nbsp;';
+          } else {
+            span.textContent = char;
+          }
+
+          // --- ТАЙМЕР ТУТ ---
+          // 0.03 — это шаг (чем меньше, тем быстрее пробежит волна по буквам)
+          const charDelay = (globalCharIndex * 0.03).toFixed(3);
+          span.style.setProperty('--animation-delay', `${charDelay}s`);
+
+          if (!isShadow) {
+            span.addEventListener('mouseenter', () => {
+              const allMain = mainTitle.querySelectorAll('.letter');
+              const allShadow = shadowTitle.querySelectorAll('.letter');
+              const idx = Array.from(allMain).indexOf(span);
+
+              [span, allShadow[idx]].forEach(el => {
+                if (el) {
+                  el.classList.remove('jump-on-hover');
+                  void el.offsetWidth;
+                  el.classList.add('jump-on-hover');
+                }
+              });
+            });
+          }
+
           container.appendChild(span);
+          globalCharIndex++; // Увеличиваем счетчик для следующей буквы
         });
 
-        // Добавляем перенос строки после каждой строки, кроме последней
-        if (lineIndex < lines.length - 1) {
+        if (lineIndex < textLines.length - 1) {
           container.appendChild(document.createElement('br'));
         }
       });
     };
 
-    // Заполняем оба слоя
-    fillTitle(mainTitle);
-    fillTitle(shadowTitle);
+    fillTitle(mainTitle, false);
+    fillTitle(shadowTitle, true);
 
-    // Запуск анимации «лесенкой»
-    const mainChars = mainTitle.querySelectorAll('.char');
-    const shadowChars = shadowTitle.querySelectorAll('.char');
-
-    mainChars.forEach((char, index) => {
-      setTimeout(() => {
-        char.classList.add('is-visible');
-        // Анимируем соответствующую букву в тени одновременно
-        if (shadowChars[index]) {
-          shadowChars[index].classList.add('is-visible');
-        }
-      }, 150 * index); 
-    });
+    // Добавляем класс загрузки
+    heroTitle.classList.add('is-loading');
+    
+    // --- ОБЩИЙ ТАЙМЕР КЛАССА ---
+    // Увеличьте это число (например, до 2000), если букв много и они не успевают допрыгать
+    setTimeout(() => {
+      heroTitle.classList.remove('is-loading');
+    }, 2000); 
   }
 
-  // Используем 'load', чтобы гарантировать, что все стили применились
-  window.addEventListener('load', initHeroAnimation);
+  document.addEventListener('DOMContentLoaded', initHeroAnimation);
 </script>

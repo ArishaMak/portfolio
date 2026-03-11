@@ -6,7 +6,6 @@
     scroll-margin-top: 120px;
 }
 
-/* Дополнительно для плавной прокрутки */
 html {
     scroll-behavior: smooth;
 }
@@ -18,7 +17,6 @@ html {
     padding-block: 0rem;
     margin: 0;
     pointer-events: none;
-    /* Чтобы клики проходили сквозь хедер (но не сквозь кнопки) */
 }
 
 .header__inner {
@@ -68,14 +66,12 @@ html {
     border: 1.5px solid var(--color-text-primary, #111111);
 }
 
-/* Активная навигация */
 .header__nav-link[aria-current="page"] {
     background: var(--color-accent, #1d4bff);
     color: var(--color-page-bg, #f7f3f6);
     opacity: 0.9;
 }
 
-/* на планшет */
 @media (max-width: 1024px) {
     .header__nav-list {
         display: flex;

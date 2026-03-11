@@ -2,16 +2,13 @@
     margin: 0;
     padding: 0;
     position: relative;
-    /* Добавьте это обязательно! */
     overflow: visible;
-    /* ИЗМЕНЕНО: чтобы скобку было видно */
     width: 100%;
     background-color: var(--color-page-bg);
 }
 
 .about__grid {
     display: grid;
-    /* 12-колоночная сетка как в дизайне */
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto auto;
     gap: clamp(1rem, 2vw, 2rem);
@@ -20,17 +17,12 @@
     margin: 0 auto;
     position: relative;
     overflow: visible;
-        /* Контекст для скобки */
 }
 
-/* Левая часть: Заголовок */
 .about__header {
     grid-column: 1 / span 4;
     grid-row: 1;
-    /*position: sticky;*/
-    /*top: 120px;*/
     width: 100%;
-    /* Фиксация при скролле */
     overflow: visible;
 }
 
@@ -75,7 +67,6 @@
     z-index: 1;
 }
 
-/* Правая часть: Контент */
 .about__content {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -86,7 +77,6 @@
     margin-top: 1rem;
 }
 
-/* Контейнер для фото */
 .about__image-box {
     grid-column: 1 / span 5;
     width: 100%;
@@ -96,7 +86,6 @@
     position: relative;
 }
 
-/* Сама фотография */
 .about__image {
     width: 100%;
     height: 100%;
@@ -129,7 +118,6 @@
     flex-direction: column;
     gap: 1.5rem;
     font-family: var(--font-base);
-    /*font-family: PitchSans-Regular, sans-serif;*/
     font-size: clamp(1rem, 1.2vw, 1.25rem);
     line-height: 1.6;
     color: rgba(17, 17, 17, 0.8);
@@ -141,39 +129,27 @@
     font-weight: 500;
 }
 
-/* Кнопка Cover Letter */
 .about__cta {
     align-self: flex-start;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-
-    /* Размеры и отступы как у навигации */
     min-width: 140px;
     height: 74px;
     padding: 0.5rem 2.5rem;
-
-    /* Типографика */
     font-size: 1.1rem;
     font-weight: 500;
     text-decoration: none;
     color: var(--color-text-primary, #111111);
-
-    /* Стили из хедера: эффект стекла */
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(15px);
-
-    /* Границы и радиус */
     border: 1.5px solid var(--color-text-primary, #111111);
     border-radius: var(--radius-pill, 100px);
-
-    /* Анимация как в хедере */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
 }
 
-/* Адаптивность */
 @media (max-width: 1024px) {
     .about__grid {
         display: flex;

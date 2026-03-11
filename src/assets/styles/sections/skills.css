@@ -74,9 +74,13 @@
 }
 
 .skill-card:hover .skill-card__badge {
-    background: var(--color-accent);
     color: #ffffff;
-    border-color: var(--color-accent);
+    border-color: transparent;
+    background-image: url('/images/ковер.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-shadow: var(--shadow-deep);
 }
 
 .skill-card__list {

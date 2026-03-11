@@ -52,6 +52,11 @@
     /*кнопки*/
     --nav-link-height: 74px;
     --nav-link-min-width: 140px;
+
+    --cursor-size: 20px;
+    --cursor-scale: 1;
+    --cursor-blend: difference;
+    --cursor-color: var(--color-accent);
 }
 
 [data-theme="dark"] {

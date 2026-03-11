@@ -17,7 +17,15 @@ const navItems = [
         {navItems.map((item) => (
           <li class="header__nav-item">
             <a href={item.href} class="header__nav-link">
-              {item.name}
+              {/* Разбиваем имя на буквы на сервере */}
+              {item.name.split('').map((char, index) => (
+                <span 
+                  class="nav-letter" 
+                  style={`--nav-delay: ${index * 0.03}s`}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              ))}
             </a>
           </li>
         ))}
@@ -25,3 +33,23 @@ const navItems = [
     </nav>
   </div>
 </header>
+
+<script>
+  // Скрипт теперь нужен ТОЛЬКО для перезапуска анимации при повторном наведении
+  function initHeaderHover() {
+    const links = document.querySelectorAll('.header__nav-link');
+    
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        const letters = link.querySelectorAll('.nav-letter');
+        letters.forEach(letter => {
+          letter.classList.remove('jump');
+          void (letter as HTMLElement).offsetWidth; // Магия для сброса анимации
+          letter.classList.add('jump');
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initHeaderHover);
+</script>

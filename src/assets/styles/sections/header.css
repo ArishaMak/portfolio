@@ -34,6 +34,7 @@ html {
 
 .header__nav-link {
     display: flex;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
     min-width: var(--nav-link-min-width, 140px);
@@ -70,6 +71,29 @@ html {
     background: var(--color-accent, #1d4bff);
     color: var(--color-page-bg, #f7f3f6);
     opacity: 0.9;
+}
+
+.nav-letter {
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.nav-letter.jump {
+    animation: nav-jump 0.4s ease forwards;
+    animation-delay: var(--nav-delay);
+}
+
+@keyframes nav-jump {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+        /* Высота прыжка */
+    }
 }
 
 @media (max-width: 1024px) {

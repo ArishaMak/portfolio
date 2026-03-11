@@ -1,0 +1,47 @@
+---
+/* src/components/Cursor.astro */
+import '../assets/styles/cursor.css';
+---
+
+<div id="custom-cursor" class="custom-cursor"></div>
+
+<script>
+  function initCursor() {
+    const cursor = document.querySelector('#custom-cursor') as HTMLElement;
+    if (!cursor) return;
+
+    let mouseX = 0, mouseY = 0;
+    let ballX = 0, ballY = 0;
+    const speed = 0.15;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animate() {
+      // плавное преследование
+      ballX += (mouseX - ballX) * speed;
+      ballY += (mouseY - ballY) * speed;
+      
+      cursor.style.transform = `translate3d(${ballX}px, ${ballY}px, 0) translate(-50%, -50%)`;
+      
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // список элементов, на которые реагирует курсор
+    const targets = document.querySelectorAll('a, button, .skill-card__badge, .skills__star');
+    
+    targets.forEach(target => {
+      target.addEventListener('mouseenter', () => cursor.classList.add('active'));
+      target.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+    });
+  }
+
+  // запуск при первой загрузке
+  initCursor();
+
+  // перезапуск при смене страниц 
+  document.addEventListener('astro:after-swap', initCursor);
+</script>

@@ -135,31 +135,6 @@
     filter: var(--hero-filter) var(--shadow-deep);
 }
 
-/*.char {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-}*/
-
-/*.char.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}*/
-
-/*.char.whitespace {
-    width: 0.25em;
-}*/
-
-/*.hero__title-main .char {
-    background-image: inherit;
-    background-size: 300px auto;
-    background-repeat: repeat;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}*/
-
 .hero__cards {
     align-self: stretch;
     display: grid;
@@ -243,16 +218,6 @@
 .letter.jump-on-hover {
     animation: jump-single 0.5s ease-out forwards;
 }
-
-/*@keyframes jump-wave {
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(-20px);
-    }
-}*/
 
 @keyframes bounceIn {
     0% {

@@ -43,3 +43,58 @@ import '../assets/styles/sections/hero.css';
     <div class="hero__blob hero__blob--right-small"></div>
   </div>
 </section>
+<script>
+  function initHeroAnimation() {
+    // Выбираем оба слоя заголовка
+    const mainTitle = document.querySelector('.hero__title-main');
+    const shadowTitle = document.querySelector('.hero__title-shadow');
+    
+    if (!mainTitle || !shadowTitle) return;
+
+    // Массив строк, которые мы хотим отобразить (соответствует вашему HTML)
+    const lines = ["JavaScript", "Trainee,", "resume"];
+
+    // Функция для очистки и заполнения заголовка спанами
+    const fillTitle = (container) => {
+      container.innerHTML = ''; // Полная очистка от служебного мусора Astro
+      
+      lines.forEach((lineText, lineIndex) => {
+        const lineChars = lineText.split('');
+        
+        lineChars.forEach((char) => {
+          const span = document.createElement('span');
+          span.classList.add('char');
+          if (char === ' ') span.classList.add('whitespace');
+          span.textContent = char;
+          container.appendChild(span);
+        });
+
+        // Добавляем перенос строки после каждой строки, кроме последней
+        if (lineIndex < lines.length - 1) {
+          container.appendChild(document.createElement('br'));
+        }
+      });
+    };
+
+    // Заполняем оба слоя
+    fillTitle(mainTitle);
+    fillTitle(shadowTitle);
+
+    // Запуск анимации «лесенкой»
+    const mainChars = mainTitle.querySelectorAll('.char');
+    const shadowChars = shadowTitle.querySelectorAll('.char');
+
+    mainChars.forEach((char, index) => {
+      setTimeout(() => {
+        char.classList.add('is-visible');
+        // Анимируем соответствующую букву в тени одновременно
+        if (shadowChars[index]) {
+          shadowChars[index].classList.add('is-visible');
+        }
+      }, 150 * index); 
+    });
+  }
+
+  // Используем 'load', чтобы гарантировать, что все стили применились
+  window.addEventListener('load', initHeroAnimation);
+</script>

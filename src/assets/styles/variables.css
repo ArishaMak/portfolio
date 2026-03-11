@@ -10,6 +10,10 @@
     --color-surface-soft: rgba(255, 255, 255, 0.9);
     --color-border-subtle: rgba(0, 0, 0, 0.12);
 
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-blur: blur(30px);
+
     --color-accent: #1d4bff;
     --color-accent-soft: #f0f4ff;
 
@@ -29,12 +33,34 @@
 
     --radius-lg: 1.5rem;
     --radius-pill: 999px;
+
+    --shadow-deep:
+        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
+        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
+        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
+
+    --anim-float-duration: 10s;
+    --anim-float-timing: ease-in-out;
+
+    --hero-filter: saturate(1.4) contrast(1.1);
+
+    --z-back: 1;
+    --z-middle: 5;
+    --z-front: 10;
+    --z-sticky: 20;
+
+    /*кнопки*/
+    --nav-link-height: 74px;
+    --nav-link-min-width: 140px;
 }
 
 [data-theme="dark"] {
     --color-page-bg: #050509;
     --color-text-primary: #f5f5f7;
     --color-text-muted: rgba(245, 245, 247, 0.7);
+
+    --glass-bg: rgba(0, 0, 0, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.1);
 
     --color-surface: #11111a;
     --color-surface-soft: rgba(18, 18, 28, 0.96);

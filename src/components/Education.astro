@@ -3,33 +3,64 @@ import '../assets/styles/sections/education.css';
 ---
 
 <section id="education" class="section education">
-  <h2 class="section__title">Education</h2>
-
   <div class="education__grid">
-    <div class="education__item">
-      <p class="education__period">2023–2027</p>
-      <p class="education__place">
-        BSUIR Branch Minsk Radioengineering College (MRC)
-      </p>
-      <p class="education__detail">
-        Diploma of Secondary Vocational Education in Mobile Systems
-      </p>
+    
+    {/* Заголовок с двойными скобками */}
+    <div class="education__header">
+      <div class="education__title-wrapper">
+        <span class="education__bracket education__bracket--left" aria-hidden="true">
+          <svg viewBox="0 0 100 229" fill="none"><path d="M64.731 12.1557C66.2999 12.3285 66.8177 9.93267 67.0806 8.55646C67.9564 3.97105 66.6557 1.66632 62.3052 1.17328C51.8702 -0.00934006 41.1918 4.78078 42.049 17.8565C42.7028 27.8289 44.4429 37.2952 44.5483 47.4152C44.6909 61.1069 44.8699 75.4352 40.9292 88.6811C36.2733 104.331 18.9096 120.708 3.21506 118.979C0.420436 118.671 0.464301 114.26 2.26939 112.638C6.60234 108.742 13.3024 106.455 18.6405 105.347C25.2298 103.98 31.7305 106.085 35.8529 111.946C40.094 117.975 38.6513 126.594 37.6631 133.628C35.9127 146.089 34.1164 157.275 34.6303 169.968C35.1324 182.37 34.0586 201.094 41.9198 210.814C49.0453 219.623 57.5709 226.025 68.5894 226.973C81.3206 228.068 93.0138 210.128 98.428 199.259" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        
+        <h2 class="education__title">Education</h2>
+        
+        <span class="education__bracket education__bracket--right" aria-hidden="true">
+          <svg viewBox="0 0 100 229" fill="none"><path d="M64.731 12.1557C66.2999 12.3285 66.8177 9.93267 67.0806 8.55646C67.9564 3.97105 66.6557 1.66632 62.3052 1.17328C51.8702 -0.00934006 41.1918 4.78078 42.049 17.8565C42.7028 27.8289 44.4429 37.2952 44.5483 47.4152C44.6909 61.1069 44.8699 75.4352 40.9292 88.6811C36.2733 104.331 18.9096 120.708 3.21506 118.979C0.420436 118.671 0.464301 114.26 2.26939 112.638C6.60234 108.742 13.3024 106.455 18.6405 105.347C25.2298 103.98 31.7305 106.085 35.8529 111.946C40.094 117.975 38.6513 126.594 37.6631 133.628C35.9127 146.089 34.1164 157.275 34.6303 169.968C35.1324 182.37 34.0586 201.094 41.9198 210.814C49.0453 219.623 57.5709 226.025 68.5894 226.973C81.3206 228.068 93.0138 210.128 98.428 199.259" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+      
+      <div class="education__years">
+        <div class="education__year-item">
+          <strong>2023–2027</strong>
+          <span>BSUIR Branch Minsk</span>
+        </div>
+        <div class="education__year-item">
+          <strong>2025–2026</strong>
+          <span>Yandex Practicum</span>
+        </div>
+      </div>
     </div>
 
-    <div class="education__item">
-      <p class="education__period">2025–2026</p>
-      <p class="education__place">Yandex Practicum</p>
-      <p class="education__detail">Fullstack Developer Program</p>
+    {/* Основной контент */}
+    <div class="education__main">
+      <div class="education__motivation">
+        <p>Beyond technical skills, I am motivated to collaborate in team-oriented, user-focused projects.
+        During my course projects, I regularly interacted with mentors and curators, received feedback,
+        incorporated recommendations, and met project deadlines, which strengthened my discipline, responsibility,
+        and ability to work effectively in a team. I also have six months of experience as a barista,
+        where I developed teamwork, communication, and problem-solving skills under high-pressure conditions.
+        Creating responsive layouts and components improved my understanding of UX/UI, while collaboration
+        with mentors and peers enhanced my adaptability, creativity, and ability to find optimal solutions—qualities
+        I am keen to apply in Andersen’s projects.</p>
+        <p>I would be delighted to join Andersen to further develop my skills and gain practical experience
+        through real projects under the guidance of mentors. I am motivated by learning and eager to apply
+        the knowledge I acquire in practice, and I hope this will be the first step toward continued professional
+        growth within your company.</p>
+        <a 
+        href="/path-to-your-file/cover-letter.docx" 
+        class="education__cta" 
+        download="Makovchik_Cover_Letter.docx"
+        >
+          Download cover letter
+        </a>
+      </div>
+      <div class="education__carpet-card">
+        <div class="education__carpet-overlay">
+          <p>I understand that this may not be directly relevant to this specific role, but I also hold a High School Diploma in fine arts, which I completed between 2014 and 2021.</p>
+          <p>// Seven years of training to master the art of drawing stars for my portfolio:]</p>
+        </div>
+      </div>
     </div>
-
-    <div class="education__note">
-      <p>
-        I understand that this may not be directly relevant to this specific role,
-        but I also hold a High School Diploma in fine arts, which I completed between 2014 and 2021.
-      </p>
-      <p>
-        Seven years of training to master the art of drawing stars for my portfolio :)
-      </p>
-    </div>
+    
   </div>
 </section>

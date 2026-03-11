@@ -38,3 +38,11 @@
     font-display: swap;
     src: url('./poppins-semibold-webfont.woff2') format('woff2');
 }
+
+@font-face {
+    font-family: "PitchSans-Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./PitchSans-Regular.otf') format('otf');
+}

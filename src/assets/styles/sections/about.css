@@ -129,9 +129,11 @@
     flex-direction: column;
     gap: 1.5rem;
     font-family: var(--font-base);
+    /*font-family: PitchSans-Regular, sans-serif;*/
     font-size: clamp(1rem, 1.2vw, 1.25rem);
     line-height: 1.6;
     color: rgba(17, 17, 17, 0.8);
+    text-align: justify;
 }
 
 .text-accent {
@@ -169,22 +171,6 @@
     /* Анимация как в хедере */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
-}
-
-.about__cta:hover {
-    /* Эффект при наведении из хедера */
-    background: var(--color-accent, #1d4bff);
-    border-color: transparent;
-    color: var(--color-page-bg, #f7f3f6);
-    opacity: 0.5;
-    /* Значение из вашего селектора .header__nav-link:hover */
-}
-
-.about__cta:active {
-    background: var(--color-accent, #1d4bff);
-    color: var(--color-page-bg, #f7f3f6);
-    opacity: 0.9;
-    border: 1.5px solid var(--color-text-primary, #111111);
 }
 
 /* Адаптивность */

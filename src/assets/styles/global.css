@@ -59,8 +59,6 @@ a {
     cursor: pointer;
 }
 
-/* Layout helpers */
-
 .page {
     max-width: calc(var(--page-max-width) + var(--page-padding-x) * 2);
     margin-inline: auto;
@@ -84,8 +82,6 @@ main {
     font-size: clamp(1.5rem, 2.4vw, 2.1rem);
     margin-bottom: 1.5rem;
 }
-
-/* Utility classes */
 
 .text-muted {
     color: var(--color-muted);

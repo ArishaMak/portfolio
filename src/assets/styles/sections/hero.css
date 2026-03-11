@@ -28,40 +28,31 @@
     z-index: 10;
 }
 
-/* Общие стили для "галактик" */
 .hero__blob {
     position: absolute;
     pointer-events: none;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    z-index: 5;
-    filter: saturate(1.4) contrast(1.1)
-        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
-        /* 2. Средний слой для объема */
-        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
-        /* 3. Ближний слой для четкости */
-        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
-    animation: hero-blob-float 10s ease-in-out infinite alternate;
+    z-index: var(--z-middle, 5);
+    filter: var(--hero-filter, saturate(1.4)) var(--shadow-deep);
+    animation: hero-blob-float var(--anim-float-duration, 10s) var(--anim-float-timing, ease-in-out) infinite alternate;
 }
 
 .hero__blob--left-large {
     width: clamp(260px, 29vw, 530px);
     aspect-ratio: 470 / 420;
     position: absolute;
-    /* Сдвигаем в нижний левый угол */
     bottom: -15%;
     left: -20vw;
     top: auto;
-    /* Сбрасываем старое позиционирование */
     transform: none;
     background-image: url('/images/galaxy-blob-1.png');
-    filter: saturate(1.4) contrast(1.1);
-    z-index: 1;
+    z-index: var(--z-back, 1);
+    filter: var(--hero-filter, saturate(1.4));
 }
 
 .hero__blob--right-large {
-    /*width: 26.5vw;*/
     max-width: 180px;
     min-width: 130px;
     aspect-ratio: 382 / 339;
@@ -93,7 +84,6 @@
 
 /* Маленький правый блоб */
 .hero__blob--right-small {
-    /*width: 15vw;*/
     max-width: 400px;
     min-width: 380px;
     aspect-ratio: 213 / 225;
@@ -103,9 +93,7 @@
     background-image: url('/images/galaxy-blob-1.png');
     filter: saturate(1.2) contrast(1.1)
         drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
-        /* 2. Средний слой для объема */
         drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
-        /* 3. Ближний слой для четкости */
         drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
     animation: hero-blob-float 10s ease-in-out infinite alternate;
 }
@@ -113,8 +101,8 @@
 .hero__title {
     position: relative;
     display: inline-block;
-    font-family: var(--font-display);
-    font-weight: var(--fw-bold);
+    font-family: var(--font-display, serif);
+    font-weight: var(--fw-boldб 800);
     font-size: clamp(3.5rem, 8vw, 9rem);
     width: 100%;
     line-height: 1.15;
@@ -131,13 +119,12 @@
     position: absolute;
     inset: 0;
     transform: translate(-0.04em, -0.02em);
-    color: #1d4bff;
-    z-index: 0;
+    color: var(--color-accent, #1d4bff);
+    z-index: calc(var(--z-back) - 1);
 }
 
 .hero__title-main {
     position: relative;
-    z-index: 1;
     background-image: url('/images/ковер.png');
     background-size: 300px auto;
     background-repeat: repeat;
@@ -145,15 +132,42 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter:
-        saturate(1.1) contrast(1.15)
-        /* 1. Самый мягкий и глубокий слой (Ambient) */
-        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
-        /* 2. Средний слой для объема */
-        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
-        /* 3. Ближний слой для четкости */
-        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
+    z-index: var(--z-back, 1);
+    filter: var(--hero-filter) var(--shadow-deep);
 }
+
+/*новое*/
+
+/* Контейнер для буквы, чтобы она вела себя как символ в строке */
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+/* Класс, который JS добавит для запуска анимации */
+.char.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Чтобы пробелы не схлопывались */
+.char.whitespace {
+    width: 0.25em;
+}
+
+/* Сохраняем логику прозрачного текста с фоном-ковром для каждой буквы */
+.hero__title-main .char {
+    background-image: inherit;
+    background-size: 300px auto;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/**/
 
 .hero__cards {
     align-self: stretch;
@@ -169,32 +183,26 @@
     position: relative;
     height: 168px;
     padding: clamp(1.5rem, 2vw, 2rem) clamp(1.5rem, 2vw, 1.75rem);
-    border-radius: 24px;
+    border-radius: var(--radius-lg, 24px);
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    backdrop-filter: var(--glass-blur, blur(30px));
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    filter:
-        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
-        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
-        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
+    filter: var(--shadow-deep);
 }
 
 .card-title {
-    font-family: var(--font-base);
-    font-weight: var(--fw-semibold);
-    color: var(--color-page-bg);
+    font-family: var(--font-body, sans-serif);
+    font-weight: var(--fw-semibold, 600);
+    color: var(--color-page-bg, #ffffff);
     font-size: clamp(1.125rem, 1.8vw, 1.5rem);
     line-height: 1.1;
     margin-bottom: 0.5rem;
-    filter:
-        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
-        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
-        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
+    filter: var(--shadow-deep);
 }
 
 .card-content {
@@ -206,13 +214,11 @@
 }
 
 .card-line {
-    font-family: var(--font-base);
+    font-family: var(--font-body, sans-serif);
     font-size: clamp(0.875rem, 1.1vw, 1.125rem);
     line-height: 1.2;
-    filter:
-        drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12))
-        drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14))
-        drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
+    color: var(--color-page-bg, #ffffff);
+    filter: var(--shadow-deep);
 }
 
 .info-card::before {

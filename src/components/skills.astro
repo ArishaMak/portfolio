@@ -28,7 +28,7 @@ const skillCategories = [
 <section id="skills" class="section skills">
   <div class="skills__container">
     
-    <div class="skills__header">
+    <div class="skills__header reveal">
       <div class="skills__title-wrapper">
          <h2 class="skills__title">Skills</h2>
          <svg class="skills__underline" width="248" height="144" viewBox="0 0 248 144" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -38,8 +38,12 @@ const skillCategories = [
     </div>
 
     <div class="skills__grid">
-      {skillCategories.map((category) => (
-        <div class="skill-card">
+      {skillCategories.map((category, index) => (
+        /* на сервере вычисляем задержку для каждой карточки */
+        <div 
+          class="skill-card reveal" 
+          style={`--reveal-delay: ${index * 0.12}s`}
+        >
           <div class="skill-card__badge">
             <span>{category.title}</span>
           </div>
@@ -53,36 +57,33 @@ const skillCategories = [
     </div>
 
     <div class="skills__decorations" aria-hidden="true">
-        <div class="skills__star skills__star--1">
-          <img 
-            src="/images/skills__star--1.svg" 
-            alt="" 
-            width="116" 
-            height="87"
-            loading="lazy"
-            decoding="async"
-          />
+        <div class="skills__star skills__star--1 reveal" style="--reveal-delay: 0.5s">
+          <img src="/images/skills__star--1.svg" alt="" width="116" height="87" loading="lazy" />
         </div>
-        <div class="skills__star skills__star--2">
-          <img 
-            src="/images/skills__star--2.svg" 
-            alt="" 
-            width="116" 
-            height="87"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-        <div class="skills__star skills__star--3">
-          <img 
-            src="/images/skills__star--3.svg" 
-            alt="" 
-            width="116" 
-            height="87"
-            loading="lazy"
-            decoding="async"
-          />
+        <div class="skills__star skills__star--2 reveal" style="--reveal-delay: 0.7s">
+          <img src="/images/skills__star--2.svg" alt="" width="116" height="87" loading="lazy" />
         </div>
     </div>
   </div>
 </section>
+
+<script>
+  /* скрипт выполнится на клиенте сразу после загрузки */
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  // пуск
+  initReveal();
+  
+  document.addEventListener('astro:after-swap', initReveal);
+</script>

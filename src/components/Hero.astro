@@ -1,22 +1,48 @@
 ---
 import InfoCard from './InfoCard.astro';
 import '../assets/styles/sections/hero.css';
+
+// data для h1
+const textLines = ["JavaScript", "Trainee,", "resume"];
+
+// переменная для расчета сквозного индекса букв
+let globalCharCounter = 0;
 ---
+
 <section class="section hero">
   <div class="hero__container page">
-    
     <div class="hero__layout">
-      <h1 class="hero__title">
-        <span class="hero__title-shadow" aria-hidden="true">
-          JavaScript<br />
-          Trainee,<br />
-          resume
-        </span>
-        <span class="hero__title-main">
-          JavaScript<br />
-          Trainee,<br />
-          resume
-        </span>
+      <h1 class="hero__title is-loading">
+        {/* генерация двух слоёв на стороне сервера */}
+        {['shadow', 'main'].map((type) => {
+          // сброс счетчика перед генерацией второго слоя, чтобы индексы совпали
+          globalCharCounter = 0;
+          
+          return (
+            <span class={`hero__title-${type}`} aria-hidden={type === 'shadow'}>
+              {textLines.map((line, lineIdx) => (
+                <>
+                  {line.split('').map((char) => {
+                    const delay = (globalCharCounter * 0.03).toFixed(3);
+                    const currentIndex = globalCharCounter;
+                    globalCharCounter++;
+
+                    return (
+                      <span 
+                        class="letter" 
+                        style={`--animation-delay: ${delay}s`}
+                        data-index={currentIndex}
+                      >
+                        {char === ' ' ? '\u00A0' : char}
+                      </span>
+                    );
+                  })}
+                  {lineIdx < textLines.length - 1 && <br />}
+                </>
+              ))}
+            </span>
+          )
+        })}
       </h1>
 
       <div class="hero__cards">
@@ -43,77 +69,38 @@ import '../assets/styles/sections/hero.css';
     <div class="hero__blob hero__blob--right-small"></div>
   </div>
 </section>
+
 <script>
-  function initHeroAnimation() {
+  function initHero() {
     const mainTitle = document.querySelector('.hero__title-main');
     const shadowTitle = document.querySelector('.hero__title-shadow');
     const heroTitle = document.querySelector('.hero__title');
     
-    if (!mainTitle || !shadowTitle) return;
+    if (!mainTitle || !shadowTitle || !heroTitle) return;
 
-    // Очищаем контейнеры перед заполнением
-    const textLines = ["JavaScript", "Trainee,", "resume"];
-
-    const fillTitle = (container, isShadow) => {
-      container.innerHTML = ''; 
-      let globalCharIndex = 0; // Общий счетчик для ВСЕХ букв во всех строках
-
-      textLines.forEach((lineText, lineIndex) => {
-        const lineChars = lineText.split('');
-        
-        lineChars.forEach((char) => {
-          const span = document.createElement('span');
-          span.classList.add('letter');
-          
-          if (char === ' ') {
-            span.innerHTML = '&nbsp;';
-          } else {
-            span.textContent = char;
-          }
-
-          // --- ТАЙМЕР ТУТ ---
-          // 0.03 — это шаг (чем меньше, тем быстрее пробежит волна по буквам)
-          const charDelay = (globalCharIndex * 0.03).toFixed(3);
-          span.style.setProperty('--animation-delay', `${charDelay}s`);
-
-          if (!isShadow) {
-            span.addEventListener('mouseenter', () => {
-              const allMain = mainTitle.querySelectorAll('.letter');
-              const allShadow = shadowTitle.querySelectorAll('.letter');
-              const idx = Array.from(allMain).indexOf(span);
-
-              [span, allShadow[idx]].forEach(el => {
-                if (el) {
-                  el.classList.remove('jump-on-hover');
-                  void el.offsetWidth;
-                  el.classList.add('jump-on-hover');
-                }
-              });
-            });
-          }
-
-          container.appendChild(span);
-          globalCharIndex++; // Увеличиваем счетчик для следующей буквы
-        });
-
-        if (lineIndex < textLines.length - 1) {
-          container.appendChild(document.createElement('br'));
-        }
-      });
-    };
-
-    fillTitle(mainTitle, false);
-    fillTitle(shadowTitle, true);
-
-    // Добавляем класс загрузки
-    heroTitle.classList.add('is-loading');
-    
-    // --- ОБЩИЙ ТАЙМЕР КЛАССА ---
-    // Увеличьте это число (например, до 2000), если букв много и они не успевают допрыгать
+    // убрать состояние загрузки через 2с
     setTimeout(() => {
       heroTitle.classList.remove('is-loading');
-    }, 2000); 
+    }, 2000);
+
+    // оптимизированный ховер: используем делегирование событий
+    mainTitle.addEventListener('mouseover', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('letter')) {
+        const idx = target.getAttribute('data-index');
+        const shadowLetter = shadowTitle.querySelector(`[data-index="${idx}"]`);
+
+        [target, shadowLetter].forEach(el => {
+          if (el) {
+            el.classList.remove('jump-on-hover');
+            void (el as HTMLElement).offsetWidth; // перезапуск анимации
+            el.classList.add('jump-on-hover');
+          }
+        });
+      }
+    });
   }
 
-  document.addEventListener('DOMContentLoaded', initHeroAnimation);
+  // запуск скрипта
+  document.addEventListener('DOMContentLoaded', initHero);
 </script>

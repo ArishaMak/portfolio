@@ -137,6 +137,69 @@
     transform: translateY(0);
 }
 
+/* 1. Описываем саму анимацию покачивания */
+@keyframes bracket-wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+
+    75% {
+        transform: rotate(-3deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes bracket-wiggle-right {
+    0% {
+        transform: scaleX(-1) rotate(0deg);
+    }
+
+    25% {
+        transform: scaleX(-1) rotate(5deg);
+    }
+
+    50% {
+        transform: scaleX(-1) rotate(-5deg);
+    }
+
+    75% {
+        transform: scaleX(-1) rotate(3deg);
+    }
+
+    100% {
+        transform: scaleX(-1) rotate(0deg);
+    }
+}
+
+.projects__bracket {
+    width: 40px;
+    height: auto;
+    color: var(--color-accent, #0038FF);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease-out;
+    transform-origin: center;
+}
+
+.projects__title-wrapper:hover .projects__bracket--left {
+    animation: bracket-wiggle 0.8s ease-in-out infinite;
+}
+
+.projects__title-wrapper:hover .projects__bracket--right {
+    animation: bracket-wiggle-right 0.8s ease-in-out infinite;
+}
+
 @media (max-width: 1024px) {
     .projects__grid {
         grid-template-columns: 1fr;

@@ -35,7 +35,7 @@ const navItems = [
 </header>
 
 <script>
-  // Скрипт теперь нужен ТОЛЬКО для перезапуска анимации при повторном наведении
+  // для перезапуска анимации при повторном наведении
   function initHeaderHover() {
     const links = document.querySelectorAll('.header__nav-link');
     
@@ -44,7 +44,7 @@ const navItems = [
         const letters = link.querySelectorAll('.nav-letter');
         letters.forEach(letter => {
           letter.classList.remove('jump');
-          void (letter as HTMLElement).offsetWidth; // Магия для сброса анимации
+          void (letter as HTMLElement).offsetWidth;
           letter.classList.add('jump');
         });
       });

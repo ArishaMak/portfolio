@@ -4,7 +4,7 @@ import '../assets/styles/sections/about.css';
 <section id="about" class="section about">
   <div class="about__grid">
     <div class="about__header">
-      <div class="about__title-wrapper">
+      <div class="about__title-wrapper reveal">
         <span class="about__bracket" aria-hidden="true">
           <svg width="100" height="229" viewBox="0 0 100 229" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M64.731 12.1557C66.2999 12.3285 66.8177 9.93267 67.0806 8.55646C67.9564 3.97105 66.6557 1.66632 62.3052 1.17328C51.8702 -0.00934006 41.1918 4.78078 42.049 17.8565C42.7028 27.8289 44.4429 37.2952 44.5483 47.4152C44.6909 61.1069 44.8699 75.4352 40.9292 88.6811C36.2733 104.331 18.9096 120.708 3.21506 118.979C0.420436 118.671 0.464301 114.26 2.26939 112.638C6.60234 108.742 13.3024 106.455 18.6405 105.347C25.2298 103.98 31.7305 106.085 35.8529 111.946C40.094 117.975 38.6513 126.594 37.6631 133.628C35.9127 146.089 34.1164 157.275 34.6303 169.968C35.1324 182.37 34.0586 201.094 41.9198 210.814C49.0453 219.623 57.5709 226.025 68.5894 226.973C81.3206 228.068 93.0138 210.128 98.428 199.259" stroke="#0038FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -13,17 +13,25 @@ import '../assets/styles/sections/about.css';
         <h2 class="about__title">About<br />Me</h2>
       </div>
     </div>
-    <h3 class="about__name">Arina N.<br />Makovchik</h3>
+    <h3 class="about__name reveal" style="--reveal-delay: 0.2s">Arina N.<br />Makovchik</h3>
     <div class="about__content">
-      <div class="about__image-box">
-        <img src="/images/my-photo.PNG" alt="Arina N. Makovchik" class="about__image" />
+      <div class="about__image-box reveal" style="--reveal-delay: 0.3s">
+        <img 
+          src="/images/my-photo.PNG" 
+          alt="Arina N. Makovchik" 
+          class="about__image" 
+          loading="lazy" 
+          decoding="async"
+          width="600" 
+          height="600"
+        />
       </div>
       <div class="about__text-wrapper">
         <div class="about__description">
-          <span class="about__cta">
+          <span class="about__cta reveal" style="--reveal-delay: 0.4s">
             Cover letter
           </span>
-          <p>
+          <p class="reveal" style="--reveal-delay: 0.5s">
             I am genuinely interested in joining Andersen’s JavaScript Trainee Program.
             Your corporate culture, focused on teamwork and the development of high-quality products,
             reflects my vision of a supportive and growth-oriented working environment.
@@ -33,7 +41,7 @@ import '../assets/styles/sections/about.css';
             gained through the YandexPracticum Full Stack Developer course, I am eager to apply my knowledge in practice,
             continuously learn from more experienced professionals, and develop as a JavaScript specialist within your team.
           </p>
-          <p>
+          <p class="reveal" style="--reveal-delay: 0.6s">
             I have completed the Full Stack Developer course at YandexPracticum,
             covering a comprehensive JavaScript curriculum including HTML/CSS, responsive layouts
             with Flexbox and Grid, DOM manipulation, event handling, API integration, asynchronous programming,
@@ -48,3 +56,19 @@ import '../assets/styles/sections/about.css';
     </div>
   </div>
 </section>
+<script>
+  function initAboutReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.about .reveal').forEach(el => observer.observe(el));
+  }
+  initAboutReveal();
+  // поддержка SPA переходов в Astro
+  document.addEventListener('astro:after-swap', initAboutReveal);
+</script>

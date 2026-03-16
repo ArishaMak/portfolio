@@ -59,6 +59,7 @@
     font-size: clamp(1.2rem, 2vw, 1.5rem);
     font-weight: var(--fw-semibold, 600);
     line-height: 1.2;
+    margin-top: 30px;
     margin-bottom: 4px;
     color: var(--color-text-primary);
 }
@@ -198,9 +199,41 @@
     animation: bracket-wiggle-right 0.8s ease-in-out infinite;
 }
 
+.text-accent {
+    color: #0038FF;
+    font-weight: 500;
+}
+
 @media (max-width: 1024px) {
     .projects__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 60px 40px;
+        width: 100%;
+        max-width: none;
+    }
+
+    .project-card {
+        grid-column: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .projects__header {
+        margin-bottom: 3rem;
+    }
+
+    .project-button {
+        height: 48px;
+        padding: 0.4rem 1.5rem;
+        font-size: 0.95rem;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 650px) {
+    .projects__grid {
         grid-template-columns: 1fr;
-        gap: 60px;
+        gap: 40px;
     }
 }

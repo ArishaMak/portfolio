@@ -249,11 +249,28 @@
     .hero__cards {
         grid-template-columns: repeat(2, 1fr);
         gap: clamp(1.5rem, 5vw, 2.5rem);
+        align-items: stretch;
+    }
+    
+    .info-card {
+        height: auto;
+        min-height: 0;
+        padding: clamp(1.2rem, 3vw, 1.5rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .card-title {
+        margin-bottom: 0.3rem;
+    }
+
+    .info-card:nth-child(3) {
+        grid-column: 1 / -1;
     }
 
     .hero__blob--left-large {
-        left: clamp(0rem, 5vw, 6rem);
-        opacity: 0.55;
+        width: 400px;
     }
     
     .hero__blob--right-large {

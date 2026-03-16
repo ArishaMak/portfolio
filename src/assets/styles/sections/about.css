@@ -32,34 +32,47 @@
     gap: 1rem;
     position: relative;
     display: inline-flex;
+    padding-left: clamp(40px, 5vw, 60px);
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
+    align-items: stretch;
     overflow: visible;
     position: relative;
 }
 
 .about__bracket {
     position: absolute;
-    left: 40px;
-    transform: translate(-100%, -50%);
-    top: 90px;
+    /* Прижимаем к левому краю родителя */
+    left: 0;
+    /* Растягиваем от верхнего до нижнего края заголовка */
+    top: 0;
+    bottom: 0;
+
     z-index: 10;
-    display: block;
-    opacity: 1 !important;
-    visibility: visible !important;
+    display: flex;
+    width: clamp(30px, 4vw, 50px);
+    /* Ширина теперь резиновая */
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    /* Высота будет диктоваться свойствами top/bottom */
 }
 
 .about__bracket svg {
     display: block;
     width: 100% !important;
     height: 100% !important;
-    height: auto;
+    /*height: auto;*/
+    width: auto;
     overflow: visible;
 }
 
 .about__title {
+    position: relative;
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin: 0;
     line-height: 1.1;
     font-weight: var(--fw-regular);
     color: var(--color-text-primary);
@@ -203,22 +216,59 @@
 }
 
 @media (max-width: 1024px) {
+
     .about__grid {
-        display: flex;
-        flex-direction: column;
-        gap: 3rem;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
     }
 
     .about__header {
-        position: static;
+        grid-column: 1 / span 5;
+        grid-row: 1;
+    }
+
+    .about__name {
+        grid-column: 5 / -1;
+        grid-row: 1;
+        margin: 0;
+        padding-left: 0;
     }
 
     .about__content {
-        display: flex;
-        flex-direction: column;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+        align-items: start;
     }
 
     .about__image-box {
-        max-width: 400px;
+        grid-column: 1 / span 4;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .about__text-wrapper {
+        grid-column: 5 / -1;
+        padding-left: 0;
+    }
+
+    .about__description {
+        text-align: left;
+    }
+
+    .about__cta {
+        height: clamp(50px, 8vw, 60px);
+        min-width: 110px;
+        padding: 0.4rem 1.8rem;
+        font-size: 0.95rem;
+        align-self: flex-start;
+        margin-bottom: 0.5rem;
+    }
+    
+    .about__description {
+        gap: 1rem;
     }
 }

@@ -7,6 +7,10 @@
     background-color: var(--color-page-bg);
 }
 
+body .about__bracket {
+    color: var(--pr-brackets) !important;
+}
+
 .about__grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);

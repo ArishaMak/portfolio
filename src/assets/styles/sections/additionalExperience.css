@@ -21,6 +21,7 @@
     height: 100%;
     pointer-events: none;
     z-index: 1;
+    color: var(--pr-brackets, #0038FF);
 }
 
 .star {
@@ -85,7 +86,7 @@
 .bracket {
     width: 40px;
     height: auto;
-    color: var(--color-accent, #0038FF);
+    color: var(--pr-brackets, #0038FF);
     display: flex;
     align-items: center;
     transition: transform 0.3s ease-out;

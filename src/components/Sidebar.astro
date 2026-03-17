@@ -1,17 +1,11 @@
 ---
 import '../assets/styles/sections/sidebar.css';
 
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#education", label: "Education" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" }
-];
-
 const socialLinks = [
+  { href: "https://linkedin.com/in/ArinaMakovchik", label: "LinkedIn" },
   { href: "https://github.com/ArinaMakovchik", label: "GitHub" },
-  { href: "#", label: "LinkedIn" }
+  { href: "https://instagram.com/@ichbinrisha", label: "Instagram" },
+  { href: "https://t.me/@ichbinrisha", label: "Telegram" }
 ];
 ---
 
@@ -30,9 +24,11 @@ const socialLinks = [
   <div class="sidebar-inner">
     <nav class="sidebar-navigation">
       <ul class="nav-menu">
-        {navLinks.map(link => (
+        {socialLinks.map(link => (
           <li>
-            <a href={link.href} class="nav-item">{link.label}</a>
+            <a href={link.href} target="_blank" rel="noopener noreferrer" class="nav-item">
+              {link.label}
+            </a>
           </li>
         ))}
       </ul>
@@ -41,17 +37,11 @@ const socialLinks = [
     <div class="sidebar-bottom">
       <div class="theme-section">
         <span class="theme-status">Dark Mode</span>
-        <button id="theme-switcher" class="theme-toggle-node">
+        <button id="theme-switcher" class="theme-toggle-node" aria-label="Switch Theme">
           <div class="track">
             <div class="thumb"></div>
           </div>
         </button>
-      </div>
-
-      <div class="social-mini">
-        {socialLinks.map(social => (
-          <a href={social.href} class="social-link">{social.label}</a>
-        ))}
       </div>
     </div>
   </div>
@@ -60,6 +50,7 @@ const socialLinks = [
 <script>
   const btn = document.getElementById('theme-switcher');
   
+  // Логика переключения темы
   btn?.addEventListener('click', () => {
     const html = document.documentElement;
     const current = html.getAttribute('data-theme');
@@ -70,6 +61,7 @@ const socialLinks = [
     }));
   });
 
+  // Закрытие меню при клике на ссылку
   const links = document.querySelectorAll('.nav-item');
   const toggle = document.getElementById('sidebar-toggle') as HTMLInputElement;
 

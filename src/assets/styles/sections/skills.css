@@ -75,8 +75,10 @@
 
 .skill-card:hover .skill-card__badge {
     color: #ffffff;
-    border-color: transparent;
-    background-image: url('/images/ковер.png');
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('/images/ковер.png');
+    background-size: cover;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -123,6 +125,11 @@
 .skills__star--3 {
     top: 45%;
     right: 15%;
+}
+
+.skills__underline,
+.skills__star {
+    color: var(--pr-brackets) !important;
 }
 
 @media (max-width: 1200px) {

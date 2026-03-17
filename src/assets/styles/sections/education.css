@@ -43,7 +43,7 @@
 .education__bracket {
     width: 40px;
     height: auto;
-    color: var(--color-accent, #0038FF);
+    color: var(--pr-brackets, #0038FF);
     display: flex;
     align-items: center;
     transition: transform 0.3s ease-out;
@@ -177,8 +177,9 @@
 }
 
 .education__cta:hover {
-    background: var(--color-accent, #0038FF);
-    color: white;
+    background: var(--color-accent, #1d4bff);
+    opacity: 0.5;
+    color: var(--color-page-bg, #f7f3f6);
     border-color: transparent;
     transform: translateY(-2px);
 }

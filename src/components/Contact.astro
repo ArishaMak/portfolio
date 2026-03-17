@@ -1,0 +1,50 @@
+---
+import '../assets/styles/sections/contact.css';
+
+const contactText = {
+  greeting: "Thank you for taking the time to review my application and consider my candidacy.",
+  details: "I am currently based in Belarus and would be highly motivated to relocate should my profile be a good fit for your team. I am prepared to independently arrange visa and accommodation matters; however, <span class='text-accent'>I would kindly require an official document confirming the purpose of my stay to submit to the visa center.</span> I would be grateful for the opportunity to discuss my application further and potentially contribute to your team."
+};
+---
+
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="contact-layout">
+      
+      <div class="thank-you-box reveal">
+        <h2 class="thank-you-title">
+          <span class="text-row">
+            <span class="letter letter--pattern">T</span>
+            <span class="letter letter--pattern">h</span>
+            <span class="letter letter--pattern">a</span>
+            <span class="letter letter--pattern">n</span>
+            <span class="letter letter--pattern">k</span>
+            <span class="letter letter--white">—</span>
+          </span>
+          <span class="text-row">
+            <span class="letter letter--pattern">y</span>
+            <span class="letter letter--pattern">o</span>
+            <span class="letter letter--pattern">u</span>
+            <span class="letter letter--pattern">!</span>
+          </span>
+        </h2>
+      </div>
+
+      <div class="contact-content reveal" style="--reveal-delay: 0.2s">
+        <div class="contact-bubble">
+            <p class="greeting">{contactText.greeting}</p>
+                <div class="bubble-outline">
+                    <svg viewBox="0 0 663 159" preserveAspectRatio="none">
+                        <path d="M270.213 22C273.829 10.5685 357.368 14.7873 378.101 15.6667C447.599 18.6143 502.568 27.2157 560.491 39C605.591 48.1757 653.21 65.7638 660.471 83.1111C670.63 107.379 629.173 123.598 565.411 135.5C480.81 151.291 386.999 158 289.19 158C204.501 158 114.948 152.639 50.9235 134.056C-11.1473 116.039 -14.0731 91.0872 35.1094 69.7778C78.093 51.1541 134.831 36.3936 198.874 25.4444C284.451 10.8135 387.55 6.38225 482.123 1" 
+                        stroke="#0038FF" fill="none" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+        </div>
+        <div class="contact-details">
+          <p set:html={contactText.details}></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

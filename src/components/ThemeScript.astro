@@ -1,0 +1,20 @@
+---
+/* без разметки, только логика */
+---
+<script is:inline>
+  // функция применения темы
+  const applyTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  };
+
+  // определение начальной темы
+  const savedTheme = localStorage.getItem('theme');
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  applyTheme(savedTheme || systemTheme);
+
+  // слушатель события от кнопки в сайдбаре
+  document.addEventListener('theme-change', (e) => {
+    applyTheme(e.detail.theme);
+  });
+</script>

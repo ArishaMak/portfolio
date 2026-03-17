@@ -29,7 +29,7 @@
 .projects__bracket {
     width: 40px;
     height: auto;
-    color: var(--color-accent, #0038FF);
+    color: var(--pr-brackets, #0038FF);
     display: flex;
     align-items: center;
 }
@@ -184,7 +184,7 @@
 .projects__bracket {
     width: 40px;
     height: auto;
-    color: var(--color-accent, #0038FF);
+    color: var(--pr-brackets, #0038FF);
     display: flex;
     align-items: center;
     transition: transform 0.3s ease-out;
@@ -200,7 +200,7 @@
 }
 
 .text-accent {
-    color: #0038FF;
+    color: var(--color-accent);
     font-weight: 500;
 }
 

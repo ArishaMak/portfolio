@@ -164,7 +164,7 @@
 .card-title {
     font-family: var(--font-body, sans-serif);
     font-weight: var(--fw-semibold, 600);
-    color: var(--color-page-bg, #ffffff);
+    color: var(--color-text-primary);
     font-size: clamp(1.125rem, 1.8vw, 1.5rem);
     line-height: 1.1;
     margin-bottom: 0.5rem;
@@ -183,7 +183,7 @@
     font-family: var(--font-body, sans-serif);
     font-size: clamp(0.875rem, 1.1vw, 1.125rem);
     line-height: 1.2;
-    color: var(--color-page-bg, #ffffff);
+    color: var(--color-text-primary);
     filter: var(--shadow-deep);
 }
 

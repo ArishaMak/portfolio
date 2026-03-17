@@ -16,6 +16,7 @@
 
     --color-accent: #1d4bff;
     --color-accent-soft: #f0f4ff;
+    --pr-brackets: #1d4bff;
 
     --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.12);
 
@@ -60,9 +61,10 @@
 }
 
 [data-theme="dark"] {
-    --color-page-bg: rgb(37, 32, 32);
+    --color-page-bg: rgb(58, 51, 51);
     --color-text-primary: rgb(250, 236, 181);
     --color-text-muted: rgb(250, 236, 181);
+    --pr-brackets: rgb(132, 186, 255);
 
     --glass-bg: rgba(0, 0, 0, 0.2);
     --glass-border: rgba(255, 255, 255, 0.1);

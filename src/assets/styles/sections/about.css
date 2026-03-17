@@ -34,7 +34,6 @@
     display: inline-flex;
     padding-left: clamp(40px, 5vw, 60px);
     display: flex;
-    /*align-items: center;*/
     align-items: stretch;
     overflow: visible;
     position: relative;
@@ -42,28 +41,22 @@
 
 .about__bracket {
     position: absolute;
-    /* Прижимаем к левому краю родителя */
     left: 0;
-    /* Растягиваем от верхнего до нижнего края заголовка */
     top: 0;
     bottom: 0;
-
     z-index: 10;
     display: flex;
     width: clamp(30px, 4vw, 50px);
-    /* Ширина теперь резиновая */
     height: auto;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    /* Высота будет диктоваться свойствами top/bottom */
 }
 
 .about__bracket svg {
     display: block;
     width: 100% !important;
     height: 100% !important;
-    /*height: auto;*/
     width: auto;
     overflow: visible;
 }
@@ -133,12 +126,12 @@
     font-family: var(--font-base);
     font-size: clamp(1rem, 1.2vw, 1.25rem);
     line-height: 1.6;
-    color: rgba(17, 17, 17, 0.8);
+    color: var(--color-text-primary);
     text-align: justify;
 }
 
 .text-accent {
-    color: #1d4bff;
+    color: var(--color-accent);
     font-weight: 500;
 }
 

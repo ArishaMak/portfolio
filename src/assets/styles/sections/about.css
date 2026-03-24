@@ -134,6 +134,14 @@ body .about__bracket {
     text-align: justify;
 }
 
+.about__divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-text-primary) 50%, transparent);
+    opacity: 0.3;
+    margin: 0.8rem 0;
+}
+
 .text-accent {
     color: var(--color-accent);
     font-weight: 500;
@@ -267,5 +275,12 @@ body .about__bracket {
     
     .about__description {
         gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .about {
+        margin-bottom: 3rem;
     }
 }

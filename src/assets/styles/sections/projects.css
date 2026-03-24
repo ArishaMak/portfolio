@@ -3,7 +3,6 @@ body .text-accent {
 }
 
 .projects {
-    padding-block: var(--section-gap);
     background-color: var(--color-page-bg);
 }
 

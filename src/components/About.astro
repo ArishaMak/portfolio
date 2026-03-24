@@ -38,25 +38,36 @@ import '../assets/styles/sections/about.css';
           <span class="about__cta reveal" style="--reveal-delay: 0.4s">
             Cover letter
           </span>
+          <hr class="about__divider" />
           <p class="reveal" style="--reveal-delay: 0.5s">
-            I am genuinely interested in joining Andersen’s JavaScript Trainee Program.
-            Your corporate culture, focused on teamwork and the development of high-quality products,
-            reflects my vision of a supportive and growth-oriented working environment.
-            I see Andersen as the ideal place to strengthen my practical JavaScript skills,
-            gain hands-on experience, and contribute to real-world projects.
-            With a solid academic foundation in Full Stack Development and practical experience
-            gained through the YandexPracticum Full Stack Developer course, I am eager to apply my knowledge in practice,
-            continuously learn from more experienced professionals, and develop as a JavaScript specialist within your team.
+            I am a Frontend Developer dedicated to building smooth,
+            modern, and user-friendly digital experiences. Currently a 3rd-year Software Engineering student
+            at MRK/BSUIR and a graduate of the Yandex Practicum Frontend course (2025–2026),
+            I combine technical precision with a strong eye for UI/UX.
+            My approach is to take every project from a Figma concept to a fully deployed
+            production-ready application.
           </p>
           <p class="reveal" style="--reveal-delay: 0.6s">
-            I have completed the Full Stack Developer course at YandexPracticum,
-            covering a comprehensive JavaScript curriculum including HTML/CSS, responsive layouts
-            with Flexbox and Grid, DOM manipulation, event handling, API integration, asynchronous programming,
-            TypeScript basics, OOP principles, and React with routing, state management, and testing.
-            Through multiple hands-on projects, I built interactive web applications, implemented RESTful APIs,
-            and practiced code modularization and deployment workflows. Additionally, I have foundational experience
-            with relational databases, including designing and querying MySQL databases during my college studies,
-            which enhances my backend and data management skills.
+            My technical foundation is built on React, TypeScript, Node.js, and Express.js.
+            I have hands-on experience implementing RESTful APIs, managing complex state,
+            and working with both relational (SQL) and non-relational (MongoDB) databases.
+            Having earned a High School Diploma in Fine Arts after seven years of formal training,
+            I leverage a deep understanding of composition and aesthetics to create clean,
+            minimalist, and truly human-centric interfaces.
+          </p>
+           <p class="reveal" style="--reveal-delay: 0.4s">
+          Beyond the code, I bring a valuable real-world perspective
+          to development. My experience in course projects involved
+          regular interaction with mentors and curators, where I learned
+          to incorporate feedback and meet strict deadlines, strengthening
+          my discipline and team collaboration. Additionally, my six-month
+          background as a barista in high-pressure environments honed my stress
+          management, communication, and "user-first" mindset — qualities
+          that now enhance my approach to UX/UI and problem-solving.
+          I am a disciplined team player who thrives on continuous learning
+          and is actively seeking a Frontend or Full Stack internship or
+          Junior position starting Summer 2026. I am fully open to relocation
+          to contribute to impactful products and grow within a professional international team.
           </p>
         </div>
       </div>
@@ -78,4 +89,32 @@ import '../assets/styles/sections/about.css';
   }
   initAboutReveal();
   document.addEventListener('astro:after-swap', initAboutReveal);
+
+  function initScrollDepth() {
+  const section = document.querySelector(".about");
+
+  function update() {
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    const progress = Math.min(Math.max(1 - rect.top / windowHeight, 0), 1);
+
+    const scale = 1 - progress * 0.15;
+    const z = progress * -200;
+    const rotateX = progress * 5;
+
+    section.style.transform = `
+      translateZ(${z}px)
+      scale(${scale})
+      rotateX(${rotateX}deg)
+    `;
+
+    requestAnimationFrame(update);
+  }
+
+  requestAnimationFrame(update);
+}
+
+initScrollDepth();
+document.addEventListener("astro:after-swap", initScrollDepth);
 </script>

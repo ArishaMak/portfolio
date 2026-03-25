@@ -4,7 +4,9 @@ import '../assets/styles/global.css';
 import '../assets/fonts/fonts.css';
 import Cursor from '../components/Cursor.astro';
 
-const { title = 'Arina N. Makovchik • JavaScript Trainee • Resume' } = Astro.props;
+// Используем переменную для базового пути, чтобы было проще менять
+const base = '/portfolio';
+const { title = 'Arina N. Makovchik • Aspiring Frontend Developer • Resume' } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,17 +15,16 @@ const { title = 'Arina N. Makovchik • JavaScript Trainee • Resume' } = Astro
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-image.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href={`${base}/images/favicon-image.png`} />
   </head>
   <body class="loading"> 
 
-    <!-- PRELOADER -->
     <div id="preloader" class="preloader">
       <div class="preloader-image-wrapper">
-        <img src="/images/plitka-prelo.jpg" alt="Pattern" class="preloader-image" />
-        <img src="/images/plitka-prelo.jpg" alt="Pattern" class="preloader-image" />
-        <img src="/images/plitka-prelo.jpg" alt="Pattern" class="preloader-image" />
-        <img src="/images/plitka-prelo.jpg" alt="Pattern" class="preloader-image" />
+        <img src={`${base}/images/plitka-prelo.jpg`} alt="Pattern" class="preloader-image" />
+        <img src={`${base}/images/plitka-prelo.jpg`} alt="Pattern" class="preloader-image" />
+        <img src={`${base}/images/plitka-prelo.jpg`} alt="Pattern" class="preloader-image" />
+        <img src={`${base}/images/plitka-prelo.jpg`} alt="Pattern" class="preloader-image" />
       </div>
       <div class="preloader-content">
         <p class="loading-text">
@@ -40,84 +41,53 @@ const { title = 'Arina N. Makovchik • JavaScript Trainee • Resume' } = Astro
     <Cursor />
 
     <script type="module">
+      // Оставляем только ОДИН блок скрипта
       if (typeof window !== 'undefined') {
         (async () => {
-          const { default: gsap } = await import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js');
+          try {
+            // Загружаем библиотеки через CDN
+            const [gsapModule, stModule] = await Promise.all([
+              import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js'),
+              import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js')
+            ]);
 
-          const preloader = document.getElementById('preloader');
-          const percentEl = document.getElementById('loader-percent');
-          const body = document.body;
+            const gsap = gsapModule.default;
+            const ScrollTrigger = stModule.ScrollTrigger;
 
-          if (!preloader || !percentEl) return;
+            gsap.registerPlugin(ScrollTrigger);
 
-          const loaderObj = { value: 0 };
+            const preloader = document.getElementById('preloader');
+            const percentEl = document.getElementById('loader-percent');
+            const body = document.body;
 
-          gsap.to(loaderObj, {
-            value: 100,
-            duration: 2.2,
-            ease: 'power2.out',
-            onUpdate: () => {
-              percentEl.textContent = `${Math.round(loaderObj.value)}%`;
-            },
-            onComplete: () => {
-              gsap.to(preloader, {
-                opacity: 0,
-                duration: 0.9,
-                ease: 'power2.inOut',
+            if (preloader && percentEl) {
+              const loaderObj = { value: 0 };
+              gsap.to(loaderObj, {
+                value: 100,
+                duration: 2.2,
+                ease: 'power2.out',
+                onUpdate: () => {
+                  percentEl.textContent = `${Math.round(loaderObj.value)}%`;
+                },
                 onComplete: () => {
-                  preloader.remove();
-                  body.classList.remove('loading');
+                  gsap.to(preloader, {
+                    opacity: 0,
+                    duration: 0.9,
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                      preloader.remove();
+                      body.classList.remove('loading');
+                      ScrollTrigger.refresh();
+                    }
+                  });
                 }
               });
             }
-          });
+          } catch (e) {
+            console.error("Ошибка загрузки GSAP:", e);
+          }
         })();
       }
-      if (typeof window !== 'undefined') {
-    (async () => {
-      // 1. Загружаем и GSAP, и ScrollTrigger одновременно
-      const [gsapModule, stModule] = await Promise.all([
-        import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js'),
-        import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js')
-      ]);
-
-      const gsap = gsapModule.default;
-      const ScrollTrigger = stModule.ScrollTrigger;
-
-      // 2. Регистрируем плагин
-      gsap.registerPlugin(ScrollTrigger);
-
-      // --- Код прелоадера ---
-      const preloader = document.getElementById('preloader');
-      const percentEl = document.getElementById('loader-percent');
-      const body = document.body;
-
-      if (preloader && percentEl) {
-        const loaderObj = { value: 0 };
-        gsap.to(loaderObj, {
-          value: 100,
-          duration: 2.2,
-          ease: 'power2.out',
-          onUpdate: () => {
-            percentEl.textContent = `${Math.round(loaderObj.value)}%`;
-          },
-          onComplete: () => {
-            gsap.to(preloader, {
-              opacity: 0,
-              duration: 0.9,
-              ease: 'power2.inOut',
-              onComplete: () => {
-                preloader.remove();
-                body.classList.remove('loading');
-                // После удаления прелоадера полезно обновить ScrollTrigger
-                ScrollTrigger.refresh();
-              }
-            });
-          }
-        });
-      }
-    })();
-  }
     </script>
   </body>
 </html>

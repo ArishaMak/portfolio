@@ -1,0 +1,291 @@
+---
+import '../assets/styles/sections/wordsearch.css';
+
+const wordsToFind = [
+  "ACCESSIBILITY", "ASYNCAWAIT", "TYPESCRIPT", "CYPRESS", "FLEXBOX",
+  "CONTEXT", "EXPRESS", "RESTAPI", "MONGODB", "ROUTER", "REACT",
+  "REDUX", "HTML5", "NODEJS", "MYSQL", "HOOKS", "SQL", "BEM", "CSS3",
+  "VITE", "JEST", "GRID", "DOM", "OOP"
+];
+
+const gridData = [
+  ["M","Y","S","Q","L","G","N","H","M","X","A","D","R"],
+  ["Z","R","B","Q","U","J","P","O","O","O","S","3","E"],
+  ["T","P","S","M","O","N","G","O","D","B","Y","S","S"],
+  ["L","P","V","D","U","U","G","K","N","X","N","S","T"],
+  ["Y","T","I","L","I","B","I","S","S","E","C","C","A"],
+  ["X","Z","T","R","Y","R","S","B","J","L","A","A","P"],
+  ["R","T","E","X","C","S","G","O","E","F","W","O","I"],
+  ["C","Y","P","R","E","S","S","J","D","M","A","X","L"],
+  ["T","O","T","R","E","T","E","D","O","5","I","J","G"],
+  ["C","O","P","S","Q","T","N","P","N","L","T","M","S"],
+  ["A","X","U","D","E","R","U","O","Y","M","Q","R","C"],
+  ["E","J","X","B","T","J","O","O","C","T","X","X","Q"],
+  ["R","J","V","S","G","W","C","R","R","H","Z","K","H"]
+] as const;
+---
+
+<div class="wordsearch-wrapper">
+  <div class="wordsearch-layout">
+
+    <!-- Левая колонка — список слов -->
+    <div class="wordsearch-words-left">
+      <ul class="wordsearch-col">
+        {wordsToFind.slice(0, Math.ceil(wordsToFind.length / 2)).map(word => (
+          <li class="skill-word" data-word={word}>{word}</li>
+        ))}
+      </ul>
+      <ul class="wordsearch-col">
+        {wordsToFind.slice(Math.ceil(wordsToFind.length / 2)).map(word => (
+          <li class="skill-word" data-word={word}>{word}</li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Правая часть -->
+    <div class="wordsearch-right-section">
+      <div class="wordsearch-grid-container">
+        <div class="wordsearch-grid" id="wordsearch-grid"></div>
+      </div>
+
+      <div class="memes-sidebar">
+        <div class="memes-grid">
+          {Array.from({ length: 9 }).map((_, i) => (
+            <div class="meme-frame" id={`meme-${i}`} data-active="false">
+              <img src="" alt="meme" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ wordsToFind, gridData }}>
+  let selectedCells = [];
+  let isSelecting = false;
+  let startRow = -1, startCol = -1;
+  const foundWords = new Set();
+
+  const gridEl = document.getElementById('wordsearch-grid');
+
+  function renderGrid() {
+    gridEl.innerHTML = '';
+    
+    const cellSize = window.innerWidth < 768 ? 24 : 28;
+    gridEl.style.gridTemplateColumns = `repeat(${gridData[0].length}, minmax(${cellSize}px, 1fr))`;
+
+    gridData.forEach((row, r) => {
+      row.forEach((letter, c) => {
+        const cell = document.createElement('div');
+        cell.className = 'wordsearch-cell';
+        cell.textContent = letter;
+        cell.dataset.row = r.toString();
+        cell.dataset.col = c.toString();
+        gridEl.appendChild(cell);
+      });
+    });
+  }
+
+  function getDirection(r1, c1, r2, c2) {
+    return { 
+      dr: Math.sign(r2 - r1), 
+      dc: Math.sign(c2 - c1) 
+    };
+  }
+
+  function isValidWord(cells) {
+    if (cells.length < 3) return false;
+    const word = cells.map(c => c.textContent).join('').toUpperCase();
+    const rev = word.split('').reverse().join('');
+    return wordsToFind.some(w => w === word || w === rev);
+  }
+
+  function clearTempHighlight() {
+    document.querySelectorAll('.temp-highlight').forEach(el => 
+      el.classList.remove('temp-highlight')
+    );
+  }
+
+  function highlightTemp() {
+    clearTempHighlight();
+    selectedCells.forEach(cell => cell.classList.add('temp-highlight'));
+  }
+
+  function markAsFound(cells) {
+    cells.forEach(cell => {
+      cell.classList.add('found');
+      cell.classList.remove('temp-highlight');
+    });
+  }
+
+  function markWordInList(word) {
+    const upper = word.toUpperCase();
+    document.querySelectorAll('.skill-word').forEach(li => {
+      if (li.dataset.word === upper) {
+        li.classList.add('found');
+      }
+    });
+  }
+
+  function checkWin() {
+    if (foundWords.size === wordsToFind.length) {
+      import('https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js')
+        .then(m => m.default({ 
+          particleCount: 200, 
+          spread: 90, 
+          origin: { y: 0.6 } 
+        }));
+      setTimeout(() => alert("Congratulations! You found all my skills."), 800);
+    }
+  }
+
+  gridEl.addEventListener('mousedown', (e) => {
+    const cell = e.target.closest('.wordsearch-cell');
+    if (!cell || e.button !== 0) return;
+
+    e.preventDefault();
+    
+    clearTempHighlight();
+    selectedCells = [];
+    
+    isSelecting = true;
+    startRow = parseInt(cell.dataset.row);
+    startCol = parseInt(cell.dataset.col);
+    selectedCells = [cell];
+    highlightTemp();
+  });
+
+  gridEl.addEventListener('mousemove', (e) => {
+    if (!isSelecting) return;
+    
+    const cell = e.target.closest('.wordsearch-cell');
+    if (!cell) return;
+
+    const endRow = parseInt(cell.dataset.row);
+    const endCol = parseInt(cell.dataset.col);
+    
+    selectedCells = [];
+    const { dr, dc } = getDirection(startRow, startCol, endRow, endCol);
+
+    let r = startRow, c = startCol;
+    while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
+      const curCell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
+      if (curCell) selectedCells.push(curCell);
+      
+      if (r === endRow && c === endCol) break;
+      r += dr;
+      c += dc;
+    }
+    
+    highlightTemp();
+  });
+
+  gridEl.addEventListener('mouseup', () => {
+    if (!isSelecting) return;
+    
+    isSelecting = false;
+    
+    if (selectedCells.length >= 3 && isValidWord(selectedCells)) {
+      const wordStr = selectedCells.map(c => c.textContent).join('').toUpperCase();
+      markAsFound(selectedCells);
+      markWordInList(wordStr);
+      foundWords.add(wordStr);
+      checkWin();
+    } else {
+      clearTempHighlight();
+    }
+    
+    selectedCells = [];
+  });
+
+  gridEl.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    const cell = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.wordsearch-cell');
+    if (!cell) return;
+    
+    e.preventDefault();
+    clearTempHighlight();
+    selectedCells = [];
+    
+    isSelecting = true;
+    startRow = parseInt(cell.dataset.row);
+    startCol = parseInt(cell.dataset.col);
+    selectedCells = [cell];
+    highlightTemp();
+  }, { passive: false });
+
+  gridEl.addEventListener('touchmove', (e) => {
+    if (!isSelecting) return;
+    e.preventDefault();
+    
+    const touch = e.touches[0];
+    const cell = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.wordsearch-cell');
+    if (!cell) return;
+    
+    const endRow = parseInt(cell.dataset.row);
+    const endCol = parseInt(cell.dataset.col);
+    
+    selectedCells = [];
+    const { dr, dc } = getDirection(startRow, startCol, endRow, endCol);
+    let r = startRow, c = startCol;
+    
+    while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
+      const curCell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
+      if (curCell) selectedCells.push(curCell);
+      if (r === endRow && c === endCol) break;
+      r += dr; c += dc;
+    }
+    highlightTemp();
+  }, { passive: false });
+
+  gridEl.addEventListener('touchend', () => {
+    if (!isSelecting) return;
+    
+    isSelecting = false;
+    
+    if (selectedCells.length >= 3 && isValidWord(selectedCells)) {
+      const wordStr = selectedCells.map(c => c.textContent).join('').toUpperCase();
+      markAsFound(selectedCells);
+      markWordInList(wordStr);
+      foundWords.add(wordStr);
+      checkWin();
+    } else {
+      clearTempHighlight();
+    }
+    selectedCells = [];
+  });
+
+  renderGrid();
+
+  // Мемы
+  const memesFrames = document.querySelectorAll('.meme-frame');
+  const memeImages = Array.from({ length: 65 }, (_, i) => `/images/memes/mem${String(i+1).padStart(2, '0')}.jpg`);
+
+  function activateRandomMemes() {
+    memesFrames.forEach(f => {
+      f.dataset.active = "false";
+      const img = f.querySelector('img');
+      if (img) img.src = "";
+    });
+    const count = Math.floor(Math.random() * 4) + 3;
+    const selected = [...memesFrames].sort(() => Math.random() - 0.5).slice(0, count);
+    selected.forEach(frame => {
+      const img = frame.querySelector('img');
+      if (!img) return;
+      frame.dataset.active = "true";
+      const url = memeImages[Math.floor(Math.random() * memeImages.length)];
+      const pre = new Image();
+      pre.onload = () => img.src = url;
+      pre.src = url;
+    });
+  }
+
+  activateRandomMemes();
+  setInterval(activateRandomMemes, 1800);
+
+  window.addEventListener('resize', () => {
+    clearTempHighlight();
+    renderGrid();
+  });
+</script>

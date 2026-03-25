@@ -3,9 +3,13 @@ import '../assets/styles/sections/education.css';
 ---
 
 <section id="education" class="section education">
+<div class="education__video-container">
+    <video autoplay muted loop playsinline class="education__background-video">
+      <source src="/images/kino.mp4" type="video/mp4" />
+    </video>
+  </div>
   <div class="education__grid">
     
-    {/* заголовок с двойными скобками */}
     <div class="education__header">
       <div class="education__title-wrapper reveal">
         <span class="education__bracket education__bracket--left" aria-hidden="true">
@@ -30,6 +34,38 @@ import '../assets/styles/sections/education.css';
         </div>
       </div>
     </div>
+
+    <div class="education__main">
+      <div class="education__motivation">
+        <p class="reveal" style="--reveal-delay: 0.4s">
+        Beyond the code, I bring a valuable real-world perspective
+        to development. My experience in course projects involved
+        regular interaction with mentors and curators, where I learned
+        to incorporate feedback and meet strict deadlines, strengthening
+        my discipline and team collaboration. Additionally, my six-month
+        background as a barista in high-pressure environments honed my stress
+        management, communication, and "user-first" mindset — qualities
+        that now enhance my approach to UX/UI and problem-solving.
+        I am a disciplined team player who thrives on continuous learning
+        and is actively seeking a Frontend or Full Stack internship or
+        Junior position starting Summer 2026. I am fully open to relocation
+        to contribute to impactful products and grow within a professional international team.
+        </p>
+      </div>
+      <div class="education__carpet-card reveal" style="--reveal-delay: 0.7s">
+        <div class="education__art-text reveal" style="--reveal-delay: 0.7s">
+        <p class="art-phrase">
+          I combine timeless design principles with cutting-edge technology 
+          to craft award-winning websites that resonate with a global audience.
+        </p>
+        <div class="education__motivation">
+          <p>
+            // Seven years of fine arts to master the art of drawing brackets for my portfolio:]
+          </p>
+        </div>
+      </div>
+      </div>
+    </div>
   </div>
 </section>
 <script>
@@ -48,4 +84,33 @@ import '../assets/styles/sections/education.css';
 
   initEducationReveal();
   document.addEventListener('astro:after-swap', initEducationReveal);
+
+  function initEducationScroll() {
+    const section = document.querySelector(".education");
+    if (!section) return;
+
+    function update() {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const progress = Math.min(Math.max(1 - rect.top / windowHeight, 0), 1);
+
+      const scale = 1 - progress * 0.15;
+      const z = progress * -200;
+      const rotateX = progress * 5;
+
+      section.style.transform = `
+        translateZ(${z}px)
+        scale(${scale})
+        rotateX(${rotateX}deg)
+      `;
+
+      requestAnimationFrame(update);
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  initEducationScroll();
+  document.addEventListener("astro:after-swap", initEducationScroll);
 </script>

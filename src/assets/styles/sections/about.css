@@ -1,10 +1,30 @@
 .about {
     margin: 0;
-    padding: 0;
+    padding: 20px 200px;
     position: relative;
     overflow: visible;
     width: 100%;
-    background-color: var(--color-page-bg);
+    background-color: transparent;
+}
+
+.about__video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Уходит на задний план */
+    pointer-events: none;
+    /* Чтобы видео не мешало кликать по кнопкам */
+}
+
+.about__background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Растягиваем видео без искажений */
+    display: block;
 }
 
 body .about__bracket {
@@ -19,8 +39,12 @@ body .about__bracket {
     align-items: start;
     width: 100%;
     margin: 0 auto;
+    padding: 1rem;
+    border-radius: 2%;
     position: relative;
+    background-color: var(--color-page-bg);
     overflow: visible;
+    z-index: 1;
 }
 
 .about__header {
@@ -221,6 +245,10 @@ body .about__bracket {
 }
 
 @media (max-width: 1024px) {
+    .about {
+            /* Рамка становится 3rem, освобождая место под текст */
+        padding: 3rem;
+    }
 
     .about__grid {
         display: grid;
@@ -281,6 +309,13 @@ body .about__bracket {
 @media (max-width: 768px) {
 
     .about {
-        margin-bottom: 3rem;
-    }
+            /* Минимальная рамка 1rem для максимальной ширины карточки */
+            padding: 1rem;
+        }
+    
+        .about__grid {
+            /* Опционально: можно уменьшить внутренние отступы карточки, 
+               чтобы текст не зажимался совсем сильно */
+            padding: 1.5rem;
+        }
 }

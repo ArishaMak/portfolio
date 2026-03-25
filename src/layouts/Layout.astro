@@ -73,6 +73,51 @@ const { title = 'Arina N. Makovchik • JavaScript Trainee • Resume' } = Astro
           });
         })();
       }
+      if (typeof window !== 'undefined') {
+    (async () => {
+      // 1. Загружаем и GSAP, и ScrollTrigger одновременно
+      const [gsapModule, stModule] = await Promise.all([
+        import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js'),
+        import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js')
+      ]);
+
+      const gsap = gsapModule.default;
+      const ScrollTrigger = stModule.ScrollTrigger;
+
+      // 2. Регистрируем плагин
+      gsap.registerPlugin(ScrollTrigger);
+
+      // --- Код прелоадера ---
+      const preloader = document.getElementById('preloader');
+      const percentEl = document.getElementById('loader-percent');
+      const body = document.body;
+
+      if (preloader && percentEl) {
+        const loaderObj = { value: 0 };
+        gsap.to(loaderObj, {
+          value: 100,
+          duration: 2.2,
+          ease: 'power2.out',
+          onUpdate: () => {
+            percentEl.textContent = `${Math.round(loaderObj.value)}%`;
+          },
+          onComplete: () => {
+            gsap.to(preloader, {
+              opacity: 0,
+              duration: 0.9,
+              ease: 'power2.inOut',
+              onComplete: () => {
+                preloader.remove();
+                body.classList.remove('loading');
+                // После удаления прелоадера полезно обновить ScrollTrigger
+                ScrollTrigger.refresh();
+              }
+            });
+          }
+        });
+      }
+    })();
+  }
     </script>
   </body>
 </html>

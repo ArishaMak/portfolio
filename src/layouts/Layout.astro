@@ -1,10 +1,27 @@
 ---
 import '../assets/styles/variables.css';
 import '../assets/styles/global.css';
+import '../assets/styles/dark.css';           // если есть тёмная тема
+import '../assets/styles/light.css';          // если есть светлая тема
+
+// секционные стили
+import '../assets/styles/sections/about.css';
+import '../assets/styles/sections/additionalExperience.css';
+import '../assets/styles/sections/contact.css';
+import '../assets/styles/sections/education.css';
+import '../assets/styles/sections/header.css';
+import '../assets/styles/sections/hero.css';
+import '../assets/styles/sections/projects.css';
+import '../assets/styles/sections/sidebar.css';
+import '../assets/styles/sections/skills.css';
+import '../assets/styles/sections/wordsearch.css';
+
+// доп стили
+import '../assets/styles/cursor.css';
 import '../assets/fonts/fonts.css';
+
 import Cursor from '../components/Cursor.astro';
 
-// Используем переменную для базового пути, чтобы было проще менять
 const base = '/portfolio';
 const { title = 'Arina N. Makovchik • Aspiring Frontend Developer • Resume' } = Astro.props;
 ---

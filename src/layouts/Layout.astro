@@ -1,8 +1,8 @@
 ---
 import '../assets/styles/variables.css';
 import '../assets/styles/global.css';
-import '../assets/styles/dark.css';           // если есть тёмная тема
-import '../assets/styles/light.css';          // если есть светлая тема
+import '../assets/styles/dark.css';
+import '../assets/styles/light.css';
 
 // секционные стили
 import '../assets/styles/sections/about.css';
@@ -16,11 +16,10 @@ import '../assets/styles/sections/sidebar.css';
 import '../assets/styles/sections/skills.css';
 import '../assets/styles/sections/wordsearch.css';
 
-// доп стили
 import '../assets/styles/cursor.css';
 import '../assets/fonts/fonts.css';
 
-import '../assets/styles/sections/cursor.css';
+import Cursor from '../components/Cursor.astro';
 
 const base = '/portfolio';
 const { title = 'Arina N. Makovchik • Aspiring Frontend Developer • Resume' } = Astro.props;

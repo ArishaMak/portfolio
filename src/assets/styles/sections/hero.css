@@ -49,7 +49,7 @@
     left: -20vw;
     top: auto;
     transform: none;
-    background-image: url('/images/galaxy-blob-1.png');
+    background-image: url('/images/galaxy-blob-1.avif');
     z-index: var(--z-back, 1);
     filter: var(--hero-filter, saturate(1.4));
 }
@@ -62,7 +62,7 @@
     top: -180px;
     z-index: 3;
     transform: rotate(-10deg);
-    background-image: url('/images/galaxy-blob-2.png');
+    background-image: url('/images/galaxy-blob-2.avif');
 }
 
 .blob-layer--back {
@@ -70,11 +70,11 @@
     z-index: 1;
     transform: translate(15px, 12px);
     opacity: 0.5;
-    filter: blur(30px);
+    filter: blur(12px);
 }
 
 .blob-layer--front {
-    background-image: url('/images/galaxy-blob-2.png');
+    background-image: url('/images/galaxy-blob-2.avif');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -89,16 +89,40 @@
     right: 15vw;
     top: -140px;
     z-index: 2;
-    background-image: url('/images/galaxy-blob-1.png');
+    background-image: url('/images/galaxy-blob-1.avif');
     filter: saturate(1.2) contrast(1.1) drop-shadow(0px 120px 80px rgba(0, 0, 0, 0.12)) drop-shadow(0px 60px 40px rgba(0, 0, 0, 0.14)) drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.18));
     animation: hero-blob-float 10s ease-in-out infinite alternate;
+}
+
+@supports (background-image: image-set(url('dummy.avif') type('image/avif'))) {
+    .hero__blob--left-large {
+        background-image: image-set(
+            url('/images/galaxy-blob-1.avif') type('image/avif'),
+            url('/images/galaxy-blob-1.png') type('image/png')
+        );
+    }
+
+    .hero__blob--right-large {
+        background-image: image-set(
+            url('/images/galaxy-blob-2.avif') type('image/avif'),
+            url('/images/galaxy-blob-2.png') type('image/png')
+        );
+    }
+
+    .blob-layer--front,
+    .hero__blob--right-small {
+        background-image: image-set(
+            url('/images/galaxy-blob-2.avif') type('image/avif'),
+            url('/images/galaxy-blob-2.png') type('image/png')
+        );
+    }
 }
 
 .hero__title {
     position: relative;
     display: inline-block;
     font-family: var(--font-display, serif);
-    font-weight: var(--fw-boldб 800);
+    font-weight: var(--fw-bold, 800);
     font-size: clamp(3.5rem, 8vw, 9rem);
     width: 100%;
     cursor: default;
@@ -123,7 +147,7 @@
 
 .hero__title-main {
     position: relative;
-    background-image: url('/images/ковер.png');
+    background-image: url('/images/ковер.avif');
     background-size: 300px auto;
     background-repeat: repeat;
     background-position: center;
@@ -177,7 +201,6 @@
     }
 }
 
-/* Анимация мигания курсора */
 @keyframes blink-caret {
 
     from,
@@ -262,11 +285,22 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url('/images/ковер.png');
+    background-image: url('/images/ковер.avif');
     background-size: cover;
     background-position: center;
     opacity: 0.5;
     z-index: -1;
+}
+
+@supports (background-image: image-set(url('dummy.avif') type('image/avif'))) {
+
+    .hero__title-main,
+    .info-card::before {
+        background-image: image-set(
+            url('/images/ковер.avif') type('image/avif'),
+            url('/images/ковер.webp') type('image/webp')
+        );
+    }
 }
 
 .letter {
@@ -369,44 +403,30 @@
     }
 }
 
-/* Планшеты и узкие ноутбуки (768–1100 px) */
 @media (max-width: 1100px) {
 
-    /* Уменьшаем высоту hero и убираем лишний отступ снизу */
     .hero {
         min-height: calc(80vh - 80px);
-        /* ← было 100vh-120px → стало меньше */
         padding-bottom: 1rem;
-        /* ← добавляем небольшой отступ снизу */
         margin-bottom: -4rem;
-        /* ← отрицательный margin убирает зазор */
     }
 
-    /* Убираем огромные отступы у wordsearch-wrapper */
     .wordsearch-wrapper {
         margin: 2rem 0 3rem;
-        /* ← было 4rem 0 6rem → стало сильно меньше */
     }
 
-    /* Уменьшаем общий section-gap для всех секций */
     :root {
         --section-gap: 3rem;
-        /* ← уменьшаем глобально на планшетах */
     }
 
-    /* Если есть большой padding у skills */
     .skills {
         padding: 2rem 0;
-        /* ← уменьшаем вертикальные отступы */
     }
 
-    /* Дополнительно: если hero__layout добавляет gap */
     .hero__layout {
         gap: clamp(1.5rem, 3vh, 2rem);
-        /* ← уменьшаем внутренний gap */
     }
 
-    /* Уменьшаем отступы у карточек внизу hero */
     .hero__cards {
         margin-top: 1rem;
         padding-bottom: 1rem;

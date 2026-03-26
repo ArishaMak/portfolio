@@ -48,7 +48,7 @@
 
 .text-row span {
     display: inline-block;
-    background-image: url('/images/ковер.png');
+    background-image: url('/images/ковер.avif');
     background-size: 300px auto;
     background-repeat: repeat;
     background-position: center;
@@ -60,6 +60,14 @@
         drop-shadow(-0.05em -0.05em 0px #FFFFFF) var(--hero-filter, saturate(1.4)) var(--shadow-deep);
 
     transition: transform 0.3s ease;
+}
+
+@supports (background-image: image-set(url('dummy.avif') type('image/avif'))) {
+
+    .text-row span {
+        background-image: image-set(url('/images/ковер.avif') type('image/avif'),
+                url('/images/ковер.webp') type('image/webp'));
+    }
 }
 
 .text-row .letter--white {

@@ -4,10 +4,17 @@ import '../assets/styles/sections/about.css';
 
 <section id="about" class="section about">
 <div class="about__video-container">
-  <video autoplay muted loop playsinline class="about__background-video">
+  <video 
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    class="about__background-video"
+    id="about-video"
+  >
     <source src="/images/kino.mp4" type="video/mp4" />
   </video>
-  </div>
+</div>
   <div class="about__grid">
     <div class="about__header">
       <div class="about__title-wrapper reveal">
@@ -109,4 +116,33 @@ import '../assets/styles/sections/about.css';
 
 initScrollDepth();
 document.addEventListener("astro:after-swap", initScrollDepth);
+
+// загрузка фонового видео
+  function initBackgroundVideo() {
+    const video = document.getElementById('about-video');
+    if (!video) return;
+
+    const showVideo = () => {
+      video.classList.add('loaded');
+    };
+
+    // Если видео уже достаточно загружено
+    if (video.readyState >= 3) {
+      showVideo();
+    } else {
+      // Ждём, пока видео можно будет воспроизвести
+      video.addEventListener('canplay', showVideo, { once: true });
+      video.addEventListener('loadeddata', showVideo, { once: true });
+    }
+
+    // На случай ошибки загрузки видео — всё равно убираем чёрный фон
+    video.addEventListener('error', () => {
+      video.classList.add('loaded');
+    });
+  }
+
+  // Запускаем при загрузке страницы
+  initBackgroundVideo();
+
+  document.addEventListener('astro:after-swap', initBackgroundVideo);
 </script>

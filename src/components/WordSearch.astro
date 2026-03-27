@@ -52,7 +52,7 @@ const gridData = [
         <div class="memes-grid">
           {Array.from({ length: 9 }).map((_, i) => (
             <div class="meme-frame" id={`meme-${i}`} data-active="false">
-              <img src="" alt="meme" loading="lazy" />
+              <img src="" alt="meme" loading="lazy" decoding="async" />
             </div>
           ))}
         </div>
@@ -62,230 +62,412 @@ const gridData = [
 </div>
 
 <script define:vars={{ wordsToFind, gridData }}>
-  let selectedCells = [];
-  let isSelecting = false;
-  let startRow = -1, startCol = -1;
-  const foundWords = new Set();
+let selectedCells = [];
+let isSelecting = false;
+let startRow = -1, startCol = -1;
 
-  const gridEl = document.getElementById('wordsearch-grid');
+const foundWords = new Set();
+const gridEl = document.getElementById('wordsearch-grid');
 
-  function renderGrid() {
-    gridEl.innerHTML = '';
-    
-    const cellSize = window.innerWidth < 768 ? 24 : 28;
-    gridEl.style.gridTemplateColumns = `repeat(${gridData[0].length}, minmax(${cellSize}px, 1fr))`;
+let cellMatrix = [];
 
-    gridData.forEach((row, r) => {
-      row.forEach((letter, c) => {
-        const cell = document.createElement('div');
-        cell.className = 'wordsearch-cell';
-        cell.textContent = letter;
-        cell.dataset.row = r.toString();
-        cell.dataset.col = c.toString();
-        gridEl.appendChild(cell);
-      });
-    });
+// грид рендер
+
+function renderGrid() {
+  gridEl.innerHTML = '';
+  cellMatrix = [];
+
+  const frag = document.createDocumentFragment();
+
+  const cellSize = window.innerWidth < 768 ? 24 : 28;
+  gridEl.style.gridTemplateColumns =
+    `repeat(${gridData[0].length}, minmax(${cellSize}px,1fr))`;
+
+  for (let r = 0; r < gridData.length; r++) {
+    const rowArr = [];
+
+    for (let c = 0; c < gridData[r].length; c++) {
+      const cell = document.createElement('div');
+
+      cell.className = 'wordsearch-cell';
+      cell.textContent = gridData[r][c];
+
+      cell.dataset.row = r;
+      cell.dataset.col = c;
+
+      frag.appendChild(cell);
+      rowArr.push(cell);
+    }
+
+    cellMatrix.push(rowArr);
   }
 
-  function getDirection(r1, c1, r2, c2) {
-    return { 
-      dr: Math.sign(r2 - r1), 
-      dc: Math.sign(c2 - c1) 
-    };
-  }
+  gridEl.appendChild(frag);
+}
 
-  function isValidWord(cells) {
-    if (cells.length < 3) return false;
-    const word = cells.map(c => c.textContent).join('').toUpperCase();
-    const rev = word.split('').reverse().join('');
-    return wordsToFind.some(w => w === word || w === rev);
-  }
+// кроссворда логика
 
-  function clearTempHighlight() {
-    document.querySelectorAll('.temp-highlight').forEach(el => 
-      el.classList.remove('temp-highlight')
-    );
-  }
+function getDirection(r1, c1, r2, c2) {
+  return {
+    dr: Math.sign(r2 - r1),
+    dc: Math.sign(c2 - c1)
+  };
+}
 
-  function highlightTemp() {
-    clearTempHighlight();
-    selectedCells.forEach(cell => cell.classList.add('temp-highlight'));
-  }
+function isValidWord(cells) {
+  if (cells.length < 3) return false;
 
-  function markAsFound(cells) {
-    cells.forEach(cell => {
-      cell.classList.add('found');
-      cell.classList.remove('temp-highlight');
-    });
-  }
+  const word = cells.map(c => c.textContent).join('').toUpperCase();
+  const rev = word.split('').reverse().join('');
 
-  function markWordInList(word) {
-    const upper = word.toUpperCase();
-    document.querySelectorAll('.skill-word').forEach(li => {
+  return wordsToFind.some(w => w === word || w === rev);
+}
+
+// выделения
+
+function clearTempHighlight() {
+  document.querySelectorAll('.temp-highlight')
+    .forEach(el => el.classList.remove('temp-highlight'));
+}
+
+function highlightTemp() {
+  clearTempHighlight();
+
+  for (let i = 0; i < selectedCells.length; i++) {
+    selectedCells[i].classList.add('temp-highlight');
+  }
+}
+
+function markAsFound(cells) {
+  for (let i = 0; i < cells.length; i++) {
+    const cell = cells[i];
+
+    cell.classList.add('found');
+    cell.classList.remove('temp-highlight');
+  }
+}
+
+function markWordInList(word) {
+  const upper = word.toUpperCase();
+
+  document.querySelectorAll('.skill-word')
+    .forEach(li => {
       if (li.dataset.word === upper) {
         li.classList.add('found');
       }
     });
+}
+
+// зачерк
+
+function checkWin() {
+
+  if (foundWords.size === wordsToFind.length) {
+
+    import('https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js')
+      .then(m => m.default({
+        particleCount: 200,
+        spread: 90,
+        origin: { y: 0.6 }
+      }));
+
+    setTimeout(() => {
+      alert("Congratulations! You found all my skills.");
+    }, 800);
+  }
+}
+
+// события мыши
+
+gridEl.addEventListener('mousedown', e => {
+
+  const cell = e.target.closest('.wordsearch-cell');
+  if (!cell || e.button !== 0) return;
+
+  e.preventDefault();
+
+  clearTempHighlight();
+
+  selectedCells.length = 0;
+
+  isSelecting = true;
+
+  startRow = +cell.dataset.row;
+  startCol = +cell.dataset.col;
+
+  selectedCells.push(cell);
+
+  highlightTemp();
+});
+
+
+gridEl.addEventListener('mousemove', e => {
+
+  if (!isSelecting) return;
+
+  const cell = e.target.closest('.wordsearch-cell');
+  if (!cell) return;
+
+  const endRow = +cell.dataset.row;
+  const endCol = +cell.dataset.col;
+
+  selectedCells.length = 0;
+
+  const { dr, dc } = getDirection(startRow, startCol, endRow, endCol);
+
+  let r = startRow;
+  let c = startCol;
+
+  while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
+
+    const curCell = cellMatrix[r]?.[c];
+
+    if (curCell) selectedCells.push(curCell);
+
+    if (r === endRow && c === endCol) break;
+
+    r += dr;
+    c += dc;
   }
 
-  function checkWin() {
-    if (foundWords.size === wordsToFind.length) {
-      import('https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js')
-        .then(m => m.default({ 
-          particleCount: 200, 
-          spread: 90, 
-          origin: { y: 0.6 } 
-        }));
-      setTimeout(() => alert("Congratulations! You found all my skills."), 800);
-    }
-  }
+  highlightTemp();
+});
 
-  gridEl.addEventListener('mousedown', (e) => {
-    const cell = e.target.closest('.wordsearch-cell');
-    if (!cell || e.button !== 0) return;
 
-    e.preventDefault();
-    
+gridEl.addEventListener('mouseup', () => {
+
+  if (!isSelecting) return;
+
+  isSelecting = false;
+
+  if (selectedCells.length >= 3 && isValidWord(selectedCells)) {
+
+    const wordStr = selectedCells
+      .map(c => c.textContent)
+      .join('')
+      .toUpperCase();
+
+    markAsFound(selectedCells);
+
+    markWordInList(wordStr);
+
+    foundWords.add(wordStr);
+
+    checkWin();
+
+  } else {
+
     clearTempHighlight();
-    selectedCells = [];
-    
-    isSelecting = true;
-    startRow = parseInt(cell.dataset.row);
-    startCol = parseInt(cell.dataset.col);
-    selectedCells = [cell];
-    highlightTemp();
+  }
+
+  selectedCells.length = 0;
+});
+
+
+// на телефончик при касании
+
+gridEl.addEventListener('touchstart', e => {
+
+  const touch = e.touches[0];
+
+  const cell = document
+    .elementFromPoint(touch.clientX, touch.clientY)
+    ?.closest('.wordsearch-cell');
+
+  if (!cell) return;
+
+  e.preventDefault();
+
+  clearTempHighlight();
+  selectedCells.length = 0;
+
+  isSelecting = true;
+
+  startRow = +cell.dataset.row;
+  startCol = +cell.dataset.col;
+
+  selectedCells.push(cell);
+
+  highlightTemp();
+
+}, { passive:false });
+
+
+gridEl.addEventListener('touchmove', e => {
+
+  if (!isSelecting) return;
+
+  e.preventDefault();
+
+  const touch = e.touches[0];
+
+  const cell = document
+    .elementFromPoint(touch.clientX, touch.clientY)
+    ?.closest('.wordsearch-cell');
+
+  if (!cell) return;
+
+  const endRow = +cell.dataset.row;
+  const endCol = +cell.dataset.col;
+
+  selectedCells.length = 0;
+
+  const { dr, dc } = getDirection(startRow, startCol, endRow, endCol);
+
+  let r = startRow;
+  let c = startCol;
+
+  while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
+
+    const curCell = cellMatrix[r]?.[c];
+
+    if (curCell) selectedCells.push(curCell);
+
+    if (r === endRow && c === endCol) break;
+
+    r += dr;
+    c += dc;
+  }
+
+  highlightTemp();
+
+}, { passive:false });
+
+
+gridEl.addEventListener('touchend', () => {
+
+  if (!isSelecting) return;
+
+  isSelecting = false;
+
+  if (selectedCells.length >= 3 && isValidWord(selectedCells)) {
+
+    const wordStr = selectedCells
+      .map(c => c.textContent)
+      .join('')
+      .toUpperCase();
+
+    markAsFound(selectedCells);
+
+    markWordInList(wordStr);
+
+    foundWords.add(wordStr);
+
+    checkWin();
+
+  } else {
+
+    clearTempHighlight();
+  }
+
+  selectedCells.length = 0;
+});
+
+
+// карточки
+
+const memesFrames = document.querySelectorAll('.meme-frame');
+
+const memeImages = Array.from({ length: 27 }, (_, i) =>
+  `/images/flowers/fl${String(i+1).padStart(2,'0')}.jpg`
+);
+
+const memeCache = new Map();
+
+/* preload */
+for (let i = 0; i < memeImages.length; i++) {
+
+  const src = memeImages[i];
+
+  const img = new Image();
+  img.src = src;
+
+  memeCache.set(src, img);
+}
+
+
+function shuffle(arr) {
+
+  for (let i = arr.length - 1; i > 0; i--) {
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+
+function activateRandomMemes() {
+
+  memesFrames.forEach(frame => {
+
+    frame.dataset.active = "false";
+
+    const img = frame.querySelector('img');
+
+    if (img) img.style.opacity = "0";
   });
 
-  gridEl.addEventListener('mousemove', (e) => {
-    if (!isSelecting) return;
-    
-    const cell = e.target.closest('.wordsearch-cell');
-    if (!cell) return;
+  const framesArr = [...memesFrames];
 
-    const endRow = parseInt(cell.dataset.row);
-    const endCol = parseInt(cell.dataset.col);
-    
-    selectedCells = [];
-    const { dr, dc } = getDirection(startRow, startCol, endRow, endCol);
+  shuffle(framesArr);
 
-    let r = startRow, c = startCol;
-    while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
-      const curCell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
-      if (curCell) selectedCells.push(curCell);
-      
-      if (r === endRow && c === endCol) break;
-      r += dr;
-      c += dc;
-    }
-    
-    highlightTemp();
-  });
+  const count = Math.floor(Math.random() * 4) + 3;
 
-  gridEl.addEventListener('mouseup', () => {
-    if (!isSelecting) return;
-    
-    isSelecting = false;
-    
-    if (selectedCells.length >= 3 && isValidWord(selectedCells)) {
-      const wordStr = selectedCells.map(c => c.textContent).join('').toUpperCase();
-      markAsFound(selectedCells);
-      markWordInList(wordStr);
-      foundWords.add(wordStr);
-      checkWin();
+  for (let i = 0; i < count; i++) {
+
+    const frame = framesArr[i];
+    const img = frame.querySelector('img');
+
+    if (!img) continue;
+
+    frame.dataset.active = "true";
+
+    const url = memeImages[
+      Math.floor(Math.random() * memeImages.length)
+    ];
+
+    const cached = memeCache.get(url);
+
+    if (cached?.complete) {
+
+      img.src = url;
+      img.style.opacity = "1";
+
     } else {
-      clearTempHighlight();
+
+      cached.onload = () => {
+        img.src = url;
+        img.style.opacity = "1";
+      };
     }
-    
-    selectedCells = [];
-  });
-
-  gridEl.addEventListener('touchstart', (e) => {
-    const touch = e.touches[0];
-    const cell = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.wordsearch-cell');
-    if (!cell) return;
-    
-    e.preventDefault();
-    clearTempHighlight();
-    selectedCells = [];
-    
-    isSelecting = true;
-    startRow = parseInt(cell.dataset.row);
-    startCol = parseInt(cell.dataset.col);
-    selectedCells = [cell];
-    highlightTemp();
-  }, { passive: false });
-
-  gridEl.addEventListener('touchmove', (e) => {
-    if (!isSelecting) return;
-    e.preventDefault();
-    
-    const touch = e.touches[0];
-    const cell = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.wordsearch-cell');
-    if (!cell) return;
-    
-    const endRow = parseInt(cell.dataset.row);
-    const endCol = parseInt(cell.dataset.col);
-    
-    selectedCells = [];
-    const { dr, dc } = getDirection(startRow, startCol, endRow, endCol);
-    let r = startRow, c = startCol;
-    
-    while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
-      const curCell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
-      if (curCell) selectedCells.push(curCell);
-      if (r === endRow && c === endCol) break;
-      r += dr; c += dc;
-    }
-    highlightTemp();
-  }, { passive: false });
-
-  gridEl.addEventListener('touchend', () => {
-    if (!isSelecting) return;
-    
-    isSelecting = false;
-    
-    if (selectedCells.length >= 3 && isValidWord(selectedCells)) {
-      const wordStr = selectedCells.map(c => c.textContent).join('').toUpperCase();
-      markAsFound(selectedCells);
-      markWordInList(wordStr);
-      foundWords.add(wordStr);
-      checkWin();
-    } else {
-      clearTempHighlight();
-    }
-    selectedCells = [];
-  });
-
-  renderGrid();
-
-  // Мемы
-  const memesFrames = document.querySelectorAll('.meme-frame');
-  const memeImages = Array.from({ length: 65 }, (_, i) => `/images/memes/mem${String(i+1).padStart(2, '0')}.jpg`);
-
-  function activateRandomMemes() {
-    memesFrames.forEach(f => {
-      f.dataset.active = "false";
-      const img = f.querySelector('img');
-      if (img) img.src = "";
-    });
-    const count = Math.floor(Math.random() * 4) + 3;
-    const selected = [...memesFrames].sort(() => Math.random() - 0.5).slice(0, count);
-    selected.forEach(frame => {
-      const img = frame.querySelector('img');
-      if (!img) return;
-      frame.dataset.active = "true";
-      const url = memeImages[Math.floor(Math.random() * memeImages.length)];
-      const pre = new Image();
-      pre.onload = () => img.src = url;
-      pre.src = url;
-    });
   }
+}
 
-  activateRandomMemes();
-  setInterval(activateRandomMemes, 1800);
+// юнит
 
-  window.addEventListener('resize', () => {
+renderGrid();
+
+activateRandomMemes();
+
+setInterval(activateRandomMemes, 1800);
+
+
+// оптимиз
+
+let resizeTimer;
+
+window.addEventListener("resize", () => {
+
+  clearTimeout(resizeTimer);
+
+  resizeTimer = setTimeout(() => {
+
     clearTempHighlight();
+
     renderGrid();
-  });
+
+  }, 200);
+
+});
 </script>

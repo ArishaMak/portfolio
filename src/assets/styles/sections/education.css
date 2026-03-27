@@ -9,6 +9,25 @@
     transform-style: preserve-3d;
 }
 
+/* Grain + TV Static эффект (тот же стиль, что в About) */
+.education::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: #0a0a0a;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeBlend mode='screen'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+
+    background-size: 180px;
+    opacity: 0.62;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    animation: tv-grain 0.45s steps(8) infinite;
+}
+
+/*
 .education__video-container {
     position: absolute;
     top: 0;
@@ -24,7 +43,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
-}
+}*/
 
 .education__grid {
     display: grid;

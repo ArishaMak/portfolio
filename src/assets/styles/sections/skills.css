@@ -59,6 +59,7 @@
     position: relative;
     border-radius: 20px;
     overflow: hidden;
+    background-color: var(--color-page-bg);
 }
 
 .skills__grid::before {
@@ -66,15 +67,28 @@
     position: absolute;
     inset: 0;
     z-index: 0;
+    background-color: #0a0a0a;
     background-image:
-        url('/images/plitka-prelo.jpg'),
-        url('/images/plitka-prelo.jpg');
-    background-size: 180% 180%, 220% 220%;
-    background-position: center;
-    opacity: 0.28;
-    mix-blend-mode: screen;
-    animation: skillsGridGrain 28s linear infinite alternate;
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeBlend mode='screen'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+    background-size: 180px;
+    opacity: 0.58;
+    mix-blend-mode: multiply;
     pointer-events: none;
+    animation: tv-grain 0.48s steps(8) infinite;
+}
+
+.skills__grid::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: repeating-linear-gradient(to bottom,
+            transparent 0px,
+            transparent 2px,
+            rgba(255, 255, 255, 0.035) 2px,
+            rgba(255, 255, 255, 0.035) 4px);
+    pointer-events: none;
+    animation: scanline 6s linear infinite;
 }
 
 .skills__header {

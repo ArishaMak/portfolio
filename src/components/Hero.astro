@@ -3,7 +3,7 @@ import InfoCard from './InfoCard.astro';
 import '../assets/styles/sections/hero.css';
 
 // data для h1 Frontend Enthusiast — Turning ideas into smooth, modern digital experiences
-const textLines = ["Junior", "Frontend Developer"];
+const textLines = ["Junior", "Frontend & Full-Stack", "Developer"];
 
 // переменная для расчета сквозного индекса букв
 let globalCharCounter = 0;
@@ -45,12 +45,11 @@ let globalCharCounter = 0;
         })}
       </h1>
       <h2 class="sub">
-        <span class="typewriter-text">Turning ideas into smooth, modern digital experiences</span>
-      </h2>
-      <p class="p-sub">
-        3rd year BSUIR (MRC) student | Yandex Practicum Fullstack 2025–2026 <br>
-        Open to internships from summer 2026
-      </p>
+  <span 
+    class="typewriter-text" 
+    data-text="Available for Summer 2026 Internship (July–August full-time)\n& Ready to relocate to Warsaw / Kraków\nOpen to part-time collaboration from October while writing my diploma project."
+  ></span>
+</h2>
       <div class="hero__cards">
         <InfoCard
           title="About"
@@ -108,5 +107,58 @@ let globalCharCounter = 0;
   }
 
   // запуск скрипта
+  document.addEventListener('DOMContentLoaded', initHero);
+</script>
+<script>
+  function initHero() {
+    const mainTitle = document.querySelector('.hero__title-main');
+    const shadowTitle = document.querySelector('.hero__title-shadow');
+    const heroTitle = document.querySelector('.hero__title');
+    const typewriterElem = document.querySelector('.typewriter-text');
+    
+    if (!mainTitle || !shadowTitle || !heroTitle) return;
+
+    // 1. Анимация основного заголовка
+    setTimeout(() => {
+      heroTitle.classList.remove('is-loading');
+    }, 2000);
+
+    // 2. Логика печати текста (Typewriter)
+    if (typewriterElem) {
+      const text = typewriterElem.getAttribute('data-text') || "";
+      let charIndex = 0;
+      const typingSpeed = 40; // Скорость в мс
+
+      function type() {
+        if (charIndex < text.length) {
+          typewriterElem.textContent += text.charAt(charIndex);
+          charIndex++;
+          setTimeout(type, typingSpeed);
+        }
+      }
+
+      // Запускаем печать после того, как основной заголовок почти загрузился
+      setTimeout(type, 2500); 
+    }
+
+    // 3. Ховер эффект для букв
+    mainTitle.addEventListener('mouseover', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('letter')) {
+        const idx = target.getAttribute('data-index');
+        const shadowLetter = shadowTitle.querySelector(`[data-index="${idx}"]`);
+
+        [target, shadowLetter].forEach(el => {
+          if (el) {
+            el.classList.remove('jump-on-hover');
+            void (el as HTMLElement).offsetWidth; 
+            el.classList.add('jump-on-hover');
+          }
+        });
+      }
+    });
+  }
+
+  // Запуск
   document.addEventListener('DOMContentLoaded', initHero);
 </script>

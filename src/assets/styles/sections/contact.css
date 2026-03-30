@@ -5,7 +5,60 @@
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden;
+}
+
+.contact-blob {
+    position: absolute;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    z-index: 1;
+    filter: saturate(1.3) contrast(1.1) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.25));
+    animation: hero-blob-float 14s ease-in-out infinite alternate;
+    opacity: 0.85;
+}
+
+.contact-blob--left-large {
+    width: clamp(256px, 28vw, 496px);
+    aspect-ratio: 470 / 420;
+    left: -18vw;
+    bottom: -12%;
+    z-index: 1;
+    transform: rotate(-8deg);
+    background-image: url('/images/galaxy-blob-1.png');
+}
+
+.contact-blob--right-large {
+    width: clamp(110px, 14vw, 170px);
+    aspect-ratio: 382 / 339;
+    right: 12vw;
+    top: -120px;
+    z-index: 2;
+    transform: rotate(15deg);
+    background-image: url('/images/galaxy-blob-2.png');
+}
+
+.contact-blob--right-small {
+    width: clamp(220px, 26vw, 360px);
+    aspect-ratio: 213 / 225;
+    right: -8vw;
+    bottom: -80px;
+    z-index: 1;
+    transform: rotate(-12deg);
+    background-image: url('/images/galaxy-blob-1.png');
+    filter: saturate(1.2) contrast(1.05) drop-shadow(0 40px 80px rgba(0, 0, 0, 0.2));
+    animation-duration: 18s;
+}
+
+@keyframes hero-blob-float {
+    from {
+        transform: translate(0, 0) rotate(var(--rotate-start, 0deg));
+    }
+
+    to {
+        transform: translate(40px, 55px) rotate(var(--rotate-end, 8deg));
+    }
 }
 
 .contact-layout {
@@ -62,13 +115,13 @@
     transition: transform 0.3s ease;
 }
 
-@supports (background-image: image-set(url('dummy.avif') type('image/avif'))) {
+/*@supports (background-image: image-set(url('dummy.avif') type('image/avif'))) {
 
     .text-row span {
         background-image: image-set(url('/images/ковер.avif') type('image/avif'),
                 url('/images/ковер.webp') type('image/webp'));
     }
-}
+}*/
 
 .text-row .letter--white {
     background-image: none !important;

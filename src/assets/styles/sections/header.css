@@ -1,22 +1,11 @@
-.hero,
-.skills,
-.projects,
-.about,
-.contact {
-    scroll-margin-top: 120px;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+/* HEADER – адаптивное поведение */
 
 .header {
     position: sticky;
     top: 10px;
     z-index: var(--z-sticky, 20);
-    padding-block: 0rem;
-    margin: 0;
     pointer-events: none;
+    padding-block: 0;
 }
 
 .header__inner {
@@ -28,59 +17,32 @@ html {
     grid-template-columns: repeat(12, 1fr);
     gap: 1rem;
     align-items: center;
-    background: transparent;
-    box-shadow: none;
 }
 
 .header__nav-link {
     display: flex;
-    overflow: hidden;
     justify-content: center;
     align-items: center;
-    min-width: var(--nav-link-min-width, 140px);
-    height: var(--nav-link-height, 74px);
+    min-width: 140px;
+    height: 74px;
     padding: 0.5rem 1.5rem;
     font-size: 1.1rem;
     font-weight: 500;
     text-decoration: none;
-    color: var(--color-text-primary, #111111);
+    color: var(--color-text-primary);
+    border: 1.5px solid var(--color-text-primary);
+    border-radius: 999px;
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1.5px solid var(--color-text-primary, #111111);
-    border-radius: var(--radius-pill, 999px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     white-space: nowrap;
 }
 
 .header__nav-link:hover {
-    background: var(--color-accent, #1d4bff);
-    opacity: 50%;
-    border: 1.5px solid transparent;
-    color: var(--color-page-bg, #f7f3f6);
-}
-
-.header__nav-link:active {
-    background: var(--color-accent, #1d4bff);
-    color: var(--color-accent);
-    opacity: 90%;
-    border: 1.5px solid var(--color-text-primary, #111111);
-}
-
-.header__nav-link[aria-current="page"] {
-    background: var(--color-accent, #1d4bff);
-    color: var(--color-page-bg, #f7f3f6);
-    opacity: 0.9;
-}
-
-.nav-letter {
-    display: inline-block;
-    transition: color 0.3s ease;
-}
-
-.nav-letter.jump {
-    animation: nav-jump 0.4s ease forwards;
-    animation-delay: var(--nav-delay);
+    background: var(--color-accent);
+    color: var(--color-page-bg);
+    opacity: 0.8;
+    border-color: transparent;
 }
 
 @keyframes nav-jump {
@@ -95,20 +57,12 @@ html {
     }
 }
 
+/* === ADAPTIVE === */
 @media (max-width: 1024px) {
     .header__nav-list {
         display: flex;
         flex-wrap: wrap;
-        max-width: 600px;
-        overflow-x: visible;
-        padding-bottom: 0;
         gap: 0.75rem;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .header__nav-list::-webkit-scrollbar {
-        display: block;
     }
 
     .header__nav-link {
@@ -116,5 +70,11 @@ html {
         height: 54px;
         padding: 0.4rem 1rem;
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .header {
+        display: none;
     }
 }

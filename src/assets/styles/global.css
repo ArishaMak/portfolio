@@ -9,11 +9,15 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    /* Фикс горизонтального скролла от блобов */
 }
 
 body {
     min-inline-size: 320px;
     margin: 0;
+    overflow-x: hidden;
+    /* Дополнительная защита от скролла */
     font-family: var(--font-body);
     color: var(--color-text-primary);
     background: var(--color-page-bg);
@@ -182,4 +186,3 @@ body:not(.loading) .hero {
     font-weight: 600;
     color: #ffffff;
 }
-

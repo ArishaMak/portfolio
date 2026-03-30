@@ -6,79 +6,54 @@ const skillCategories = [
   {
     title: "Core Web Technologies",
     skills: [
-      { name: "HTML5", highlight: false },
-      { name: "CSS3", highlight: false },
-      { name: "Responsive Design (Flexbox, Grid)", highlight: true },
-      { name: "DOM Manipulation", highlight: false },
-      { name: "Web Accessibility (basic)", highlight: true },
-      { name: "Browser DevTools", highlight: false }
+      "HTML5", "CSS3", "Responsive Design (Flexbox, Grid)", "DOM Manipulation",
+      "Web Accessibility (basic)", "Browser DevTools"
     ]
   },
   {
     title: "JavaScript & TypeScript",
     skills: [
-      { name: "JavaScript (ES6+)", highlight: true },
-      { name: "Asynchronous Programming (Promises, async/await)", highlight: true },
-      { name: "TypeScript", highlight: true },
-      { name: "OOP fundamentals", highlight: true },
-      { name: "Functional programming basics", highlight: false },
-      { name: "Modular architecture principles", highlight: true }
+      "JavaScript (ES6+)", "Asynchronous Programming (Promises, async/await)",
+      "TypeScript (basic knowledge)", "OOP fundamentals",
+      "Functional programming basics", "Modular architecture principles"
     ]
   },
   {
     title: "Frontend Frameworks & Libraries",
     skills: [
-      { name: "React", highlight: true },
-      { name: "React Hooks", highlight: true },
-      { name: "Component-based architecture", highlight: true },
-      { name: "React Router", highlight: true },
-      { name: "State lifting & component composition", highlight: true }
+      "React", "React Hooks", "Component-based architecture",
+      "React Router", "State lifting & component composition"
     ]
   },
   {
     title: "State Management",
-    skills: [
-      { name: "Redux (basic knowledge)", highlight: true },
-      { name: "Redux Toolkit (basic)", highlight: true },
-      { name: "React Context API (basic)", highlight: true }
-    ]
+    skills: ["Redux (basic knowledge)", "Redux Toolkit (basic)", "React Context API (basic)"]
   },
   {
     title: "API & Networking",
     skills: [
-      { name: "REST API integration", highlight: true },
-      { name: "RESTful API development", highlight: true },
-      { name: "HTTP methods & status codes", highlight: false },
-      { name: "JSON data handling", highlight: false }
+      "REST API integration", "RESTful API development",
+      "HTTP methods & status codes", "JSON data handling"
     ]
   },
   {
     title: "Backend Fundamentals",
     skills: [
-      { name: "Node.js", highlight: true },
-      { name: "Express.js", highlight: true },
-      { name: "Server routing basics", highlight: false },
-      { name: "Middleware concepts", highlight: false }
+      "Node.js (basic level)", "Express.js",
+      "Server routing basics", "Middleware concepts"
     ]
   },
   {
     title: "Databases",
     skills: [
-      { name: "SQL (DML, DDL)", highlight: true },
-      { name: "Database Design (Normalization, ER-modeling)", highlight: true },
-      { name: "MS SQL Server", highlight: false },
-      { name: "Data Integrity & Constraints", highlight: false },
-      { name: "Database Administration & Security", highlight: false }
+      "SQL (DML, DDL)", "Database Design (Normalization, ER-modeling)",
+      "MS SQL Server", "Data Integrity & Constraints",
+      "Database Administration & Security"
     ]
   },
   {
     title: "Build Tools & Development Environment",
-    skills: [
-      { name: "Vite", highlight: true },
-      { name: "npm / package management", highlight: false },
-      { name: "Project structure & configuration", highlight: false },
-      { name: "Environment variables", highlight: false }
-    ]
+    skills: ["Vite", "npm / package management", "Project structure & configuration", "Environment variables"]
   },
   {
     title: "Testing & Debugging",
@@ -125,9 +100,7 @@ const skillCategories = [
           </div>
           <ul class="skill-card__list">
             {category.skills.map((skill) => (
-              <li class={`skill-card__item ${skill.highlight ? 'highlight' : ''}`}>
-                {skill.name}
-              </li>
+              <li class="skill-card__item">{skill}</li>
             ))}
           </ul>
         </div>

@@ -4,6 +4,9 @@ body .text-accent {
 
 .projects {
     background-color: var(--color-page-bg);
+    position: relative;
+    z-index: 5;
+    padding-top: 2rem;
 }
 
 .projects__header {
@@ -208,12 +211,11 @@ body .text-accent {
 @media (max-width: 1024px) {
     .projects__grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 60px 40px;
-        max-width: none;
+        gap: 40px;
     }
 
     .projects__header {
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
     }
 
     .project-button {
@@ -221,6 +223,13 @@ body .text-accent {
         padding: 0.4rem 1.5rem;
         font-size: 0.95rem;
         min-width: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects__grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
     }
 }
 

@@ -181,3 +181,37 @@
 .social-link:hover {
     opacity: 1;
 }
+
+/* === АДАПТИВНОСТЬ === */
+@media (min-width: 767px) {
+
+    .nav-page,
+    .sidebar-divider {
+        display: none;
+    }
+    
+    .nav-social .nav-item {
+        font-size: 1.6rem;
+        }
+}
+
+@media (max-width: 768px) {
+
+    .nav-page,
+    .sidebar-divider {
+        display: block;
+    }
+
+    .nav-page .nav-item {
+        font-size: 1.6rem;
+    }
+
+    .nav-social .nav-item {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+}
+
+.hamburger-menu {
+    display: flex;
+}

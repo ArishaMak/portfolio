@@ -131,14 +131,28 @@ const skillCategories = [
     if (!skillsSection) return;
 
     window.addEventListener('scroll', () => {
+      // ОГРАНИЧЕНИЕ: Если экран мобильный (480px и меньше), 
+      // сбрасываем стили и выходим из функции
+      if (window.innerWidth <= 480) {
+        skillsSection.style.transform = 'none';
+        skillsSection.style.perspective = 'none';
+        return; 
+      }
+
       const rect = skillsSection.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
+      // Выполняем расчет только если секция в поле зрения
       if (rect.top < windowHeight && rect.bottom > 0) {
         const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
-        const scale = 1 - (scrollProgress * 0.15);
-        const translateZ = scrollProgress * -100;
+        
+        // Ограничиваем прогресс от 0 до 1, чтобы избежать резких скачков
+        const safeProgress = Math.min(Math.max(scrollProgress, 0), 1);
+        
+        const scale = 1 - (safeProgress * 0.15);
+        const translateZ = safeProgress * -100;
 
+        skillsSection.style.perspective = '1000px';
         skillsSection.style.transform = `scale(${scale}) translateZ(${translateZ}px)`;
       }
     });

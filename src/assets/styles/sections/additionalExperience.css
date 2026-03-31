@@ -190,13 +190,67 @@
     }
 }
 
-.reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+@media (max-width: 480px) {
 
-.reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+    .additional-exp {
+        padding-block: 2rem !important;
+    }
+
+    .additional-exp .container {
+        padding-inline: 10px;
+    }
+
+    .section__header {
+        margin-bottom: 2rem;
+        justify-content: left;
+    }
+
+    .section__title {
+        font-size: 2.2rem !important;
+    }
+
+    .exp-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px 10px;
+    }
+
+    .exp-card {
+        min-height: auto;
+    }
+
+    .exp-card__company {
+        font-size: 0.85rem !important;
+        margin-bottom: 2px;
+        line-height: 1.2;
+        min-height: 2rem;
+    }
+
+    .exp-card__date {
+        font-size: 0.65rem !important;
+        margin-bottom: 12px;
+    }
+
+    .exp-card__item {
+        font-size: 0.75rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 6px;
+        padding-left: 10px;
+        word-break: break-word;
+    }
+
+    .exp-card__item::before {
+        font-size: 0.6rem;
+    }
+
+    .star--1 {
+        display: none;
+    }
+
+    .star--3 {
+        display: none;
+    }
+
+    .projects__bracket {
+        width: 20px;
+    }
 }

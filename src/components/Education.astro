@@ -89,23 +89,29 @@ import '../assets/styles/sections/education.css';
     if (!section) return;
 
     function update() {
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      const progress = Math.min(Math.max(1 - rect.top / windowHeight, 0), 1);
-
-      const scale = 1 - progress * 0.15;
-      const z = progress * -200;
-      const rotateX = progress * 5;
-
-      section.style.transform = `
-        translateZ(${z}px)
-        scale(${scale})
-        rotateX(${rotateX}deg)
-      `;
-
+    // ✅ ОТКЛЮЧАЕМ НА МОБИЛКЕ
+    if (window.innerWidth <= 480) {
+      section.style.transform = 'none';
       requestAnimationFrame(update);
+      return;
     }
+
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const progress = Math.min(Math.max(1 - rect.top / windowHeight, 0), 1);
+
+    const scale = 1 - progress * 0.15;
+    const z = progress * -200;
+    const rotateX = progress * 5;
+
+    section.style.transform = `
+      translateZ(${z}px)
+      scale(${scale})
+      rotateX(${rotateX}deg)
+    `;
+
+    requestAnimationFrame(update);
+  }
 
     requestAnimationFrame(update);
   }

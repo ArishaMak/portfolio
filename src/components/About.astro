@@ -90,29 +90,37 @@ import '../assets/styles/sections/about.css';
   document.addEventListener('astro:after-swap', initAboutReveal);
 
   function initScrollDepth() {
-  const section = document.querySelector(".about");
+    const section = document.querySelector(".about");
+    if (!section) return;
 
-  function update() {
-    const rect = section.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    function update() {
+      // Проверяем ширину экрана. Если меньше 480 — сбрасываем стили и выходим
+      if (window.innerWidth <= 480) {
+        section.style.transform = '';
+        return; 
+      }
 
-    const progress = Math.min(Math.max(1 - rect.top / windowHeight, 0), 1);
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-    const scale = 1 - progress * 0.15;
-    const z = progress * -200;
-    const rotateX = progress * 5;
+      // Рассчитываем прогресс (от 0 до 1)
+      const progress = Math.min(Math.max(1 - rect.top / windowHeight, 0), 1);
 
-    section.style.transform = `
-      translateZ(${z}px)
-      scale(${scale})
-      rotateX(${rotateX}deg)
-    `;
+      const scale = 1 - progress * 0.15;
+      const z = progress * -200;
+      const rotateX = progress * 5;
+
+      section.style.transform = `
+        translateZ(${z}px)
+        scale(${scale})
+        rotateX(${rotateX}deg)
+      `;
+
+      requestAnimationFrame(update);
+    }
 
     requestAnimationFrame(update);
   }
-
-  requestAnimationFrame(update);
-}
 
 initScrollDepth();
 document.addEventListener("astro:after-swap", initScrollDepth);

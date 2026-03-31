@@ -79,9 +79,16 @@ function renderGrid() {
 
   const frag = document.createDocumentFragment();
 
-  const cellSize = window.innerWidth < 768 ? 24 : 28;
-  gridEl.style.gridTemplateColumns =
-    `repeat(${gridData[0].length}, minmax(${cellSize}px,1fr))`;
+  let cellSize;
+  if (window.innerWidth <= 480) {
+    cellSize = 20;  // Мобильный ≤480px
+  } else if (window.innerWidth < 768) {
+    cellSize = 24;  // Планшет 481-767px
+  } else {
+    cellSize = 28;  // Десктоп ≥768px
+  }
+
+  gridEl.style.gridTemplateColumns = `repeat(${gridData[0].length}, minmax(${cellSize}px, 1fr))`;
 
   for (let r = 0; r < gridData.length; r++) {
     const rowArr = [];
@@ -91,7 +98,6 @@ function renderGrid() {
 
       cell.className = 'wordsearch-cell';
       cell.textContent = gridData[r][c];
-
       cell.dataset.row = r;
       cell.dataset.col = c;
 

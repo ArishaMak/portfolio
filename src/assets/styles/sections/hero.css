@@ -403,6 +403,14 @@
     }
 }
 
+@media (max-width: 1100px) {
+    .hero {
+        min-height: 0 !important;
+        height: auto !important;
+        padding-bottom: 40px;
+    }
+}
+
 /* Планшет */
 @media (max-width: 1024px) {
     .hero__cards {
@@ -429,7 +437,7 @@
     }
 
     .hero__title {
-        font-size: clamp(3rem, 4vw + 2.5rem, 4rem);
+        font-size: clamp(3rem, 4vw + 2.5rem, 3.5rem);
     }
 
     .hero__blob--left-large {
@@ -447,7 +455,7 @@
     }
 
     .hero__title {
-        font-size: clamp(3rem, 4vw + 2.5rem, 4rem);
+        font-size: clamp(3rem, 4vw + 2.5rem, 3.5rem);
     }
 
     .sub {
@@ -458,13 +466,13 @@
 }
 
 /* Смартфон — основной брейкпоинт */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (max-width: 853){
     .hero {
-        display: block;
-        padding: 70px 1.25rem 2.5rem;
         min-height: 0;
         height: auto;
-    }
+        padding-top: 120px;
+        padding-bottom: 70px;
+    }   
 
     .hero__layout {
         justify-content: flex-start;
@@ -521,7 +529,7 @@
 @media (max-width: 480px) {
     .hero {
         display: block;
-        padding: 25px 22px 50px;
+        padding: 25px 22px 2px;
         min-height: 0;
         height: auto;
     }
@@ -593,8 +601,8 @@
         width: 300px;
         height: 250px;
         max-width: 300px;
-        right: 20px;
-        bottom: 375px;
+        right: -50px;
+        bottom: 80px;
         top: auto;
         transform: rotate(-12deg);
         z-index: 4;
@@ -604,8 +612,8 @@
     .hero__blob--right-large {
         width: 68px;
         height: 62px;
-        right: 25px;
-        bottom: 320px;
+        right: -15px;
+        bottom: 90px;
         top: auto;
         transform: rotate(15deg);
         z-index: 3;
@@ -615,12 +623,21 @@
 
     .hero__blob--left-large {
         width: clamp(180px, 48vw, 290px);
-        left: -12px;
+        left: -100px;
         bottom: -8%;
     }
 
     .info-card:nth-child(3) {
         grid-column: auto !important;
         grid-column-start: auto !important;
+    }
+
+    .hero__blob,
+    .hero__blob--left-large,
+    .hero__blob--right-large,
+    .hero__blob--right-small {
+        animation: none !important;
+        /* Если анимация все еще видна, можно также сбросить трансформации */
+        /* transform: none !important; */
     }
 }

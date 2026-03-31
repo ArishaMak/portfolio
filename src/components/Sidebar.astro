@@ -32,18 +32,20 @@ const socialLinks = [
 <aside class="sidebar-container">
   <div class="sidebar-inner">
     <nav class="sidebar-navigation">
-      <!-- Якоря только на мобильных -->
-      <ul class="nav-menu nav-page">
+
+      <!-- Якоря по сайту — только на мобильных -->
+      <ul class="nav-menu nav-page mobile-only">
         {pageNav.map(link => (
           <li>
-            <a href={link.href} class="nav-item"> {link.label} </a>
+            <a href={link.href} class="nav-item">{link.label}</a>
           </li>
         ))}
       </ul>
 
-      <hr class="sidebar-divider" />
+      <!-- Разделитель — только на мобильных -->
+      <hr class="sidebar-divider mobile-only" />
 
-      <!-- Соцсети на всех экранах -->
+      <!-- Соцсети — всегда видимы -->
       <ul class="nav-menu nav-social">
         {socialLinks.map(link => (
           <li>
@@ -67,8 +69,8 @@ const socialLinks = [
 </aside>
 
 <script>
-  const links = document.querySelectorAll('.nav-item');
   const toggle = document.getElementById('sidebar-toggle');
+  const links = document.querySelectorAll('.nav-item');
 
   links.forEach(link => {
     link.addEventListener('click', () => {
@@ -76,10 +78,11 @@ const socialLinks = [
     });
   });
 
+  // Переключатель темы
   document.getElementById('theme-switcher')?.addEventListener('click', () => {
     const html = document.documentElement;
-    const current = html.getAttribute('data-theme');
+    const current = html.getAttribute('data-theme') || 'light';
     const target = current === 'dark' ? 'light' : 'dark';
-    document.dispatchEvent(new CustomEvent('theme-change', { detail: { theme: target } }));
+    html.setAttribute('data-theme', target);
   });
 </script>

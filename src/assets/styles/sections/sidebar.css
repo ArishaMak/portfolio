@@ -182,17 +182,8 @@
     opacity: 1;
 }
 
-/* === АДАПТИВНОСТЬ === */
-@media (min-width: 767px) {
-
-    .nav-page,
-    .sidebar-divider {
-        display: none;
-    }
-    
-    .nav-social .nav-item {
-        font-size: 1.6rem;
-        }
+.mobile-only {
+    display: none !important;
 }
 
 @media (max-width: 768px) {
@@ -210,8 +201,66 @@
         font-size: 1.2rem;
         opacity: 0.9;
     }
+    
+    .mobile-only {
+        display: none !important;
+    }
 }
 
-.hamburger-menu {
-    display: flex;
+@media (max-width: 480px) {
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .mobile-only {
+        display: flex !important;
+        flex-direction: column;
+        padding-block: 0.35rem;
+        line-height: 1.35;
+    }
+
+    .nav-page,
+    .sidebar-divider {
+        display: block;
+    }
+
+    .sidebar-container {
+        width: min(40vw, 320px);
+        max-width: 320px;
+        right: -100%;
+    }
+
+    .sidebar-inner {
+        padding: 4rem 2rem 2.5rem;
+    }
+
+    .nav-item {
+        font-size: 14px !important;
+        font-weight: 500;
+        padding-block: 0.35rem;
+        line-height: 1.35;
+    }
+
+    .social-mini {
+        gap: 0.25rem;
+    }
+
+    .social-link {
+        font-size: 14px;
+    }
+
+    .theme-status {
+        font-size: 0.6rem;
+    }
+
+    .track {
+        width: 45px;
+        height: 21px;
+    }
+
+    .thumb {
+        width: 13px;
+        height: 13px;
+    }
 }

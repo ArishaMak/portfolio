@@ -1,3 +1,33 @@
+/*.hero {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: calc(100vh - 120px);
+    min-height: calc(100svh - 120px);
+    width: 100%;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.hero__container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.hero__layout {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(2rem, 4vh, 3rem);
+    position: relative;
+    z-index: 10;
+}*/
+
 .hero {
     display: flex;
     flex-direction: column;
@@ -127,8 +157,11 @@
     width: 100%;
     cursor: default;
     line-height: 1.05;
-    word-spacing: 0.2em;
-    margin: 0 0 clamp(2rem, 4vh, 3.5rem) 0;
+    word-spacing: 0.1em;
+    margin: 0 0 clamp(1.5rem, 3vh, 2.5rem) 0;
+    hyphens: none;
+    overflow-wrap: anywhere;
+    white-space: nowrap;
 }
 
 .hero__title-main,
@@ -370,28 +403,33 @@
     }
 }
 
+/* Планшет */
 @media (max-width: 1024px) {
     .hero__cards {
         grid-template-columns: repeat(2, 1fr);
         gap: clamp(1.5rem, 5vw, 2.5rem);
-        align-items: stretch;
     }
 
     .info-card {
         height: auto;
         min-height: 0;
         padding: clamp(1.2rem, 3vw, 1.5rem);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .card-title {
-        margin-bottom: 0.3rem;
     }
 
     .info-card:nth-child(3) {
         grid-column: 1 / -1;
+    }
+
+    .info-card:nth-child(3) {
+        grid-column-start: 2;
+    }
+
+    .hero__blob--right-small {
+        right: 2vh;
+    }
+
+    .hero__title {
+        font-size: clamp(3rem, 4vw + 2.5rem, 4rem);
     }
 
     .hero__blob--left-large {
@@ -408,12 +446,8 @@
         right: 2vh;
     }
 
-    .info-card:nth-child(3) {
-        grid-column-start: 2;
-    }
-
     .hero__title {
-        font-size: clamp(3rem, 7vw, 7rem);
+        font-size: clamp(3rem, 4vw + 2.5rem, 4rem);
     }
 
     .sub {
@@ -423,91 +457,170 @@
     }
 }
 
-@media (max-width: 1100px) {
-
-    .hero {
-        min-height: calc(80vh - 80px);
-        padding-bottom: 1rem;
-        margin-bottom: -4rem;
-    }
-
-    .wordsearch-wrapper {
-        margin: 2rem 0 3rem;
-    }
-
-    :root {
-        --section-gap: 3rem;
-    }
-
-    .skills {
-        padding: 2rem 0;
-    }
-
-    .hero__layout {
-        gap: clamp(1.5rem, 3vh, 2rem);
-    }
-
-    .hero__cards {
-        margin-top: 1rem;
-        padding-bottom: 1rem;
-    }
-}
-
+/* Смартфон — основной брейкпоинт */
 @media (max-width: 768px) {
     .hero {
-        min-height: calc(100svh - 100px);
-        padding: 2rem 1rem 1rem;
-    }
-
-    .hero__title {
-        font-size: clamp(2.25rem, 8vw, 4rem);
-        word-spacing: 0.1em;
-        line-height: 1.1;
-        text-align: left;
-        margin-bottom: 1rem;
+        display: block;
+        padding: 70px 1.25rem 2.5rem;
+        min-height: 0;
+        height: auto;
     }
 
     .hero__layout {
-        align-items: flex-start;
+        justify-content: flex-start;
         gap: 1.25rem;
     }
 
+    .hero__title {
+        font-size: clamp(2.1rem, 6.5vw, 2.9rem);
+        margin-bottom: 0.8rem;
+        line-height: 1.08;
+        white-space: normal;
+    }
+
     .sub {
-        font-size: clamp(0.95rem, 3.5vw, 1.2rem);
-        line-height: 1.4;
-        opacity: 0.85;
-        margin-bottom: 1.25rem;
-    }
-
-    .hero__blob--left-large,
-    .hero__blob--right-large {
-        display: none;
-    }
-
-    .hero__blob--right-small {
-        top: -18vh;
-        right: -6vw;
-        width: 170px;
-        opacity: 0.5;
+        font-size: clamp(0.95rem, 3.8vw, 1.1rem);
+        line-height: 1.45;
+        margin-top: 0;
+        margin-bottom: 1.75rem;
     }
 
     .hero__cards {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.25rem;
         margin-top: 1rem;
     }
 
     .info-card {
-        padding: 1.25rem 1.1rem;
+        padding: 1.5rem;
+    }
+
+    .hero__blob {
+        opacity: 0.25;
+    }
+
+    .hero__blob--left-large {
+        width: clamp(180px, 48vw, 290px);
+        left: -12vw;
+        bottom: -8%;
+    }
+
+    .hero__blob--right-large {
+        max-width: 105px;
+        min-width: 85px;
+        right: 6vw;
+        top: -110px;
+        transform: rotate(-5deg);
+    }
+
+    .hero__blob--right-small {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        display: block;
+        padding: 25px 22px 50px;
+        min-height: 0;
         height: auto;
+    }
+
+    .hero__layout {
+        justify-content: flex-start;
+        gap: 18px;
+    }
+
+    .hero__title {
+        font-size: 48px !important;
+        line-height: 1.05;
+        margin-bottom: 14px;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .sub {
+        font-size: 10px !important;
+        line-height: 1.5;
+        margin-top: 0;
+        margin-bottom: 28px;
+        color: var(--color-accent, #1d4bff);
+        max-width: 100%;
+        font-weight: 600;
+    }
+
+    .hero__cards {
+        display: flex !important;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 0;
+        width: 100%;
+    }
+
+    .info-card {
+        width: 230px;
+        max-width: 100%;
+        height: auto;
+        min-height: 0;
+        padding: 0.5rem 14px;
         border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
     }
 
     .card-title {
-        font-size: clamp(1rem, 4vw, 1.25rem);
+        margin-top: 0.5rem;
+        font-size: 14px !important;
+        line-height: 1.2;
+        margin-bottom: 0.3rem;
+    }
+    
+    .card-content {
+        gap: 0;
+    }
+    
+    .card-line {
+        font-size: 10px !important;
+        line-height: 1.2;
     }
 
-    .card-line {
-        font-size: clamp(0.85rem, 3vw, 1rem);
+    .hero__blob {
+        opacity: 0.92;
+    }
+    
+    .hero__blob--right-small {
+        width: 300px;
+        height: 250px;
+        max-width: 300px;
+        right: 20px;
+        bottom: 375px;
+        top: auto;
+        transform: rotate(-12deg);
+        z-index: 4;
+        opacity: 0.96;
+    }
+    
+    .hero__blob--right-large {
+        width: 68px;
+        height: 62px;
+        right: 25px;
+        bottom: 320px;
+        top: auto;
+        transform: rotate(15deg);
+        z-index: 3;
+        opacity: 0.85;
+        display: block;
+    }
+
+    .hero__blob--left-large {
+        width: clamp(180px, 48vw, 290px);
+        left: -12px;
+        bottom: -8%;
+    }
+
+    .info-card:nth-child(3) {
+        grid-column: auto !important;
+        grid-column-start: auto !important;
     }
 }

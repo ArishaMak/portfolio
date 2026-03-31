@@ -2,10 +2,12 @@
 import InfoCard from './InfoCard.astro';
 import '../assets/styles/sections/hero.css';
 
-// data для h1 Frontend Enthusiast — Turning ideas into smooth, modern digital experiences
-const textLines = ["Junior", "Frontend & Full-Stack", "Developer"];
+const isMobile = Astro.clientWidth <= 480; // Проверяем ширину на сервере (Astro)
 
-// переменная для расчета сквозного индекса букв
+const textLines = isMobile 
+  ? ["Junior", "Frontend &", "Full-Stack", "Developer"] // Мобильная версия
+  : ["Junior", "Frontend & Full-Stack", "Developer"]; // Десктоп + планшет
+
 let globalCharCounter = 0;
 ---
 
@@ -13,9 +15,7 @@ let globalCharCounter = 0;
   <div class="hero__container page">
     <div class="hero__layout">
       <h1 class="hero__title is-loading" aria-label="Junior Frontend & Full-Stack Developer">
-        {/* генерация двух слоёв на стороне сервера */}
         {['shadow', 'main'].map((type) => {
-          // сброс счетчика перед генерацией второго слоя, чтобы индексы совпали
           globalCharCounter = 0;
           
           return (
@@ -37,6 +37,7 @@ let globalCharCounter = 0;
                       </span>
                     );
                   })}
+                  {/* Добавляем <br> между всеми строками на мобильной версии */}
                   {lineIdx < textLines.length - 1 && <br />}
                 </>
               ))}
@@ -45,11 +46,11 @@ let globalCharCounter = 0;
         })}
       </h1>
       <h2 class="sub">
-  <span 
-    class="typewriter-text" 
-    data-text="Available for Summer 2026 Internship (July–August full-time)\n& Ready to relocate to Warsaw / Kraków\nOpen to part-time collaboration from October while writing my diploma project."
-  ></span>
-</h2>
+        <span 
+        class="typewriter-text" 
+        data-text="Available for Summer 2026 Internship (July–August full-time)\n& Ready to relocate to Warsaw / Kraków\nOpen to part-time collaboration from October while writing my diploma project."
+        ></span>
+      </h2>
       <div class="hero__cards">
         <InfoCard
           title="About"

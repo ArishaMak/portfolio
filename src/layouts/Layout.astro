@@ -22,7 +22,7 @@ import '../assets/fonts/fonts.css';
 import Cursor from '../components/Cursor.astro';
 
 const base = '/portfolio';
-const { title = 'Arina N. Makovchik • Aspiring Frontend Developer • Resume' } = Astro.props;
+const { title = 'Arina N. Makovchik • Frontend Developer • Resume' } = Astro.props;
 ---
 
 <!doctype html>
@@ -36,6 +36,20 @@ const { title = 'Arina N. Makovchik • Aspiring Frontend Developer • Resume' 
     <link rel="preload" as="image" href="/images/ковер.avif" type="image/avif" fetchpriority="high">
     <title>{title}</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-image.png" />
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1d4bff">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+
+    <meta name="description" content="Arina Makovchik — Frontend Developer. React, TypeScript, Astro portfolio with interactive projects.">
+    <meta property="og:title" content="Arina Makovchik • Frontend Portfolio">
+    <meta property="og:description" content="Interactive portfolio with WordSearch game, parallax effects, and modern frontend skills.">
+    <meta property="og:image" content="/images/og-image.jpg">
+    <meta property="og:url" content="https://arishamak.netlify.app">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
   </head>
   <body class="loading"> 
 

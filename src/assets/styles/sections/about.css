@@ -453,9 +453,6 @@ body .about__bracket {
     }
 
     .about__title {
-        /*font-size: 1.8rem !important;
-        line-height: 1;
-        text-align: left;*/
         display: none;
     }
 

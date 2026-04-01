@@ -201,105 +201,65 @@
 
 @media (max-width: 480px) {
 
+    /* Убираем внешнюю рамку секции */
     .education {
         padding: 1rem 0.5rem;
     }
 
+    /* Карточка теперь занимает всю ширину, убираем грид */
     .education__grid {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
         padding: 1.5rem 1rem;
-        border-radius: 16px;
+        /* Внутренние отступы самой карточки */
     }
 
+    /* Сбрасываем колонки грида для всех дочерних элементов */
     .education__header,
     .education__main {
         grid-column: auto !important;
         width: 100%;
         padding-left: 0 !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* Центрируем содержимое */
-    }
-
-    /* Заголовок Education */
-    .education__header {
-        gap: 1.8rem;
-        text-align: justify;
     }
 
     .education__title {
-        font-size: 2.2rem !important;
-        line-height: 1;
+        font-size: 1.8rem !important;
         text-align: justify;
     }
 
-    /* Скобки в заголовке */
     .education__bracket {
-        left: -50px;
         width: 25px;
     }
 
-    /* Блок с годами обучения */
+    /* Года выстраиваем строго в колонку */
     .education__years {
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        align-items: left;
-    }
-
-    .education__year-item {
-        text-align: left;
+        flex-direction: column !important;
+        gap: 1.25rem;
     }
 
     .education__year-item strong {
-        font-size: 1.5rem !important;
+        font-size: 1.3rem;
     }
 
-    .education__year-item span {
-        font-size: 0.9rem !important;
-    }
-
-    /* Текст мотивации */
+    /* Текст мотивации и арт-фраза */
     .education__motivation p {
         font-size: 0.95rem;
         text-align: justify;
-        line-height: 1.5;
-    }
-
-    /* Цитата/Арт-фраза */
-    .education__art-phrase {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
+        /* Убираем justify для лучшей читаемости на узком экране */
+        justify-content: center;
         align-items: center;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
     }
 
     .art-phrase {
-        font-size: 1.8rem !important;
+        font-size: 1.4rem;
+        line-height: 1.2;
         text-align: center;
-        margin-bottom: 1.8rem;
     }
 
-    /* Подпись к цитате */
-    .art-subtext {
-        font-size: 0.85rem;
-        border-left: none;
-        /* Убираем боковую линию для мобильной центровки */
-        border-top: 1.5px solid var(--pr-brackets, #0038FF);
-        /* Добавляем линию сверху */
-        padding-left: 0;
-        padding-top: 0.5rem;
-        text-align: center;
-        width: 60%;
-    }
-
-    /* Отключаем тяжелые фоновые эффекты для мобильных */
-    .education::before {
+    /* Отключаем шум и полосы для производительности на мобилках (как в About) */
+    .education::before,
+    .education::after {
         display: none;
     }
 }

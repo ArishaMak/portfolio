@@ -263,4 +263,35 @@
         width: 13px;
         height: 13px;
     }
+
+        .hamburger-menu {
+            /* Уменьшаем размер самого квадрата кнопки в два раза (было 48px) */
+            width: 30px !important;
+            height: 30px !important;
+    
+            /* Смещаем кнопку чуть ближе к углу, чтобы она не "висела" (опционально) */
+            top: 1rem !important;
+            border-radius: 8px !important;
+            /* Уменьшаем радиус скругления пропорционально */
+        }
+    
+        .burger-lines {
+            /* Уменьшаем область линий (было 22x14) */
+            width: 15px !important;
+            height: 10px !important;
+        }
+    
+        .line {
+            /* Делаем линии чуть тоньше, чтобы они не выглядели грубо (было 2px) */
+            height: 1.5px !important;
+        }
+    
+        /* Корректируем смещение для анимации крестика (было 6px) */
+        .sidebar-switch:checked+.hamburger-menu .line.top {
+            transform: translateY(3.5px) rotate(45deg) !important;
+        }
+    
+        .sidebar-switch:checked+.hamburger-menu .line.bottom {
+            transform: translateY(-3.5px) rotate(-45deg) !important;
+        }
 }

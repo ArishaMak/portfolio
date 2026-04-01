@@ -218,6 +218,40 @@
     }
 }
 
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+
+    .memes-sidebar {
+        display: none !important;
+    }
+
+    .wordsearch-layout {
+        justify-content: center !important;
+        gap: 3rem;
+        padding: 0 2rem;
+    }
+
+    .wordsearch-right-section {
+        flex: 0 1 auto;
+        min-width: auto;
+        justify-content: center;
+    }
+
+    .wordsearch-words-left {
+        flex: 0 0 auto;
+        min-width: 250px;
+    }
+
+    .wordsearch-grid-container {
+        max-width: 500px;
+        flex: 0 0 500px;
+    }
+
+    .wordsearch-grid {
+        grid-template-columns: repeat(14, minmax(22px, 1fr));
+        padding: 1rem;
+    }
+}
+
 @media (max-width: 1100px) {
     .wordsearch-layout {
         gap: 1.5rem 2rem;

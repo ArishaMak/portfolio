@@ -73,76 +73,66 @@ let globalCharCounter = 0;
       <div class="blob-layer--front"></div>
     </div>
     <div class="hero__blob hero__blob--right-small"></div>
+    <div class="hero__blob hero__blob--left-large-hero"></div>
   </div>
 </section>
 
 <script>
   function initHero() {
+    const heroTitle = document.querySelector('.hero__title');
     const mainTitle = document.querySelector('.hero__title-main');
     const shadowTitle = document.querySelector('.hero__title-shadow');
-    const heroTitle = document.querySelector('.hero__title');
-    
-    if (!mainTitle || !shadowTitle || !heroTitle) return;
-
-    // убрать состояние загрузки через 2с
-    setTimeout(() => {
-      heroTitle.classList.remove('is-loading');
-    }, 2000);
-
-    // оптимизированный ховер: используем делегирование событий
-    mainTitle.addEventListener('mouseover', (e) => {
-      const target = e.target as HTMLElement;
-      if (target.classList.contains('letter')) {
-        const idx = target.getAttribute('data-index');
-        const shadowLetter = shadowTitle.querySelector(`[data-index="${idx}"]`);
-
-        [target, shadowLetter].forEach(el => {
-          if (el) {
-            el.classList.remove('jump-on-hover');
-            void (el as HTMLElement).offsetWidth; // перезапуск анимации
-            el.classList.add('jump-on-hover');
-          }
-        });
-      }
-    });
-  }
-
-  // запуск скрипта
-  document.addEventListener('DOMContentLoaded', initHero);
-</script>
-<script>
-  function initHero() {
-    const mainTitle = document.querySelector('.hero__title-main');
-    const shadowTitle = document.querySelector('.hero__title-shadow');
-    const heroTitle = document.querySelector('.hero__title');
     const typewriterElem = document.querySelector('.typewriter-text');
-    
-    if (!mainTitle || !shadowTitle || !heroTitle) return;
+    const sidebarSwitch = document.querySelector('.sidebar-switch') as HTMLInputElement;
 
-    // 1. Анимация основного заголовка
-    setTimeout(() => {
+    if (!heroTitle || !mainTitle || !shadowTitle || !typewriterElem) return;
+
+    let isStarted = false;
+
+    // Основная функция запуска анимации
+    function startSequence() {
+      if (isStarted) return;
+      isStarted = true;
+
+      // 1. Появление букв h1 (управляется CSS через .is-loading)
       heroTitle.classList.remove('is-loading');
-    }, 2000);
 
-    // 2. Логика печати текста (Typewriter)
-    if (typewriterElem) {
-      const text = typewriterElem.getAttribute('data-text') || "";
+      // 2. Запуск печатной машинки h2
+      const fullText = typewriterElem.getAttribute('data-text') || "";
       let charIndex = 0;
-      const typingSpeed = 40; // Скорость в мс
+      typewriterElem.textContent = ""; // Очищаем перед стартом
 
       function type() {
-        if (charIndex < text.length) {
-          typewriterElem.textContent += text.charAt(charIndex);
-          charIndex++;
-          setTimeout(type, typingSpeed);
+        if (charIndex < fullText.length) {
+          if (fullText.substr(charIndex, 2) === "\\n") {
+            typewriterElem.innerHTML += "<br>";
+            charIndex += 2;
+          } else {
+            typewriterElem.innerHTML += fullText.charAt(charIndex);
+            charIndex++;
+          }
+          setTimeout(type, 35);
         }
       }
-
-      // Запускаем печать после того, как основной заголовок почти загрузился
-      setTimeout(type, 2500); 
+      
+      // Небольшая задержка, чтобы h1 начал проявляться первым
+      setTimeout(type, 500);
     }
 
-    // 3. Ховер эффект для букв
+    // Слушаем закрытие сайдбара
+    if (sidebarSwitch) {
+      sidebarSwitch.addEventListener('change', () => {
+        if (!sidebarSwitch.checked) {
+          // Запуск через 400мс после того, как шторка начала уезжать
+          setTimeout(startSequence, 400);
+        }
+      });
+    }
+
+    // Резервный запуск (если пользователь не открыл меню в течение 2 сек)
+    setTimeout(startSequence, 2000);
+
+    // Ховер эффект для букв (делегирование)
     mainTitle.addEventListener('mouseover', (e) => {
       const target = e.target as HTMLElement;
       if (target.classList.contains('letter')) {
@@ -160,6 +150,6 @@ let globalCharCounter = 0;
     });
   }
 
-  // Запуск
+  // Запуск при загрузке
   document.addEventListener('DOMContentLoaded', initHero);
 </script>

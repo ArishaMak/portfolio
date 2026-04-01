@@ -3,7 +3,28 @@ import '../assets/styles/sections/projects.css';
 
 const allProjects = [
   {
-    title: "Article Customizer: Component-Driven Development Project",
+  title: "Stellar Burger – Scalable SPA Architecture with Redux & Real-Time Data (Practicum)",
+  date: "February 2026 - April 2026",
+  description: [
+    "Scalable State Architecture: Architected a scalable client-side state management system using Redux Toolkit with domain-driven slice separation (ingredients, burgerConstructor, orders, user, feed), enabling predictable state transitions and maintainable code boundaries.",
+    "Advanced Asynchronous Data Flow: Designed a robust async data layer using createAsyncThunk and Redux Thunk middleware to orchestrate API communication, request lifecycle handling (pending/fulfilled/rejected), and centralized error management.",
+    "Authentication & Security Layer: Implemented a secure token-based authentication mechanism with access and refresh tokens, including automatic token renewal via fetchWithRefresh to maintain session continuity and prevent unauthorized API access.",
+    "Route-Level Access Control: Engineered a protected routing system using React Router with role-based access control patterns and redirect preservation, ensuring seamless user experience when accessing restricted routes.",
+    "Complex UI State Orchestration: Developed sophisticated UI state logic for the burger constructor including constraint enforcement (single bun rule), dynamic ingredient aggregation, real-time price computation, and UI counter synchronization.",
+    "Drag-and-Drop State Synchronization: Implemented deterministic drag-and-drop reordering for burger ingredients with immutable state updates, ensuring consistency between UI state and Redux store.",
+    "Modal-Driven Navigation Architecture: Implemented route-driven modal rendering using the background location pattern in React Router, enabling deep linking for modals while preserving navigation history and UX continuity.",
+    "Real-Time Data Rendering: Integrated dynamic order feeds and user-specific order history with server synchronization, supporting real-time updates and complex data transformation for order status visualization.",
+    "Strict Type System Enforcement: Leveraged TypeScript to enforce strong typing across the entire application stack including Redux store, async thunks, API responses, and component contracts, significantly improving maintainability and runtime reliability.",
+    "Reusable Component System: Designed a composable React component architecture emphasizing separation of concerns, high cohesion, and low coupling, enabling efficient component reuse across application domains.",
+    "API Integration Layer: Built a centralized API abstraction using Fetch API with consistent request handling, token injection, and fault tolerance patterns for resilient client-server communication.",
+    "Comprehensive Testing Strategy: Implemented a multi-layer testing approach including unit tests (Jest) for reducer logic and store initialization, and end-to-end user flow validation using Cypress.",
+    "Deterministic Test Environment: Designed isolated integration tests with API request interception (cy.intercept), mocked backend responses, and synthetic authentication tokens to ensure reproducible test scenarios.",
+    "Engineering Quality Standards: Maintained production-grade code quality through strict TypeScript usage, ESLint enforcement, modular project structure, and adherence to predictable state management patterns."
+  ],
+  link: "https://github.com/ArishaMak/stellar-burgers"
+},
+  {
+    title: "Article Customizer: Component-Driven Development Project (Practicum)",
     date: "January 2026 - January 2026",
     description: [
       "Component-Driven Development (CDD): Developed UI components in total isolation using Storybook, ensuring modularity and reusability before integrating them into the main application.",
@@ -79,7 +100,7 @@ const allProjects = [
 ];
 
 const keywords = [
-  "MVP architecture", "event-driven approach", "EventEmitter", "OOP", "Observer pattern",
+  "MVP architecture", "Redux", "Cypress", "Jest", "event-driven approach", "EventEmitter", "OOP", "Observer pattern",
   "TypeScript", "Generics", "Fetch API", "Promises", "Vite", "NPM", "React",
   "Component-Driven Development", "CDD", "Storybook", "modular", "reusability",
   "SCSS", "BEM", "CSS variables", "Dark/Light mode", "Mobile-First design", 
@@ -130,11 +151,15 @@ const processText = (text) => {
             <h3 class="project-card__title">{project.title}</h3>
             <p class="project-card__date">{project.date}</p>
             
-            <ul class="project-card__list">
-              {project.description.map((item) => (
-                <li class="project-card__item" set:html={processText(item)} />
-              ))}
-            </ul>
+            <div class="project-card__description-wrapper">
+              <ul class="project-card__list">
+                {project.description.map((item) => (
+                  <li class="project-card__item" set:html={processText(item)} />
+                ))}
+              </ul>
+            </div>
+            
+            <button class="read-more-btn">read more</button>
           </div>
           
           <div class="project-card__footer">
@@ -153,19 +178,82 @@ const processText = (text) => {
 </section>
 
 <script>
-  function initProjectsReveal() {
-    const observer = new IntersectionObserver((entries) => {
+  function initProjectsLogic() {
+    // 1. Reveal Animation (IntersectionObserver)
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.projects .reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.projects .reveal').forEach(el => revealObserver.observe(el));
+
+    // 2. Умная проверка переполнения через ResizeObserver
+    const overflowObserver = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        const wrapper = entry.target;
+        const card = wrapper.closest('.project-card');
+        const btn = card?.querySelector('.read-more-btn');
+        
+        if (wrapper && card && btn) {
+          // Если карточка уже развернута, мы не скрываем кнопку
+          if (card.classList.contains('is-expanded')) continue;
+
+          // Проверяем реальную высоту контента против видимой высоты (max-height из CSS)
+          const isOverflowing = wrapper.scrollHeight > wrapper.clientHeight;
+          
+          if (isOverflowing) {
+            card.classList.add('has-overflow');
+          } else {
+            card.classList.remove('has-overflow');
+          }
+        }
+      }
+    });
+
+    // Начинаем следить за каждым оберточным блоком текста
+    document.querySelectorAll('.project-card__description-wrapper').forEach(wrapper => {
+      overflowObserver.observe(wrapper);
+    });
+
+    // 3. Обработка клика
+    document.querySelectorAll('.read-more-btn').forEach(btn => {
+      // Очистка старого слушателя (полезно для Astro)
+      btn.onclick = (e) => {
+        const currentBtn = e.currentTarget;
+        const card = currentBtn.closest('.project-card');
+        if (card) {
+          card.classList.toggle('is-expanded');
+          currentBtn.textContent = card.classList.contains('is-expanded') ? 'show less' : 'read more';
+        }
+      };
+    });
+    document.querySelectorAll('.project-card').forEach(card => {
+  const btn = card.querySelector('.read-more-btn');
+  
+  card.addEventListener('mouseenter', () => {
+    // Меняем текст только если кнопка вообще видна (есть переполнение) 
+    // и если карточка еще НЕ развернута кликом
+    if (card.classList.contains('has-overflow') && !card.classList.contains('is-expanded')) {
+      btn.textContent = 'show more'; // или 'read more'
+      // Если хочешь именно 'show less' при наведении, пиши его сюда:
+      btn.textContent = 'show less'; 
+    }
+  });
+
+  card.addEventListener('mouseleave', () => {
+    // Возвращаем исходный текст, если карточка не развернута
+    if (!card.classList.contains('is-expanded')) {
+      btn.textContent = 'read more';
+    }
+  });
+});
   }
 
-  initProjectsReveal();
-  document.addEventListener('astro:after-swap', initProjectsReveal);
+  // Запуск
+  initProjectsLogic();
+  document.addEventListener('astro:after-swap', initProjectsLogic);
 </script>

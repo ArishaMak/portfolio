@@ -440,6 +440,10 @@ body .about__bracket {
         padding: 1rem 0.5rem;
     }
 
+    .about__cta {
+        display: none;
+    }
+
     .about__header,
     .about__name,
     .about__content {
@@ -449,9 +453,10 @@ body .about__bracket {
     }
 
     .about__title {
-        font-size: 1.8rem !important;
+        /*font-size: 1.8rem !important;
         line-height: 1;
-        text-align: left;
+        text-align: left;*/
+        display: none;
     }
 
     .about__name {

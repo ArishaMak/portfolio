@@ -59,6 +59,11 @@
     --cursor-scale: 1;
     --cursor-blend: difference;
     --cursor-color: var(--color-accent);
+
+    /* Адаптивный размер: от 2.2rem на мобилке до 4.5rem на десктопе */
+    --font-size-h2: clamp(2.2rem, 5vw, 4.5rem);
+    
+    --font-size-h2-mobile: 1.8rem;
 }
 
 [data-theme="dark"] {

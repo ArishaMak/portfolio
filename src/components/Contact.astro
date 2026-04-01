@@ -5,6 +5,11 @@ const contactText = {
   greeting: "... for taking the time to review my application and consider my candidacy.",
   details: "I am currently based in Belarus and would be highly motivated to relocate should my profile be a good fit for your team. I am prepared to independently arrange visa and accommodation matters; however, <span class='text-accent'>I would kindly require an official document confirming the purpose of my stay to submit to the visa center.</span> I would be grateful for the opportunity to discuss my application further and potentially contribute to your team."
 };
+
+const linkedinUrl = "https://www.linkedin.com/messaging/compose/?to=arina-makovchik-910504365";
+const emailAddress = "makovchikarina@icloud.com";
+const emailSubject = encodeURIComponent("Job Opportunity / Frontend Developer Application");
+const mailtoLink = `mailto:${emailAddress}?subject=${emailSubject}`;
 ---
 
 <section id="contact" class="contact-section">
@@ -46,8 +51,24 @@ const contactText = {
         <div class="contact-details">
           <p set:html={contactText.details}></p>
         </div>
+        <div class="contact-actions">
+          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="contact-btn contact-btn--primary">
+            Message on LinkedIn
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href={mailtoLink} class="contact-btn contact-btn--secondary">
+            Email for discussion
+          </a>
+        </div>
       </div>
 
+      </div>
+
+      
     </div>
   </div>
 </section>

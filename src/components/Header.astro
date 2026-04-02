@@ -35,21 +35,23 @@ const navItems = [
 </header>
 
 <script>
-  // для перезапуска анимации при повторном наведении
   function initHeaderHover() {
     const links = document.querySelectorAll('.header__nav-link');
     
     links.forEach(link => {
       link.addEventListener('mouseenter', () => {
         const letters = link.querySelectorAll('.nav-letter');
-        letters.forEach(letter => {
-          letter.classList.remove('jump');
-          void (letter as HTMLElement).offsetWidth;
-          letter.classList.add('jump');
+        
+        letters.forEach((letter) => {
+          const el = letter as HTMLElement;
+          el.classList.remove('jump');
+          void el.offsetWidth;
+          el.classList.add('jump');
         });
       });
     });
   }
 
-  document.addEventListener('DOMContentLoaded', initHeaderHover);
+  initHeaderHover();
+  document.addEventListener('astro:after-swap', initHeaderHover);
 </script>

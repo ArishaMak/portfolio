@@ -190,122 +190,104 @@
         }
     }
 
-    @media (max-width: 480px) {
-        .contact-layout {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-
-        .contact-bubble {
-            padding: 0;
-        }
-
-        .contact-content {
-            width: 100%;
-            max-width: 100%;
-            max-width: 310px !important;
-            padding: 0;
-            display: flex;
-            /* ← возвращаем flex */
-            flex-direction: column;
-            /* вертикальное выравнивание */
-            justify-content: center;
-            /* центрируем по вертикали */
-            align-items: center;
-            /* центрируем по горизонтали */
-            text-align: center;
-            /* важно для текста внутри */
-
-        }
-
-        .contact-bubble {
-            display: block;
-            width: 100%;
-            padding: 2rem 1.25rem;
-            box-sizing: border-box;
-            position: relative;
-        }
-
-        .contact-details {
-            width: 100%;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            text-align: center;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .bubble-outline {
-            inset: 0;
-            bottom: 0;
-        }
-
-        .bubble-outline svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .contact-actions {
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 2.5rem;
-            padding: 0;
-            width: 100%;
-            align-items: center;
-        }
-
-        .contact-btn {
-            width: 100%;
-            height: 52px;
-            font-size: 1rem;
-        }
-
-        .thank-you-title {
-            font-size: 3.2rem;
-            text-align: center;
-        }
-
-        .thank-you-box {
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-
-        .contact-blob {
-            display: none !important;
-        }
-
-        .additional-exp {
-            padding-top: 4rem !important;
-            padding-bottom: 2rem !important;
-        }
-
-        .section__header {
-            margin-bottom: 2rem !important;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .title-wrapper {
-            display: flex !important;
-            flex-direction: row !important;
-            justify-content: center !important;
-            align-items: center !important;
-            gap: 0.5rem;
-            width: 100%;
-        }
-
-        .section__title {
-            font-size: 1.8rem !important;
-            text-align: center;
-            line-height: 1.1;
-            white-space: normal;
-        }
-
-        .bracket {
-            width: 25px !important;
-            flex-shrink: 0;
-        }
+@media (max-width: 480px) {
+    .additional-exp {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
     }
+
+    .section__header {
+        margin-bottom: 1.5rem !important;
+        justify-content: center;
+    }
+
+    .exp-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        width: 300px !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
+        gap: 10px !important;
+        padding: 0 !important;
+    }
+
+    .exp-card {
+        padding: 0;
+        background: transparent;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        z-index: 7;
+    }
+
+    .section__title {
+        font-size: 1.5rem !important;
+        text-align: center;
+    }
+
+    .bracket {
+        width: 18px !important;
+    }
+
+    .exp-card__company {
+        font-size: 0.75rem !important;
+        margin-top: 10px;
+        margin-bottom: 4px;
+        min-height: 2.2rem;
+        line-height: 1.1;
+        text-align: left;
+    }
+
+    .exp-card__date {
+        font-size: 0.65rem !important;
+        margin-bottom: 8px;
+    }
+
+    .exp-card__item {
+        font-size: 0.7rem !important;
+        line-height: 1.1 !important;
+        padding-left: 8px;
+        margin-bottom: 5px;
+    }
+
+    .exp-card__description-wrapper {
+        max-height: 120px !important;
+        overflow: hidden !important;
+        margin-bottom: 0;
+        position: relative;
+    }
+
+    .exp-card.is-expanded .exp-card__description-wrapper {
+        max-height: none !important;
+    }
+
+    .exp-card__description-wrapper::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: linear-gradient(transparent, var(--color-page-bg));
+        transition: opacity 0.3s;
+        pointer-events: none;
+    }
+
+    .exp-card.is-expanded .exp-card__description-wrapper::after {
+        opacity: 0;
+    }
+
+    .read-more-btn {
+        display: block !important;
+        color: var(--color-accent) !important;
+        font-weight: 500;
+        font-size: 0.7rem !important;
+        line-height: 1.1 !important;
+        padding: 0;
+        margin: 2px 0 10px 8px;
+        background: none;
+        border: none;
+        text-align: left;
+    }
+}

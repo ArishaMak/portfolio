@@ -82,22 +82,22 @@ const processText = (text) => {
     </div>
 
     <div class="exp-grid">
-  {experience.map((item) => (
-    <div class="exp-card reveal">
-      <div class="exp-card__content">
-        <h3 class="exp-card__company">{item.company}</h3>
-        <p class="exp-card__date">{item.date}</p>
+      {experience.map((item) => (
+        <div class="exp-card reveal">
+          <div class="exp-card__content">
+            <h3 class="exp-card__company">{item.company}</h3>
+            <p class="exp-card__date">{item.date}</p>
         
-        <div class="exp-card__description-wrapper">
-          <ul class="exp-card__list">
-            {item.description.map(line => (
-              <li class="exp-card__item" set:html={processText(line)}></li>
-            ))}
-          </ul>
+          <div class="exp-card__description-wrapper">
+            <ul class="exp-card__list">
+              {item.description.map(line => (
+                <li class="exp-card__item" set:html={processText(line)}></li>
+              ))}
+            </ul>
+          </div>
+        
+          <button class="read-more-btn">read more</button>
         </div>
-        
-        <button class="read-more-btn">read more</button>
-      </div>
 
       {item.link && (
         <div class="exp-card__footer">
@@ -112,49 +112,53 @@ const processText = (text) => {
       )}
     </div>
   ))}
-</div>
   </div>
+</div>
 </section>
 <script>
-  function initExpLogic() {
-    console.log("Checking cards...");
-    const cards = document.querySelectorAll('.exp-card');
+function initExpLogic() {
+  const cards = document.querySelectorAll('.exp-card');
+  
+  cards.forEach((card) => {
+    const wrapper = card.querySelector('.exp-card__description-wrapper');
+    const btn = card.querySelector('.read-more-btn');
     
-    cards.forEach((card, index) => {
-      const wrapper = card.querySelector('.exp-card__description-wrapper');
-      const btn = card.querySelector('.read-more-btn');
-      
-      if (!wrapper || !btn) return;
+    if (!wrapper || !btn) return;
 
-      const checkOverflow = () => {
-        if (card.classList.contains('is-expanded')) return;
-        const isOverflowing = wrapper.scrollHeight > (wrapper.clientHeight + 2);
-        console.log(`Card ${index}: scrollHeight ${wrapper.scrollHeight}, clientHeight ${wrapper.clientHeight}, overflow: ${isOverflowing}`);
-        card.classList.toggle('has-overflow', isOverflowing);
-      };
-
-      setTimeout(checkOverflow, 100);
-
-      const ro = new ResizeObserver(() => checkOverflow());
-      ro.observe(wrapper);
-
-      btn.onclick = (e) => {
-        e.preventDefault();
-        const isExpanded = card.classList.toggle('is-expanded');
-        btn.textContent = isExpanded ? 'show less' : 'read more';
-        
-        if (!isExpanded) {
-          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Скрываем кнопку, если контент и так влезает
+    const checkOverflow = () => {
+        if (wrapper.scrollHeight <= wrapper.clientHeight) {
+            btn.style.display = 'none';
+        } else {
+            btn.style.display = 'block';
         }
-      };
-    });
-  }
+    };
 
-  // Запуск
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initExpLogic);
-  } else {
-    initExpLogic();
-  }
-  document.addEventListener('astro:page-load', initExpLogic);
+    // Запускаем проверку
+    checkOverflow();
+
+    const toggleExpand = () => {
+      const isExpanded = card.classList.toggle('is-expanded');
+      btn.textContent = isExpanded ? 'show less' : 'read more';
+      
+      if (isExpanded) {
+        wrapper.style.maxHeight = 'none';
+        // card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        wrapper.style.maxHeight = window.innerWidth <= 480 ? '120px' : '240px';
+      }
+    };
+
+    btn.onclick = (e) => {
+      e.preventDefault();
+      toggleExpand();
+    };
+  });
+}
+
+// Инициализация при загрузке и смене страниц Astro
+initExpLogic();
+document.addEventListener('astro:after-swap', initExpLogic);
+// Перепроверка при изменении размера окна
+window.addEventListener('resize', initExpLogic);
 </script>

@@ -158,7 +158,6 @@ const processText = (text) => {
                 ))}
               </ul>
             </div>
-            
             <button class="read-more-btn">read more</button>
           </div>
           
@@ -191,7 +190,7 @@ const processText = (text) => {
 
     document.querySelectorAll('.projects .reveal').forEach(el => revealObserver.observe(el));
 
-    // 2. Умная проверка переполнения через ResizeObserver
+    // 2. проверка переполнения через ResizeObserver
     const overflowObserver = new ResizeObserver(entries => {
       for (let entry of entries) {
         const wrapper = entry.target;
@@ -221,7 +220,7 @@ const processText = (text) => {
 
     // 3. Обработка клика
     document.querySelectorAll('.read-more-btn').forEach(btn => {
-      // Очистка старого слушателя (полезно для Astro)
+      // Очистка старого слушателя 
       btn.onclick = (e) => {
         const currentBtn = e.currentTarget;
         const card = currentBtn.closest('.project-card');

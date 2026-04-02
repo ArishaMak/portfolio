@@ -89,7 +89,6 @@ import '../assets/styles/sections/education.css';
     if (!section) return;
 
     function update() {
-    // ✅ ОТКЛЮЧАЕМ НА МОБИЛКЕ
     if (window.innerWidth <= 480) {
       section.style.transform = 'none';
       requestAnimationFrame(update);

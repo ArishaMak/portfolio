@@ -415,7 +415,6 @@ body .text-accent {
         justify-content: center;
     }
 
-    /* Сетка 300px, строго 2 колонки */
     .projects__grid {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
@@ -431,7 +430,6 @@ body .text-accent {
         background: transparent;
         width: 100%;
         height: auto;
-        /* Высота подстраивается под контент */
         display: flex;
         flex-direction: column;
     }

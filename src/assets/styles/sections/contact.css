@@ -67,6 +67,8 @@
     align-items: center;
     gap: clamp(3rem, 8vh, 5rem);
     width: 100%;
+    position: relative;
+    z-index: 5;
 }
 
 .thank-you-box {
@@ -249,49 +251,67 @@
 @media (max-width: 480px) {
 
     .contact-section {
-        padding-top: 80px !important;
+        padding: 80px 1rem 40px !important;
+        min-height: auto;
     }
 
-    .contact-actions {
-        flex-direction: column;
-        gap: 10px;
-        padding: 0 10px;
+    .contact-layout {
+        gap: 2rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .thank-you-box {
+        width: 100%;
+        padding: 1.5rem;
+        box-sizing: border-box;
     }
 
     .contact-content {
-        padding: 1rem 0.5rem;
+        padding: 0 !important;
+        width: 100%;
     }
 
-    .contact-btn {
-        display: inline-flex;
-        width: auto;
-        min-width: unset;
-        height: 28px;
-        padding: 0 10px;
-        font-size: 0.6rem;
-        border-width: 1px;
-        gap: 4px;
-        border-radius: var(--radius-pill, 999px);
-        white-space: nowrap;
+    .contact-bubble {
+        padding: 1.5rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
     }
-    
-    .contact-btn svg {
-        width: 10px;
-        height: 10px;
-        margin-left: 4px;
-    }
-    
-    .contact-actions {
-        flex-direction: row;
-        justify-content: center;
-        gap: 8px;
-        padding: 0;
-        margin-top: 1.5rem;
+
+    .greeting {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        width: 100%;
     }
 
     .contact-details {
         font-size: 0.95rem;
         text-align: justify;
-        gap: 1rem;
+        line-height: 1.6;
+        width: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+    }
+
+    .contact-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    .contact-btn {
+        height: 44px;
+        padding: 0 15px;
+        font-size: 0.85rem;
+        flex: 1 1 auto;
+        min-width: 140px;
+        justify-content: center;
+    }
+
+    .contact-blob--right-large {
+        display: none !important;
     }
 }

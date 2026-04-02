@@ -15,12 +15,10 @@
     z-index: -1;
     background-color: #0a0a0a;
 
-    /* Частый grain */
     background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeBlend mode='screen'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
 
     background-size: 180px;
-    /* частое зерно */
     opacity: 0.65;
     /* интенсивность grain */
     mix-blend-mode: screen;
@@ -28,7 +26,6 @@
     animation: tv-grain 0.45s steps(8) infinite;
 }
 
-/* Лёгкие scanlines (горизонтальные полосы как на старом ТВ) */
 .about::after {
     content: "";
     position: absolute;
@@ -452,8 +449,14 @@ body .about__bracket {
         width: 100%;
     }
 
-    .about__title {
-        display: none;
+    .about__title,
+    .about__bracket {
+        display: none !important;
+    }
+    
+    .about__title-wrapper {
+        padding-left: 0 !important;
+        display: block;
     }
 
     .about__name {

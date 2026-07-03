@@ -1,72 +1,108 @@
 ---
 import '../assets/styles/sections/contact.css';
 
-const contactText = {
-  greeting: "... for taking the time to review my application and consider my candidacy.",
-  details: "I am currently based in Belarus and would be highly motivated to relocate should my profile be a good fit for your team. I am prepared to independently arrange visa and accommodation matters; however, <span class='text-accent'>I would kindly require an official document confirming the purpose of my stay to submit to the visa center.</span> I would be grateful for the opportunity to discuss my application further and potentially contribute to your team."
-};
-
-const linkedinUrl = "https://www.linkedin.com/messaging/compose/?to=arina-makovchik-910504365";
 const emailAddress = "makovchikarina@icloud.com";
-const emailSubject = encodeURIComponent("Job Opportunity / Frontend Developer Application");
+const emailSubject = encodeURIComponent("Junior Fullstack Developer · Node.js — Arina Makovchik");
 const mailtoLink = `mailto:${emailAddress}?subject=${emailSubject}`;
+const linkedinUrl = "https://www.linkedin.com/in/arina-makovchik-910504365/";
+const tgUrl = "https://t.me/ichbinrisha";
 ---
 
-<section id="contact" class="contact-section">
-  <div class="contact-blob contact-blob--left-large"></div>
-  <div class="contact-blob contact-blob--right-large"></div>
-  <div class="contact-blob contact-blob--right-small"></div>
-  <div class="container">
-    <div class="contact-layout">
-      
-      <div class="thank-you-box reveal">
-        <h2 class="thank-you-title">
-          <span class="text-row">
-            <span class="letter letter--pattern">T</span>
-            <span class="letter letter--pattern">h</span>
-            <span class="letter letter--pattern">a</span>
-            <span class="letter letter--pattern">n</span>
-            <span class="letter letter--pattern">k</span>
-            <span class="letter letter--white">—</span>
-          </span>
-          <span class="text-row">
-            <span class="letter letter--pattern">y</span>
-            <span class="letter letter--pattern">o</span>
-            <span class="letter letter--pattern">u</span>
-            <span class="letter letter--pattern">!</span>
-          </span>
-        </h2>
+<section id="contact" class="section contact-section">
+  <div class="contact__container page">
+
+    <div class="contact__topbar">
+      <span class="contact__label">Get in touch</span>
+      <span class="contact__status">
+        <span class="contact__dot"></span>
+        OPEN TO OFFICE RELOCATION · POLAND · GERMANY
+      </span>
+    </div>
+    <div class="contact__rule"></div>
+
+    <div class="contact__title-row">
+      <h2 class="contact__title">
+        LET'S<br><span class="contact__title-acc">TALK</span>
+      </h2>
+      <div class="contact__title-line" aria-hidden="true"></div>
+    </div>
+
+    <div class="contact__body">
+
+      <!-- Левая колонка: прямые контакты -->
+      <div class="contact__links">
+        <a href={mailtoLink} class="contact__link-item">
+          <span class="contact__link-label">EMAIL</span>
+          <span class="contact__link-value">makovchikarina@icloud.com</span>
+        </a>
+        <a href={tgUrl} target="_blank" rel="noopener noreferrer" class="contact__link-item">
+          <span class="contact__link-label">TELEGRAM</span>
+          <span class="contact__link-value">@ichbinrisha</span>
+        </a>
+        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="contact__link-item">
+          <span class="contact__link-label">LINKEDIN</span>
+          <span class="contact__link-value">arina-makovchik</span>
+        </a>
+        <a href="https://github.com/ArishaMak" target="_blank" rel="noopener noreferrer" class="contact__link-item">
+          <span class="contact__link-label">GITHUB</span>
+          <span class="contact__link-value">ArishaMak</span>
+        </a>
       </div>
 
-      <div class="contact-content reveal" style="--reveal-delay: 0.2s">
-        <div class="contact-bubble">
-            <p class="greeting">{contactText.greeting}</p>
-                <div class="bubble-outline">
-                    <svg viewBox="0 0 663 159" preserveAspectRatio="none">
-                        <path d="M270.213 22C273.829 10.5685 357.368 14.7873 378.101 15.6667C447.599 18.6143 502.568 27.2157 560.491 39C605.591 48.1757 653.21 65.7638 660.471 83.1111C670.63 107.379 629.173 123.598 565.411 135.5C480.81 151.291 386.999 158 289.19 158C204.501 158 114.948 152.639 50.9235 134.056C-11.1473 116.039 -14.0731 91.0872 35.1094 69.7778C78.093 51.1541 134.831 36.3936 198.874 25.4444C284.451 10.8135 387.55 6.38225 482.123 1" 
-                        stroke="#0038FF" fill="none" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </div>
+      <div class="contact__bubble-wrap">
+        <div class="contact__bubble">
+          <div class="contact__bubble-outline" aria-hidden="true">
+            <svg viewBox="0 0 663 159" preserveAspectRatio="none" fill="none">
+              <path
+                d="M270.213 22C273.829 10.5685 357.368 14.7873 378.101 15.6667C447.599 18.6143 502.568 27.2157 560.491 39C605.591 48.1757 653.21 65.7638 660.471 83.1111C670.63 107.379 629.173 123.598 565.411 135.5C480.81 151.291 386.999 158 289.19 158C204.501 158 114.948 152.639 50.9235 134.056C-11.1473 116.039 -14.0731 91.0872 35.1094 69.7778C78.093 51.1541 134.831 36.3936 198.874 25.4444C284.451 10.8135 387.55 6.38225 482.123 1"
+                stroke="var(--color-accent)"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <p class="contact__bubble-text">
+            Thank you for your time. I am based in Minsk and ready to
+            relocate to <strong>Poland</strong> or <strong>Germany</strong> for an office role.
+          </p>
         </div>
-        <div class="contact-details">
-          <p set:html={contactText.details}></p>
-        </div>
-        <div class="contact-actions">
-          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="contact-btn contact-btn--primary">
+
+        <div class="contact__actions">
+          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="contact__btn">
             Message on LinkedIn
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-              <rect x="2" y="9" width="4" height="12"></rect>
-              <circle cx="4" cy="4" r="2"></circle>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
             </svg>
           </a>
-          <a href={mailtoLink} class="contact-btn contact-btn--secondary">
-            Email for discussion
+          <a href={mailtoLink} class="contact__btn contact__btn--ghost">
+            Send email
           </a>
         </div>
       </div>
-
-      </div>      
     </div>
+
+    <div class="contact__bottom-rule"></div>
+    <div class="contact__bottom-row">
+      <span class="contact__bottom-note">Minsk, Belarus · Ready to relocate</span>
+      <span class="contact__bottom-copy">© 2026 Arina Makovchik</span>
+    </div>
+
   </div>
 </section>
+
+<script>
+  function initContact() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.contact-section .reveal').forEach(el => observer.observe(el));
+  }
+  initContact();
+  document.addEventListener('astro:after-swap', initContact);
+</script>

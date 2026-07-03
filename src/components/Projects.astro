@@ -1,121 +1,131 @@
 ---
 import '../assets/styles/sections/projects.css';
-
+ 
 const allProjects = [
   {
-  title: "Stellar Burger – Scalable SPA Architecture with Redux & Real-Time Data (Practicum)",
-  date: "February 2026 - April 2026",
-  description: [
-    "Scalable State Architecture: Architected a scalable client-side state management system using Redux Toolkit with domain-driven slice separation (ingredients, burgerConstructor, orders, user, feed), enabling predictable state transitions and maintainable code boundaries.",
-    "Advanced Asynchronous Data Flow: Designed a robust async data layer using createAsyncThunk and Redux Thunk middleware to orchestrate API communication, request lifecycle handling (pending/fulfilled/rejected), and centralized error management.",
-    "Authentication & Security Layer: Implemented a secure token-based authentication mechanism with access and refresh tokens, including automatic token renewal via fetchWithRefresh to maintain session continuity and prevent unauthorized API access.",
-    "Route-Level Access Control: Engineered a protected routing system using React Router with role-based access control patterns and redirect preservation, ensuring seamless user experience when accessing restricted routes.",
-    "Complex UI State Orchestration: Developed sophisticated UI state logic for the burger constructor including constraint enforcement (single bun rule), dynamic ingredient aggregation, real-time price computation, and UI counter synchronization.",
-    "Drag-and-Drop State Synchronization: Implemented deterministic drag-and-drop reordering for burger ingredients with immutable state updates, ensuring consistency between UI state and Redux store.",
-    "Modal-Driven Navigation Architecture: Implemented route-driven modal rendering using the background location pattern in React Router, enabling deep linking for modals while preserving navigation history and UX continuity.",
-    "Real-Time Data Rendering: Integrated dynamic order feeds and user-specific order history with server synchronization, supporting real-time updates and complex data transformation for order status visualization.",
-    "Strict Type System Enforcement: Leveraged TypeScript to enforce strong typing across the entire application stack including Redux store, async thunks, API responses, and component contracts, significantly improving maintainability and runtime reliability.",
-    "Reusable Component System: Designed a composable React component architecture emphasizing separation of concerns, high cohesion, and low coupling, enabling efficient component reuse across application domains.",
-    "API Integration Layer: Built a centralized API abstraction using Fetch API with consistent request handling, token injection, and fault tolerance patterns for resilient client-server communication.",
-    "Comprehensive Testing Strategy: Implemented a multi-layer testing approach including unit tests (Jest) for reducer logic and store initialization, and end-to-end user flow validation using Cypress.",
-    "Deterministic Test Environment: Designed isolated integration tests with API request interception (cy.intercept), mocked backend responses, and synthetic authentication tokens to ensure reproducible test scenarios.",
-    "Engineering Quality Standards: Maintained production-grade code quality through strict TypeScript usage, ESLint enforcement, modular project structure, and adherence to predictable state management patterns."
-  ],
-  link: "https://github.com/ArishaMak/stellar-burgers"
-},
-  {
-    title: "Article Customizer: Component-Driven Development Project (Practicum)",
-    date: "January 2026 - January 2026",
+    title: "BuzzyBooth — Commercial SaaS · Etacar Systems (US Market)",
+    date: "April 2026 – Present",
+    badge: "Commercial",
     description: [
-      "Component-Driven Development (CDD): Developed UI components in total isolation using Storybook, ensuring modularity and reusability before integrating them into the main application.",
-      "Isolated Testing & Documentation: Utilized Storybook to document component states (props, variants, and interactive behaviors), streamlining the debugging and hand-off process.",
-      "Dynamic UI Styling Engine: Engineered a system to dynamically update article layouts by manipulating CSS variables in React, allowing for real-time visual customization.",
-      "Sophisticated State Management: Implemented a split-state strategy to manage transient form inputs versus persistent page settings, optimizing re-renders and performance.",
-      "Interactive Sidebar & UX: Developed a responsive sidebar with \"click-outside\" closure logic and smooth state transitions for a polished user experience.",
-      "Strict Code Quality: Maintained high development standards using TypeScript for robust typing, along with Stylelint and ESLint for consistent code architecture."
+      "Backend & Database Optimization: Refactored legacy MongoDB aggregation pipelines by shifting query ordering to leverage database indexes and utilizing projections to exclude heavy data payloads. Replaced synchronous file system operations with asynchronous non-blocking handling, drastically reducing server response times and database load.",
+      "Performance Tuning & Resource Efficiency: Eliminated high-volume server stalls on enterprise accounts by replacing heavy in-memory JavaScript loops with atomic database operations. Accelerated analytical statistics gathering through parallel asynchronous promise chains (Promise.all) and optimized aggregation stages.",
+      "Fullstack Architecture & Data Engineering: Re-engineered data pipelines from backend analytical endpoints to frontend interactive charts. Established dynamic, strictly ordered time-series visualization configurations and optimized frontend sorting logic for multi-device data rendering.",
+      "API Security Hardening: Audited and patched critical endpoint vulnerabilities, mitigating IDOR exposure by introducing strict JWT authorization middleware validation. Immunized application input fields against ReDoS (Regular Expression Denial of Service) attacks through uniform backend input escaping logic.",
+      "UI Component Layout Engineering: Resolved layout shifting issues inside high-density reactive data tables by enforcing strict semantic HTML structures and fixed structural grid dimensions. Rebuilt layout containers into modern, fluid flexbox components to ensure zero layout breakage across global viewports.",
+      "Isolated Service Micro-Architectures: Architected and deployed a decoupled Python-based background worker executing asynchronous heavy media processing tasks. Implemented an atomic database state-locking queue system to eliminate microservice race conditions.",
+      "Testing & Integrity: Engineered comprehensive unit testing suites with Jest to validate transactional rules and asynchronous state lifecycles, using mocked database connection layers to secure pipeline reliability."
+    ],
+    link: null
+  },
+  {
+    title: "SkillSwap — Peer-to-Peer Skill Exchange Platform (Practicum Team Project)",
+    date: "May 2026",
+    badge: "Team",
+    description: [
+      "Team Collaboration: Worked in a team of 5+ developers under tech lead and mentor in full Agile/Scrum workflow — daily stand-ups, sprint planning, GitHub Projects board, feature branch workflow with code review.",
+      "Component Development: Developed 15+ reusable UI components (Paginator, SearchInput, SubCategoryList, WelcomeBack and others) with 90%+ unit test coverage via Jest + React Testing Library.",
+      "Features: Implemented debounce optimisation for search requests, adaptive registration forms with validation, full Storybook documentation for all components.",
+      "CI/CD: GitHub Actions pipeline for automated testing and deployment.",
+      "Stack: React + TypeScript + CSS Modules + Jest + Storybook."
+    ],
+    link: null
+  },
+  {
+    title: "Stellar Burger – Scalable SPA Architecture with Redux & Real-Time Data",
+    date: "February 2026 – April 2026",
+    description: [
+      "Scalable State Architecture: Architected domain-driven Redux Toolkit slices (ingredients, burgerConstructor, orders, user, feed) with createAsyncThunk for full async lifecycle management.",
+      "Authentication & Security: JWT auth with automatic access/refresh token renewal via fetchWithRefresh. Protected routing with redirect preservation (React Router v6).",
+      "Complex UI: Drag-and-drop ingredient reordering with immutable Redux updates, real-time price computation, route-driven modal rendering using background location pattern.",
+      "Real-Time Data: WebSocket integration for live order feed and user-specific order history.",
+      "Testing: Jest unit tests for reducer logic + Cypress E2E with cy.intercept mocks (~95% coverage).",
+      "Stack: React 18 + Redux Toolkit + TypeScript + Cypress."
+    ],
+    link: "https://github.com/ArishaMak/stellar-burger/pull/2"
+  },
+  {
+    title: "Article Customizer: Component-Driven Development",
+    date: "January 2026",
+    description: [
+      "Component-Driven Development (CDD): UI components built in total isolation using Storybook before app integration.",
+      "Dynamic UI Styling Engine: CSS Variables system for real-time article layout customisation in React.",
+      "Sophisticated State Management: Split-state strategy (transient inputs vs persistent settings) to optimise re-renders.",
+      "Interactive Sidebar & UX: Click-outside closure logic with smooth state transitions.",
+      "Stack: React + Storybook + CSS Variables + TypeScript + ESLint/Stylelint."
     ],
     link: "https://github.com/ArishaMak/blog-customizer"
   },
   {
-    title: "Online Store Architecture & Core Logic (Practicum)",
-    date: "October 2025 - October 2025",
+    title: "Online Store — Architecture & Core Logic (Weblarek)",
+    date: "October 2025",
     description: [
-      "Architecture & Patterns: Designed the application using MVP architecture and an event-driven approach (EventEmitter); applied OOP principles and the Observer pattern for data synchronization.",
-      "TypeScript & Logic: Developed a strictly typed architecture using Generics; implemented complex business logic for cart management, multi-step checkout, and form validation.",
-      "API & Async: Built a scalable communication layer based on Fetch API with asynchronous request handling (Promises) and centralized error management.",
-      "UI & Component Dev: Developed a library of reusable UI components; managed DOM lifecycle through dynamic rendering and sophisticated interface state tracking.",
-      "Layout & Tooling: Created responsive layouts using SCSS and BEM methodology; configured project bundling with Vite and managed dependencies within the NPM ecosystem."
+      "Architecture & Patterns: MVP architecture with event-driven approach (EventEmitter) and Observer pattern for data sync.",
+      "TypeScript & Logic: Strictly typed generics; complex business logic for cart management, multi-step checkout, and form validation.",
+      "API & Async: Scalable Fetch API layer with async request handling (Promises) and centralised error management.",
+      "Stack: Vanilla JS + TypeScript + Fetch API + Vite + SCSS + BEM."
     ],
     link: "https://github.com/ArishaMak/weblarek"
   },
   {
-    title: "Smart Table (Practicum) — Data Management & API",
-    date: "November 2025 - December 2025",
+    title: "Smart Table — Data Management & API",
+    date: "November – December 2025",
     description: [
-      "Dynamic Server Integration: Implemented asynchronous data fetching via Fetch API with query-params for searching, filtering, and sorting.",
-      "State & Cache Management: Optimized performance by caching indices (sellers/buyers) and handling server-side pagination (5/10/15/all rows).",
-      "Interactive UI: Developed a robust table system with real-time sorting indicators, dynamic search by name/date, and complex form validation.",
-      "Scalable Architecture: Refactored from static project to a modular structure (DRY) using ES6+ modules and Vite for efficient builds."
+      "Server Integration: Async data fetching via Fetch API with query params for searching, filtering, and sorting.",
+      "Performance: Index caching (sellers/buyers), server-side pagination (5/10/15/all rows).",
+      "Architecture: Refactored from static to modular ES6 DRY structure using Vite.",
+      "Stack: Vanilla JS + Fetch API + Vite."
     ],
     link: "https://github.com/ArishaMak/smart-table"
   },
   {
-    title: "Layout project (Practicum) - Advanced CSS",
-    date: "August 2025 - August 2025",
+    title: "Layout — Advanced CSS",
+    date: "August 2025",
     description: [
-      "Fully Responsive UI: Developed interfaces that scale seamlessly across all devices (Mobile, Tablet, Desktop).",
-      "Fluid Layouts & Adaptive Design: Utilized flexible grids and relative units with strategic breakpoints for optimal content flow.",
-      "Advanced CSS: Implemented complex layered gradients and Variable Fonts for fluid typography and modern aesthetics.",
-      "Interactive Components: Created accessible modal windows using the native <dialog> element and built high-quality animated UI components.",
-      "SVG Optimization: Optimized and animated vector graphics for maximum performance and visual clarity.",
-      "Micro-interactions & UX: Enhanced user experience through polished transitions, hover effects, and refined micro-interactions.",
-      "Performance Optimization: Focused on clean code architecture and asset optimization to ensure fast load times."
+      "Fully Responsive UI: Mobile-First, all breakpoints (Mobile, Tablet, Desktop).",
+      "Advanced CSS: Layered gradients, Variable Fonts, clamp() typography.",
+      "Interactive Components: Accessible modals via native <dialog>, animated SVG, micro-interactions.",
+      "Performance: Clean code architecture, asset optimisation, fast load times."
     ],
     link: "https://github.com/ArishaMak/zakrivayuschiy-teg-f"
   },
   {
-    title: "Layout project (Practicum) - UI Components",
-    date: "June 2025 - June 2025",
+    title: "Layout — UI Components",
+    date: "June 2025",
     description: [
-      "Advanced CSS Styling: Implemented a pixel-perfect layout using Flexbox and Grid, ensuring strict adherence to the Figma design system.",
-      "Custom UI Components: Developed fully custom-styled forms, including checkboxes, search inputs, and scrollbars using pseudo-elements and modern selectors like :has().",
-      "Interactive States & Accessibility: Managed complex element states (:hover, :active, :focus-visible) and ensured web accessibility using visually-hidden labels and semantic HTML5 tags.",
-      "Content Fit & Typography: Applied professional image/video handling with object-fit and object-position, along with multi-line text truncation using line-clamp.",
-      "Interactive Media Gallery: Styled a dynamic video gallery integrated with a third-party API, featuring custom play/pause states and loading animations (preloaders).",
-      "Modern Layout Techniques: Utilized advanced properties such as gap, aspect-ratio, and fixed-container scrolling to maintain UI consistency across different content volumes."
+      "Pixel-perfect Figma implementation using Flexbox and Grid.",
+      "Custom UI: Forms, checkboxes, scrollbars via pseudo-elements and :has() selector.",
+      "Accessibility: visually-hidden labels, semantic HTML5, :focus-visible states.",
+      "Dynamic video gallery with third-party API, custom play/pause states and preloaders."
     ],
     link: "https://github.com/ArishaMak/posmotri-v-okno-fd"
   },
   {
-    title: "Layout project (Practicum) - Performance",
-    date: "July 2025 - July 2025",
+    title: "Layout — Performance & Theming",
+    date: "July 2025",
     description: [
-      "Responsive UI: Mobile-First design, fluid grids, and clamp() based typography.",
-      "Theming: Dark/Light mode implementation via CSS Variables & JS.",
-      "Performance: Optimized assets (SVG) and lazy-loading for galleries.",
-      "Code Quality: Semantic HTML and maintainable, modular CSS."
+      "Mobile-First fluid grid, clamp() based typography.",
+      "Dark/Light mode via CSS Variables + JS toggle.",
+      "SVG asset optimisation, lazy-loading for galleries.",
+      "Semantic HTML and modular maintainable CSS."
     ],
     link: "https://github.com/ArishaMak/slozhno-sosredotochitsya-fd"
   }
 ];
-
+ 
 const keywords = [
-  "MVP architecture", "Redux", "Cypress", "Jest", "event-driven approach", "EventEmitter", "OOP", "Observer pattern",
-  "TypeScript", "Generics", "Fetch API", "Promises", "Vite", "NPM", "React",
-  "Component-Driven Development", "CDD", "Storybook", "modular", "reusability",
-  "SCSS", "BEM", "CSS variables", "Dark/Light mode", "Mobile-First design", 
-  "fluid grids", "clamp() based typography", "flexible grids", "strategic breakpoints",
-  "Variable Fonts", "object-fit", "object-position", "line-clamp", "gap", 
-  "aspect-ratio", "fixed-container scrolling", "animated UI components", 
-  "animated vector graphics", "polished transitions", "hover effects", 
-  "refined micro-interactions", "click-outside", "Stylint", "ESLint", 
-  "clean code architecture", "Semantic HTML", "Mobile, Tablet, Desktop", 
-  "pixel-perfect layout", "fully custom-styled forms", "checkboxes", "search inputs", 
-  "scrollbars", ":hover", ":active", ":focus-visible", "image/video handling", 
-  "custom play/pause states", "preloaders", "<dialog>"
+  "MVP architecture", "Redux", "Redux Toolkit", "Cypress", "Jest",
+  "event-driven", "EventEmitter", "OOP", "Observer pattern",
+  "TypeScript", "Generics", "Fetch API", "Promises", "Vite", "React",
+  "Component-Driven Development", "CDD", "Storybook", "modular",
+  "SCSS", "BEM", "CSS variables", "Dark/Light mode", "Mobile-First",
+  "fluid grids", "clamp()", "Variable Fonts", "object-fit", "line-clamp",
+  "animated SVG", "micro-interactions", "click-outside", "ESLint",
+  "Semantic HTML", "pixel-perfect", "MongoDB", "aggregate pipeline",
+  "AWS S3", "JWT", "Node.js", "Express", "Angular", "NgZone",
+  "WebSocket", "Agile", "Scrum", "code review", "CI/CD"
 ];
-
-const processText = (text) => {
+ 
+const processText = (text: string) => {
   let highlighted = text;
   keywords.forEach(word => {
     const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -125,17 +135,24 @@ const processText = (text) => {
   return highlighted;
 };
 ---
-
+ 
 <section id="projects" class="section projects">
   <div class="projects__container">
+    
     <div class="projects__header reveal">
+      <div class="projects__topbar">
+        <span class="projects__label">Selected engineering works</span>
+        <span class="projects__count">{allProjects.length} items</span>
+      </div>
+      <div class="projects__rule"></div>
+      
       <div class="projects__title-wrapper">
         <span class="projects__bracket projects__bracket--left" aria-hidden="true">
           <svg viewBox="0 0 100 229" fill="none">
             <path d="M64.731 12.1557C66.2999 12.3285 66.8177 9.93267 67.0806 8.55646C67.9564 3.97105 66.6557 1.66632 62.3052 1.17328C51.8702 -0.00934006 41.1918 4.78078 42.049 17.8565C42.7028 27.8289 44.4429 37.2952 44.5483 47.4152C44.6909 61.1069 44.8699 75.4352 40.9292 88.6811C36.2733 104.331 18.9096 120.708 3.21506 118.979C0.420436 118.671 0.464301 114.26 2.26939 112.638C6.60234 108.742 13.3024 106.455 18.6405 105.347C25.2298 103.98 31.7305 106.085 35.8529 111.946C40.094 117.975 38.6513 126.594 37.6631 133.628C35.9127 146.089 34.1164 157.275 34.6303 169.968C35.1324 182.37 34.0586 201.094 41.9198 210.814C49.0453 219.623 57.5709 226.025 68.5894 226.973C81.3206 228.068 93.0138 210.128 98.428 199.259" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
-        <h2 class="projects__title">Projects</h2>
+        <h2 class="projects__title">PROJECTS</h2>
         <span class="projects__bracket projects__bracket--right" aria-hidden="true">
           <svg viewBox="0 0 100 229" fill="none">
             <path d="M64.731 12.1557C66.2999 12.3285 66.8177 9.93267 67.0806 8.55646C67.9564 3.97105 66.6557 1.66632 62.3052 1.17328C51.8702 -0.00934006 41.1918 4.78078 42.049 17.8565C42.7028 27.8289 44.4429 37.2952 44.5483 47.4152C44.6909 61.1069 44.8699 75.4352 40.9292 88.6811C36.2733 104.331 18.9096 120.708 3.21506 118.979C0.420436 118.671 0.464301 114.26 2.26939 112.638C6.60234 108.742 13.3024 106.455 18.6405 105.347C25.2298 103.98 31.7305 106.085 35.8529 111.946C40.094 117.975 38.6513 126.594 37.6631 133.628C35.9127 146.089 34.1164 157.275 34.6303 169.968C35.1324 182.37 34.0586 201.094 41.9198 210.814C49.0453 219.623 57.5709 226.025 68.5894 226.973C81.3206 228.068 93.0138 210.128 98.428 199.259" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -143,14 +160,21 @@ const processText = (text) => {
         </span>
       </div>
     </div>
-
+ 
     <div class="projects__grid">
       {allProjects.map((project, index) => (
-        <article class="project-card reveal" style={{ "--reveal-delay": `${index * 0.15}s` }}>
+        <article class="project-card reveal" style={{ "--reveal-delay": `${index * 0.08}s` }}>
           <div class="project-card__content">
-            <h3 class="project-card__title">{project.title}</h3>
+            <div class="project-card__title-row">
+              <h3 class="project-card__title">{project.title}</h3>
+              {project.badge && (
+                <span class="project-card__badge">
+                  {project.badge}
+                </span>
+              )}
+            </div>
             <p class="project-card__date">{project.date}</p>
-            
+ 
             <div class="project-card__description-wrapper">
               <ul class="project-card__list">
                 {project.description.map((item) => (
@@ -160,25 +184,39 @@ const processText = (text) => {
             </div>
             <button class="read-more-btn">read more</button>
           </div>
-          
+ 
           <div class="project-card__footer">
-            <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-button">
-              view on GitHub
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </a>
+            {project.link ? (
+              <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-button">
+                <span>VIEW ON GITHUB</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+            ) : (
+              <span class="project-button project-button--disabled">
+                PRIVATE REPOSITORY
+              </span>
+            )}
           </div>
         </article>
       ))}
     </div>
+    
+    <div class="projects__bottom-rule"></div>
+    <div class="projects__bottom-row">
+      <span class="projects__bottom-note">
+        Click "read more" to expand large production specifications
+      </span>
+      <span class="projects__bottom-tag">Total codebases built</span>
+    </div>
+
   </div>
 </section>
-
+ 
 <script>
   function initProjectsLogic() {
-    // 1. Reveal Animation (IntersectionObserver)
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -186,73 +224,37 @@ const processText = (text) => {
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
-
+    }, { threshold: 0.05 });
+ 
     document.querySelectorAll('.projects .reveal').forEach(el => revealObserver.observe(el));
+ 
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach((card) => {
+      const wrapper = card.querySelector('.project-card__description-wrapper') as HTMLElement;
+      const btn = card.querySelector('.read-more-btn') as HTMLElement;
+      
+      if (!wrapper || !btn) return;
 
-    // 2. проверка переполнения через ResizeObserver
-    const overflowObserver = new ResizeObserver(entries => {
-      for (let entry of entries) {
-        const wrapper = entry.target;
-        const card = wrapper.closest('.project-card');
-        const btn = card?.querySelector('.read-more-btn');
-        
-        if (wrapper && card && btn) {
-          // Если карточка уже развернута, мы не скрываем кнопку
-          if (card.classList.contains('is-expanded')) continue;
-
-          // Проверяем реальную высоту контента против видимой высоты (max-height из CSS)
-          const isOverflowing = wrapper.scrollHeight > wrapper.clientHeight;
-          
-          if (isOverflowing) {
-            card.classList.add('has-overflow');
+      const checkOverflow = () => {
+          if (wrapper.scrollHeight <= wrapper.offsetHeight && !card.classList.contains('is-expanded')) {
+              btn.style.display = 'none';
           } else {
-            card.classList.remove('has-overflow');
+              btn.style.display = 'block';
           }
-        }
-      }
-    });
+      };
 
-    // Начинаем следить за каждым оберточным блоком текста
-    document.querySelectorAll('.project-card__description-wrapper').forEach(wrapper => {
-      overflowObserver.observe(wrapper);
-    });
-
-    // 3. Обработка клика
-    document.querySelectorAll('.read-more-btn').forEach(btn => {
-      // Очистка старого слушателя 
+      setTimeout(checkOverflow, 250);
+   
       btn.onclick = (e) => {
-        const currentBtn = e.currentTarget;
-        const card = currentBtn.closest('.project-card');
-        if (card) {
-          card.classList.toggle('is-expanded');
-          currentBtn.textContent = card.classList.contains('is-expanded') ? 'show less' : 'read more';
-        }
+        e.preventDefault();
+        const isExpanded = card.classList.toggle('is-expanded');
+        btn.textContent = isExpanded ? 'show less' : 'read more';
+        wrapper.style.maxHeight = ''; 
       };
     });
-    document.querySelectorAll('.project-card').forEach(card => {
-  const btn = card.querySelector('.read-more-btn');
-  
-  card.addEventListener('mouseenter', () => {
-    // Меняем текст только если кнопка вообще видна (есть переполнение) 
-    // и если карточка еще НЕ развернута кликом
-    if (card.classList.contains('has-overflow') && !card.classList.contains('is-expanded')) {
-      btn.textContent = 'show more'; // или 'read more'
-      // Если хочешь именно 'show less' при наведении, пиши его сюда:
-      btn.textContent = 'show less'; 
-    }
-  });
-
-  card.addEventListener('mouseleave', () => {
-    // Возвращаем исходный текст, если карточка не развернута
-    if (!card.classList.contains('is-expanded')) {
-      btn.textContent = 'read more';
-    }
-  });
-});
   }
-
-  // Запуск
+ 
   initProjectsLogic();
   document.addEventListener('astro:after-swap', initProjectsLogic);
+  window.addEventListener('resize', initProjectsLogic);
 </script>

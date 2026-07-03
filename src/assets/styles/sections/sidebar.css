@@ -5,14 +5,19 @@
     z-index: 100;
     width: 48px;
     height: 48px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 14px;
+    background: var(--color-page-bg);
+    border: 1px solid var(--color-text-primary);
+    border-radius: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    border-color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb, 29, 75, 255), 0.04);
 }
 
 .burger-lines {
@@ -27,7 +32,7 @@
 .line {
     height: 2px;
     background: var(--color-text-primary);
-    border-radius: 2px;
+    border-radius: 0px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -42,11 +47,13 @@
 
 .sidebar-switch:checked+.hamburger-menu .line.top {
     transform: translateY(6px) rotate(45deg);
+    background: var(--color-accent);
 }
 
 .sidebar-switch:checked+.hamburger-menu .line.bottom {
     width: 100%;
     transform: translateY(-6px) rotate(-45deg);
+    background: var(--color-accent);
 }
 
 .sidebar-container {
@@ -55,11 +62,14 @@
     right: -100%;
     width: min(350px, 85vw);
     height: 100vh;
-    background: var(--color-surface-soft);
-    backdrop-filter: var(--glass-blur);
-    border-left: 1px solid var(--color-border-subtle);
+    background: var(--color-page-bg);
+    border-left: 1px solid rgba(var(--color-text-primary-rgb, 17, 17, 17), 0.15);
     z-index: 95;
     transition: right 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .sidebar-container {
+    border-left-color: rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-switch:checked~.sidebar-container {
@@ -69,7 +79,7 @@
 .sidebar-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 90;
     opacity: 0;
     visibility: hidden;
@@ -95,9 +105,11 @@
 }
 
 .nav-item {
-    font-family: var(--font-display);
+    font-family: var(--font-body, 'Inter', sans-serif);
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     color: var(--color-text-primary);
     text-decoration: none;
     display: block;
@@ -110,8 +122,25 @@
     transform: translateX(8px);
 }
 
+.nav-social .nav-item {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.sidebar-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--color-text-primary);
+    opacity: 0.15;
+    border: none;
+    margin: 1.5rem 0;
+}
+
 .sidebar-bottom {
-    border-top: 1px solid var(--color-border-subtle);
+    border-top: 1px solid rgba(var(--color-text-primary-rgb, 17, 17, 17), 0.1);
     padding-top: 2rem;
 }
 
@@ -123,9 +152,11 @@
 }
 
 .theme-status {
-    font-size: 0.85rem;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     color: var(--color-text-muted);
 }
 
@@ -133,36 +164,37 @@
     background: none;
     border: none;
     cursor: pointer;
+    padding: 0;
 }
 
 .track {
     width: 52px;
     height: 28px;
-    background: var(--color-border-subtle);
-    border-radius: 20px;
+    background: transparent;
+    border: 1.5px solid var(--color-text-primary);
+    border-radius: 0px;
     position: relative;
-    transition: background 0.4s ease;
+    transition: border-color 0.4s ease;
 }
 
 .thumb {
     position: absolute;
     top: 4px;
     left: 4px;
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    border-radius: 50%;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 18px;
+    height: 18px;
+    background: var(--color-text-primary);
+    border-radius: 0px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s;
 }
 
 [data-theme="dark"] .track {
-    background: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
 [data-theme="dark"] .thumb {
     transform: translateX(24px);
-    background: var(--color-page-bg);
+    background: var(--color-accent);
 }
 
 .social-mini {
@@ -187,7 +219,6 @@
 }
 
 @media (max-width: 768px) {
-
     .nav-page,
     .sidebar-divider {
         display: block;
@@ -208,10 +239,13 @@
 }
 
 @media (max-width: 480px) {
-
     .hamburger-menu {
         display: flex;
-    }
+        width: 30px !important;
+        height: 30px !important;
+        top: 1rem !important;
+        border-radius: 8px !important;
+     }
 
     .mobile-only {
         display: flex !important;
@@ -264,34 +298,20 @@
         height: 13px;
     }
 
-        .hamburger-menu {
-            /* Уменьшаем размер самого квадрата кнопки в два раза (было 48px) */
-            width: 30px !important;
-            height: 30px !important;
-    
-            /* Смещаем кнопку чуть ближе к углу, чтобы она не "висела" (опционально) */
-            top: 1rem !important;
-            border-radius: 8px !important;
-            /* Уменьшаем радиус скругления пропорционально */
-        }
-    
-        .burger-lines {
-            /* Уменьшаем область линий (было 22x14) */
-            width: 15px !important;
-            height: 10px !important;
-        }
-    
-        .line {
-            /* Делаем линии чуть тоньше, чтобы они не выглядели грубо (было 2px) */
-            height: 1.5px !important;
-        }
-    
-        /* Корректируем смещение для анимации крестика (было 6px) */
-        .sidebar-switch:checked+.hamburger-menu .line.top {
-            transform: translateY(3.5px) rotate(45deg) !important;
-        }
-    
-        .sidebar-switch:checked+.hamburger-menu .line.bottom {
-            transform: translateY(-3.5px) rotate(-45deg) !important;
-        }
+    .burger-lines {
+        width: 15px !important;
+        height: 10px !important;
+    }
+
+    .line {
+        height: 1.5px !important;
+    }
+
+    .sidebar-switch:checked+.hamburger-menu .line.top {
+        transform: translateY(3.5px) rotate(45deg) !important;
+    }
+
+    .sidebar-switch:checked+.hamburger-menu .line.bottom {
+        transform: translateY(-3.5px) rotate(-45deg) !important;
+    }
 }

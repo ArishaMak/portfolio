@@ -10,13 +10,12 @@ import Skills from '../components/skills.astro';
 import Projects from '../components/Projects.astro';
 import AdditionalExperience from '../components/additionalExperience.astro';
 import Contact from '../components/Contact.astro';
-
-
-const title = 'JavaScript Trainee Resume – Arina Makovchik';
+ 
+const title = 'Arina Makovchik · Junior Fullstack Developer · Node.js + Frontend';
 ---
 <Layout title={title}>
   <main class="main-content">
-    <Header />
+    <Header slot="header" />
     <ThemeScript />
     <Sidebar />
     <Hero />
@@ -28,3 +27,4 @@ const title = 'JavaScript Trainee Resume – Arina Makovchik';
     <Contact />
   </main>
 </Layout>
+ 

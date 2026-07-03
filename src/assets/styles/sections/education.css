@@ -4,262 +4,250 @@
     position: relative;
     overflow: visible;
     width: 100%;
-    padding: clamp(50px, 8vw, 120px);
-    perspective: 1000px;
-    transform-style: preserve-3d;
+    padding: clamp(2rem, 5vw, 5rem) clamp(20px, 10vw, 200px);
 }
 
-/* Grain + TV Static эффект (тот же стиль, что в About) */
-.education::before {
-    content: "";
+.education__bg-carpet {
     position: absolute;
     inset: 0;
     z-index: -1;
+    overflow: hidden;
     background-color: #0a0a0a;
-
-    background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeBlend mode='screen'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
-
-    background-size: 180px;
-    opacity: 0.62;
-    mix-blend-mode: screen;
-    pointer-events: none;
-    animation: tv-grain 0.45s steps(8) infinite;
 }
 
-/*
-.education__video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-}
-
-.education__background-video {
+.education__carpet-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-}*/
+    filter: brightness(0.4) saturate(0.85);
+}
+
+.education__noise-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeBlend mode='screen'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+    background-size: 180px;
+    opacity: 0.65;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    animation: tv-grain-edu 0.45s steps(8) infinite;
+}
+
+.education__scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to bottom,
+            transparent 0px,
+            transparent 2px,
+            rgba(255, 255, 255, 0.02) 2px,
+            rgba(255, 255, 255, 0.02) 4px);
+    pointer-events: none;
+    animation: scanline-edu 8s linear infinite;
+}
+
+@keyframes scanline-edu {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 240px; }
+}
+
+@keyframes tv-grain-edu {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+}
 
 .education__grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: clamp(1rem, 2vw, 2rem);
+    gap: clamp(1.5rem, 3vw, 3rem);
     align-items: start;
     width: 100%;
     margin: 0 auto;
-    padding: clamp(1.5rem, 3vw, 2rem);
+    padding: clamp(20px, 4vw, 40px);
     background-color: var(--color-page-bg);
-    border-radius: 24px;
+    border: 1px solid rgba(var(--color-text-primary-rgb, 17, 17, 17), 0.1);
     position: relative;
     z-index: 1;
 }
 
+[data-theme="dark"] .education__grid {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
 .education__header {
-    grid-column: 1 / span 5;
+    grid-column: 1 / span 4;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: clamp(2rem, 4vh, 3.5rem);
 }
 
 .education__title-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    position: relative;
+    justify-content: flex-start;
+    padding-left: clamp(35px, 4vw, 55px);
 }
 
 .education__title {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    line-height: 1.1;
-    font-weight: var(--fw-regular);
+    font-family: 'Bebas Neue', var(--font-display, serif);
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    font-weight: 400;
+    margin: 0;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
     color: var(--color-text-primary);
 }
 
 .education__bracket {
-    width: clamp(30px, 4vw, 50px);
-    color: var(--pr-brackets, #0038FF);
-}
-
-.education__bracket--right {
-    transform: scaleX(-1);
+    position: absolute;
+    display: flex;
+    width: clamp(25px, 3vw, 40px);
+    height: auto;
+    color: var(--pr-brackets);
+    transition: transform 0.3s ease-out;
+    left: 0;
 }
 
 .education__years {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
 .education__year-item strong {
     display: block;
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    font-weight: 600;
+    font-family: 'Bebas Neue', var(--font-display, serif);
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.02em;
     color: var(--color-text-primary);
+    margin-bottom: 4px;
 }
 
 .education__year-item span {
     display: block;
-    font-family: var(--font-body);
-    font-size: clamp(1rem, 1.2vw, 1.25rem);
-    color: var(--color-text-muted);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 500;
+    color: var(--color-text-muted, #666666);
 }
 
 .education__main {
     grid-column: 6 / span 7;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding-left: 20px;
+    gap: 2.5rem;
+}
+
+.education__motivation {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
 }
 
 .education__motivation p {
-    font-family: var(--font-base);
-    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: clamp(13px, 1vw, 15px);
     line-height: 1.6;
-    color: var(--color-text-primary);
-    text-align: justify;
+    color: var(--color-text-muted, #666666);
+    text-align: left;
     margin: 0;
 }
 
-.education__art-phrase {
-    margin-top: 1rem;
+.education__carpet-card {
+    border-top: 1px solid rgba(var(--color-text-primary-rgb, 17, 17, 17), 0.1);
+    padding-top: 2rem;
+    margin-top: 0.5rem;
+}
+
+[data-theme="dark"] .education__carpet-card {
+    border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 .art-phrase {
-    font-family: 'Cormorant Gramond', serif;
-    font-style: italic;
-    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    font-family: 'Cormorant Garamond', serif !important;
+    font-style: italic !important;
+    font-size: clamp(1.6rem, 3vw, 2.6rem) !important;
     line-height: 1.2;
-    color: var(--pr-brackets, #0038FF);
+    font-weight: 400;
+    color: #0038FF !important; 
     margin-bottom: 1rem;
     text-align: left;
 }
 
-.art-subtext {
-    font-family: var(--font-base);
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    border-left: 2px solid var(--pr-brackets, #0038FF);
-    padding-left: 1rem;
-    opacity: 0.8;
+[data-theme="dark"] .art-phrase {
+    color: var(--color-accent) !important; 
 }
 
-.reveal {
+.education__motivation-sub p {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: clamp(11px, 0.9vw, 12px);
+    font-weight: 500;
+    color: var(--color-text-muted, #666666);
+    opacity: 0.7;
+}
+
+.education .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+                transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition-delay: var(--reveal-delay, 0s);
 }
 
-.reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+.education .reveal.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+@keyframes edu-bracket-wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+    75% { transform: rotate(-4deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.education__title-wrapper:hover .education__bracket--left {
+    animation: edu-bracket-wiggle 0.8s ease-in-out infinite;
 }
 
 @media (max-width: 1024px) {
-    .education {
-        padding: 3rem;
-    }
-
-    .education__grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .education__header,
-    .education__main {
-        grid-column: 1 / -1;
-        padding-left: 0;
-    }
-
-    .education__years {
-        flex-direction: row;
-        gap: 3rem;
-    }
+    .education { padding: 3rem 2rem; }
+    .education__grid { gap: 2rem; }
+    .education__header { grid-column: 1 / span 5; }
+    .education__main { grid-column: 6 / -1; }
 }
 
 @media (max-width: 768px) {
-    .education {
-        padding: 1rem;
+    .education { padding: 2rem 1rem; }
+    .education__grid { 
+        grid-template-columns: 1fr;
+        padding: 1.5rem; 
     }
-
+    .education__header, .education__main {
+        grid-column: 1 / -1;
+    }
     .education__years {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .art-phrase {
-        font-size: 1.6rem;
+        flex-direction: row;
+        gap: 2rem;
+        flex-wrap: wrap;
     }
 }
 
-@media (max-width: 480px) {
-
-    /* Убираем внешнюю рамку секции */
-    .education {
-        padding: 1rem 0.5rem;
-    }
-
-    /* Карточка теперь занимает всю ширину, убираем грид */
+@media (max-width: 580px) {
     .education__grid {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        padding: 1.5rem 1rem;
-        /* Внутренние отступы самой карточки */
     }
-
-    /* Сбрасываем колонки грида для всех дочерних элементов */
-    .education__header,
-    .education__main {
-        grid-column: auto !important;
-        width: 100%;
-        padding-left: 0 !important;
-    }
-
-    .education__title {
-        font-size: 1.8rem !important;
-        text-align: justify;
-    }
-
-    .education__bracket {
-        width: 25px;
-    }
-
-    /* Года выстраиваем строго в колонку */
+    .education__title, .education__bracket { display: none !important; }
     .education__years {
-        flex-direction: column !important;
+        flex-direction: column;
         gap: 1.25rem;
     }
-
-    .education__year-item strong {
-        font-size: 1.3rem;
-    }
-
-    /* Текст мотивации и арт-фраза */
-    .education__motivation p {
-        font-size: 0.95rem;
-        text-align: justify;
-        /* Убираем justify для лучшей читаемости на узком экране */
-        justify-content: center;
-        align-items: center;
-    }
-
-    .art-phrase {
-        font-size: 1.4rem;
-        line-height: 1.2;
-        text-align: center;
-    }
-
-    /* Отключаем шум и полосы для производительности на мобилках (как в About) */
-    .education::before,
-    .education::after {
-        display: none;
-    }
+    .education__year-item strong { font-size: 1.5rem; }
+    .art-phrase { font-size: 1.4rem !important; }
+    .education__bg-carpet { display: none; }
 }

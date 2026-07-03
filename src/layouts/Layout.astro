@@ -1,64 +1,111 @@
 ---
-import '../assets/styles/variables.css';
-import '../assets/styles/global.css';
-import '../assets/styles/dark.css';
-import '../assets/styles/light.css';
+import "../assets/styles/variables.css";
+import "../assets/styles/global.css";
+import "../assets/styles/dark.css";
+import "../assets/styles/light.css";
 
-// секционные стили
-import '../assets/styles/sections/about.css';
-import '../assets/styles/sections/additionalExperience.css';
-import '../assets/styles/sections/contact.css';
-import '../assets/styles/sections/education.css';
-import '../assets/styles/sections/header.css';
-import '../assets/styles/sections/hero.css';
-import '../assets/styles/sections/projects.css';
-import '../assets/styles/sections/sidebar.css';
-import '../assets/styles/sections/skills.css';
-import '../assets/styles/sections/wordsearch.css';
+import "../assets/styles/sections/about.css";
+import "../assets/styles/sections/additionalExperience.css";
+import "../assets/styles/sections/contact.css";
+import "../assets/styles/sections/education.css";
+import "../assets/styles/sections/header.css";
+import "../assets/styles/sections/hero.css";
+import "../assets/styles/sections/projects.css";
+import "../assets/styles/sections/sidebar.css";
+import "../assets/styles/sections/skills.css";
+import "../assets/styles/sections/wordsearch.css";
+import "../assets/styles/sections/cursor.css";
+import "../assets/fonts/fonts.css";
 
-import '../assets/styles/sections/cursor.css';
-import '../assets/fonts/fonts.css';
+import Cursor from "../components/Cursor.astro";
 
-import Cursor from '../components/Cursor.astro';
-
-const base = '/portfolio';
-const { title = 'Arina N. Makovchik • Frontend Developer • Resume' } = Astro.props;
+const {
+  title = "Arina N. Makovchik · Junior Fullstack Developer · Node.js + Frontend",
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="preload" as="image" href="/images/galaxy-blob-1.avif" type="image/avif" fetchpriority="high">
-    <link rel="preload" as="image" href="/images/galaxy-blob-2.avif" type="image/avif">
-    <link rel="preload" as="image" href="/images/ковер.avif" type="image/avif" fetchpriority="high">
+    <link
+      rel="preload"
+      as="image"
+      href="/images/galaxy-blob-1.avif"
+      type="image/avif"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/galaxy-blob-2.avif"
+      type="image/avif"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/ковер.avif"
+      type="image/avif"
+      fetchpriority="high"
+    />
+
     <title>{title}</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-image.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-image.png"
+    />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#1d4bff" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
 
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#1d4bff">
-    <link rel="apple-touch-icon" href="/favicon.ico">
+    <meta
+      name="description"
+      content="Junior Fullstack Developer with commercial SaaS experience (Node.js, MongoDB, AWS S3) and strong frontend background (React, TypeScript, Angular). Open to relocation to Poland or Georgia."
+    />
+    <meta
+      property="og:title"
+      content="Arina Makovchik · Junior Fullstack Developer · Node.js + Frontend"
+    />
+    <meta
+      property="og:description"
+      content="Commercial experience at BuzzyBooth (US SaaS). Node.js, Express, MongoDB, React, TypeScript. Portfolio with interactive projects."
+    />
+    <meta property="og:image" content="/images/og-image.jpg" />
+    <meta
+      property="og:url"
+      content="https://dapper-sopapillas-3637cf.netlify.app"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <meta name="description" content="Arina Makovchik — Frontend Developer. React, TypeScript, Astro portfolio with interactive projects.">
-    <meta property="og:title" content="Arina Makovchik • Frontend Portfolio">
-    <meta property="og:description" content="Interactive portfolio with WordSearch game, parallax effects, and modern frontend skills.">
-    <meta property="og:image" content="/images/og-image.jpg">
-    <meta property="og:url" content="https://arishamak.netlify.app">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   </head>
-  <body class="loading"> 
-
-   <div id="preloader" class="preloader">
+  <body class="loading">
+    <div id="preloader" class="preloader">
       <div class="preloader-image-wrapper">
-        <img src="/images/plitka-prelo.jpg" alt="Pattern" class="preloader-image" />
-        <img src="/images/plitka-prelo.jpg" alt="Pattern" class="preloader-image" />
-        <img src="/images/plitka-prelo.jpg" alt="Pattern" class="preloader-image" />
-        <img src="/images/plitka-prelo.jpg" alt="Pattern" class="preloader-image" />
+        <img
+          src="/images/plitka-prelo.jpg"
+          alt="Pattern"
+          class="preloader-image"
+        />
+        <img
+          src="/images/plitka-prelo.jpg"
+          alt="Pattern"
+          class="preloader-image"
+        />
+        <img
+          src="/images/plitka-prelo.jpg"
+          alt="Pattern"
+          class="preloader-image"
+        />
+        <img
+          src="/images/plitka-prelo.jpg"
+          alt="Pattern"
+          class="preloader-image"
+        />
       </div>
       <div class="preloader-content">
         <p class="loading-text">
@@ -68,6 +115,8 @@ const { title = 'Arina N. Makovchik • Frontend Developer • Resume' } = Astro
       </div>
     </div>
 
+    <slot name="header" />
+
     <div class="page">
       <slot />
     </div>
@@ -75,52 +124,48 @@ const { title = 'Arina N. Makovchik • Frontend Developer • Resume' } = Astro
     <Cursor />
 
     <script type="module">
-      if (typeof window !== 'undefined') {
-        (async () => {
-          try {
-            // Загружаем библиотеки через CDN
-            const [gsapModule, stModule] = await Promise.all([
-              import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js'),
-              import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js')
-            ]);
+      (function () {
+        const preloader = document.getElementById("preloader");
+        const percentEl = document.getElementById("loader-percent");
+        const body = document.body;
 
-            const gsap = gsapModule.default;
-            const ScrollTrigger = stModule.ScrollTrigger;
+        if (!preloader || !percentEl) return;
 
-            gsap.registerPlugin(ScrollTrigger);
+        let value = 0;
+        const interval = setInterval(() => {
+          value = Math.min(value + Math.floor(Math.random() * 15) + 8, 95);
+          percentEl.textContent = value + "%";
+        }, 60);
 
-            const preloader = document.getElementById('preloader');
-            const percentEl = document.getElementById('loader-percent');
-            const body = document.body;
+        const finish = () => {
+          clearInterval(interval);
+          percentEl.textContent = "100%";
 
-            if (preloader && percentEl) {
-              const loaderObj = { value: 0 };
-              gsap.to(loaderObj, {
-                value: 100,
-                duration: 2.2,
-                ease: 'power2.out',
-                onUpdate: () => {
-                  percentEl.textContent = `${Math.round(loaderObj.value)}%`;
-                },
-                onComplete: () => {
-                  gsap.to(preloader, {
-                    opacity: 0,
-                    duration: 0.9,
-                    ease: 'power2.inOut',
-                    onComplete: () => {
-                      preloader.remove();
-                      body.classList.remove('loading');
-                      ScrollTrigger.refresh();
-                    }
-                  });
-                }
-              });
-            }
-          } catch (e) {
-            console.error("Ошибка загрузки GSAP:", e);
-          }
-        })();
-      }
+          setTimeout(() => {
+            preloader.style.transition =
+              "opacity 0.7s cubic-bezier(0.215, 0.610, 0.355, 1)";
+            preloader.style.opacity = "0";
+
+            setTimeout(() => {
+              preloader.remove();
+              body.classList.remove("loading");
+
+              // Главный триггер: сайт готов к анимациям!
+              body.classList.add("site-loaded");
+
+              if (typeof ScrollTrigger !== "undefined") {
+                ScrollTrigger.refresh();
+              }
+            }, 700);
+          }, 200);
+        };
+
+        if (document.readyState === "complete") {
+          finish();
+        } else {
+          window.addEventListener("load", finish);
+        }
+      })();
     </script>
   </body>
 </html>

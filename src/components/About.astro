@@ -1,158 +1,219 @@
 ---
-import '../assets/styles/sections/about.css';
+import "../assets/styles/sections/about.css";
 ---
 
 <section id="about" class="section about">
-<!--<div class="about__video-container">
-  <video 
-    autoplay 
-    muted 
-    loop 
-    playsinline 
-    class="about__background-video"
-    id="about-video"
-  >
-    <source src="/images/kino.mp4" type="video/mp4" />
-  </video>
-</div>-->
+  {/* Задний фон: акцентный ковер с наложенным эффектом шума */}
+  <div class="about__bg-carpet">
+    <img src="/images/ковер.avif" alt="" class="about__carpet-img" aria-hidden="true" />
+    <div class="about__noise-overlay"></div>
+    <div class="about__scanlines"></div>
+  </div>
+
   <div class="about__grid">
     <div class="about__header">
-      <div class="about__title-wrapper reveal">
-        <span class="about__bracket" aria-hidden="true" style="color: var(--pr-brackets)">
-          <svg width="100%" height="100%" viewBox="0 0 100 229" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMid meet">
-            <path 
-              d="M64.731 12.1557C66.2999 12.3285 66.8177 9.93267 67.0806 8.55646C67.9564 3.97105 66.6557 1.66632 62.3052 1.17328C51.8702 -0.00934006 41.1918 4.78078 42.049 17.8565C42.7028 27.8289 44.4429 37.2952 44.5483 47.4152C44.6909 61.1069 44.8699 75.4352 40.9292 88.6811C36.2733 104.331 18.9096 120.708 3.21506 118.979C0.420436 118.671 0.464301 114.26 2.26939 112.638C6.60234 108.742 13.3024 106.455 18.6405 105.347C25.2298 103.98 31.7305 106.085 35.8529 111.946C40.094 117.975 38.6513 126.594 37.6631 133.628C35.9127 146.089 34.1164 157.275 34.6303 169.968C35.1324 182.37 34.0586 201.094 41.9198 210.814C49.0453 219.623 57.5709 226.025 68.5894 226.973C81.3206 228.068 93.0138 210.128 98.428 199.259" 
-              stroke="currentColor" 
-              stroke-width="2" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
-            />
+      <div class="about__title-wrapper reveal" style="--reveal-delay: 0.1s">
+        <span class="about__bracket" aria-hidden="true">
+          <svg
+            width="100%"
+            height="100%"
+            viewBox="0 0 100 229"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMinYMid meet"
+          >
+            <path
+              d="M64.731 12.1557C66.2999 12.3285 66.8177 9.93267 67.0806 8.55646C67.9564 3.97105 66.6557 1.66632 62.3052 1.17328C51.8702 -0.00934006 41.1918 4.78078 42.049 17.8565C42.7028 27.8289 44.4429 37.2952 44.5483 47.4152C44.6909 61.1069 44.8699 75.4352 40.9292 88.6811C36.2733 104.331 18.9096 120.708 3.21506 118.979C0.420436 118.671 0.464301 114.26 2.26939 112.638C6.60234 108.742 13.3024 106.455 18.6405 105.347C25.2298 103.98 31.7305 106.085 35.8529 111.946C40.094 117.975 38.6513 126.594 37.6631 133.628C35.9127 146.089 34.1164 157.275 34.6303 169.968C35.1324 182.37 34.0586 201.094 41.9198 210.814C49.0453 219.623 57.5709 226.025 68.5894 226.973C81.3206 228.068 93.0138 210.128 98.428 199.259"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
         </span>
         <h2 class="about__title">About<br />Me</h2>
       </div>
     </div>
-    <h3 class="about__name reveal" style="--reveal-delay: 0.2s">Arina N.<br />Makovchik</h3>
+
+    <h3 class="about__name reveal" style="--reveal-delay: 0.2s">
+      Arina N.<br />Makovchik
+    </h3>
+
     <div class="about__content">
       <div class="about__image-box reveal" style="--reveal-delay: 0.3s">
-        <img 
-          src="/images/my-photo.PNG" 
-          alt="Arina N. Makovchik" 
-          class="about__image" 
-          loading="lazy" 
+        <img
+          src="/images/my-photo.PNG"
+          alt="Arina N. Makovchik"
+          class="about__image"
+          loading="lazy"
           decoding="async"
-          width="600" 
+          width="600"
           height="600"
         />
       </div>
+
       <div class="about__text-wrapper">
         <div class="about__description">
-          <span class="about__cta reveal" style="--reveal-delay: 0.4s">
-            Cover letter
-          </span>
+          {/* Интерактивная кнопка вместо ссылки */}
+          <button
+            id="open-cv-btn"
+            class="about__cta reveal"
+            style="--reveal-delay: 0.35s"
+            aria-haspopup="dialog"
+            aria-controls="cv-modal"
+          >
+            Show CV ↗
+          </button>
           <hr class="about__divider" />
-          <p class="reveal" style="--reveal-delay: 0.5s">
-            I am a Frontend Developer dedicated to building smooth,
-            modern, and user-friendly digital experiences. Currently a 3rd-year Software Engineering student
-            at MRC (BSUIR) and a graduate of the Yandex Practicum Frontend course (2025–2026),
-            I combine technical precision with a strong eye for UI/UX.
-            My approach is to take every project from a Figma concept to a fully deployed
-            production-ready application.
+
+          <p class="reveal" style="--reveal-delay: 0.45s">
+            Fullstack Developer with hands-on commercial experience building
+            production-ready apps for the <span class="text-accent"
+              >US SaaS market (EtaCar Systems)</span
+            >. Proficient in engineering scalable backend architectures with <span
+              class="text-accent">Node.js, Express, and MongoDB</span
+            >, alongside developing dynamic, modular frontend interfaces in <span
+              class="text-accent">Angular and React</span
+            >.
           </p>
-          <p class="reveal" style="--reveal-delay: 0.6s">
-            My technical foundation is built on React, TypeScript, Node.js, and Express.js.
-            I have hands-on experience implementing RESTful APIs, managing complex state,
-            and working with both relational (SQL) and non-relational (MongoDB) databases. 
-            My development process is rooted in engineering discipline, including rigorous code 
-            reviews and adherence to modern best practices. 
-            Having earned a High School Diploma in Fine Arts after seven years of formal training,
-            I leverage a deep understanding of composition and aesthetics to create clean,
-            minimalist, and truly human-centric interfaces.
+          <p class="reveal" style="--reveal-delay: 0.55s">
+            Solid engineering foundation from MRC BSUIR (4th year) combined with <span
+              class="text-accent">958 hours</span
+            > of intensive specialization at Yandex Practicum. I focus on clean architecture,
+            database optimization, and cross-browser responsiveness. Adept at leveraging
+            modern AI tooling to accelerate delivery speed without compromising code
+            quality.
           </p>
-           
+          <p class="reveal" style="--reveal-delay: 0.65s">
+            Based in Minsk, actively seeking new challenges and <span
+              class="text-accent">fully open to office relocation</span
+            > to Poland or Germany.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+{/* Модальное окно просмотра CV изображений */}
+<div id="cv-modal" class="cv-modal" aria-hidden="true" role="dialog">
+  <div class="cv-modal__overlay"></div>
+  <div class="cv-modal__container">
+    <button id="close-cv-btn" class="cv-modal__close" aria-label="Close modal">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="cv-modal__content">
+      {/* Две страницы вашего CV (замените пути, если файлы лежат в другом месте) */}
+      <img src="/images/cv-page-1.png" alt="CV Page 1" class="cv-modal__img" loading="lazy" />
+      <img src="/images/cv-page-2.png" alt="CV Page 2" class="cv-modal__img" loading="lazy" />
+    </div>
+  </div>
+</div>
+
 <script>
   function initAboutReveal() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.about .reveal').forEach(el => observer.observe(el));
-  }
-  initAboutReveal();
-  document.addEventListener('astro:after-swap', initAboutReveal);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!document.body.classList.contains('site-loaded')) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -80px 0px' }
+    );
 
+    function startObserving() {
+      document.querySelectorAll('.about .reveal').forEach((el) => observer.observe(el));
+    }
+
+    if (document.body.classList.contains('site-loaded')) {
+      startObserving();
+    } else {
+      const checkReady = setInterval(() => {
+        if (document.body.classList.contains('site-loaded')) {
+          clearInterval(checkReady);
+          startObserving();
+        }
+      }, 100);
+    }
+  }
+
+  // Логика работы модального окна
+  function initCvModal() {
+    const openBtn = document.getElementById('open-cv-btn');
+    const closeBtn = document.getElementById('close-cv-btn');
+    const modal = document.getElementById('cv-modal');
+    const overlay = modal?.querySelector('.cv-modal__overlay');
+
+    if (!openBtn || !closeBtn || !modal) return;
+
+    const toggleModal = (show: boolean) => {
+      modal.setAttribute('aria-hidden', (!show).toString());
+      if (show) {
+        modal.classList.add('is-active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        modal.classList.remove('is-active');
+        document.body.style.overflow = '';
+      }
+    };
+
+    openBtn.onclick = (e) => { e.preventDefault(); toggleModal(true); };
+    closeBtn.onclick = () => toggleModal(false);
+    if (overlay) (overlay as HTMLElement).onclick = () => toggleModal(false);
+
+    // Закрытие по кнопке Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-active')) {
+        toggleModal(false);
+      }
+    });
+  }
+
+  let aboutRafId: number;
   function initScrollDepth() {
-    const section = document.querySelector(".about");
+    const section = document.querySelector(".about") as HTMLElement;
     if (!section) return;
 
     function update() {
-      // Проверяем ширину экрана. Если меньше 480 — сбрасываем стили и выходим
-      if (window.innerWidth <= 480) {
-        section.style.transform = '';
-        return; 
+      if (window.innerWidth <= 768) {
+        section.style.transform = "";
+        aboutRafId = requestAnimationFrame(update);
+        return;
       }
 
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
+      const progress = Math.min(Math.max(1 - (rect.top + rect.height / 2) / (windowHeight + rect.height / 2), 0), 1);
 
-      // Рассчитываем прогресс (от 0 до 1)
-      const progress = Math.min(Math.max(1 - rect.top / windowHeight, 0), 1);
+      const scale = 1 - (progress * 0.08); 
+      const z = progress * -120;           
+      const rotateX = (progress - 0.5) * 6; 
+      const yMove = (progress - 0.5) * 50;  
 
-      const scale = 1 - progress * 0.15;
-      const z = progress * -200;
-      const rotateX = progress * 5;
-
-      section.style.transform = `
-        translateZ(${z}px)
-        scale(${scale})
-        rotateX(${rotateX}deg)
-      `;
-
-      requestAnimationFrame(update);
+      section.style.transform = `perspective(1000px) translate3d(0, ${yMove}px, ${z}px) scale(${scale}) rotateX(${rotateX}deg)`;
+      aboutRafId = requestAnimationFrame(update);
     }
-
-    requestAnimationFrame(update);
+    aboutRafId = requestAnimationFrame(update);
   }
 
-initScrollDepth();
-document.addEventListener("astro:after-swap", initScrollDepth);
+  document.addEventListener("astro:before-swap", () => {
+    cancelAnimationFrame(aboutRafId);
+  });
 
-// загрузка фонового видео
-  function initBackgroundVideo() {
-    const video = document.getElementById('about-video');
-    if (!video) return;
+  // Запуск всех систем
+  initAboutReveal();
+  initCvModal();
+  initScrollDepth();
 
-    const showVideo = () => {
-      video.classList.add('loaded');
-    };
-
-    // Если видео уже достаточно загружено
-    if (video.readyState >= 3) {
-      showVideo();
-    } else {
-      // Ждём, пока видео можно будет воспроизвести
-      video.addEventListener('canplay', showVideo, { once: true });
-      video.addEventListener('loadeddata', showVideo, { once: true });
-    }
-
-    // На случай ошибки загрузки видео — всё равно убираем чёрный фон
-    video.addEventListener('error', () => {
-      video.classList.add('loaded');
-    });
-  }
-
-  // Запускаем при загрузке страницы
-  initBackgroundVideo();
-
-  document.addEventListener('astro:after-swap', initBackgroundVideo);
+  document.addEventListener("astro:after-swap", () => {
+    initAboutReveal();
+    initCvModal();
+    initScrollDepth();
+  });
 </script>

@@ -1,5 +1,4 @@
 ---
-/* src/components/Cursor.astro */
 import '../assets/styles/sections/cursor.css';
 ---
 
@@ -7,12 +6,16 @@ import '../assets/styles/sections/cursor.css';
 
 <script>
   function initCursor() {
-    const cursor = document.querySelector('#custom-cursor') as HTMLElement;
+    const cursor = document.getElementById('custom-cursor') as HTMLElement;
     if (!cursor) return;
+
+    if (!window.matchMedia('(hover: hover)').matches) return;
 
     let mouseX = 0, mouseY = 0;
     let ballX = 0, ballY = 0;
-    const speed = 0.15;
+    let rafId: number;
+
+    const speed = 0.18;
 
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
@@ -20,28 +23,37 @@ import '../assets/styles/sections/cursor.css';
     });
 
     function animate() {
-      // плавное преследование
-      ballX += (mouseX - ballX) * speed;
-      ballY += (mouseY - ballY) * speed;
-      
-      cursor.style.transform = `translate3d(${ballX}px, ${ballY}px, 0) translate(-50%, -50%)`;
-      
-      requestAnimationFrame(animate);
-    }
-    animate();
+      const dx = mouseX - ballX;
+      const dy = mouseY - ballY;
 
-    // список элементов, на которые реагирует курсор
-    const targets = document.querySelectorAll('a, button, .skill-card__badge, .skills__star');
-    
-    targets.forEach(target => {
-      target.addEventListener('mouseenter', () => cursor.classList.add('active'));
-      target.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+        ballX += dx * speed;
+        ballY += dy * speed;
+        cursor.style.transform = `translate3d(${ballX}px, ${ballY}px, 0) translate(-50%, -50%)`;
+      }
+
+      rafId = requestAnimationFrame(animate);
+    }
+
+    rafId = requestAnimationFrame(animate);
+
+    document.addEventListener('mouseover', (e) => {
+      if ((e.target as HTMLElement).closest('a, button, .skill-card__badge')) {
+        cursor.classList.add('active');
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if ((e.target as HTMLElement).closest('a, button, .skill-card__badge')) {
+        cursor.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('astro:before-swap', () => {
+      cancelAnimationFrame(rafId);
     });
   }
 
-  // запуск при первой загрузке
   initCursor();
-
-  // перезапуск при смене страниц 
   document.addEventListener('astro:after-swap', initCursor);
 </script>

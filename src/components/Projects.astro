@@ -217,6 +217,7 @@ const processText = (text: string) => {
  
 <script>
   function initProjectsLogic() {
+    // 1. Инициализация Reveal-анимации
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -228,33 +229,40 @@ const processText = (text: string) => {
  
     document.querySelectorAll('.projects .reveal').forEach(el => revealObserver.observe(el));
  
+    // 2. Логика для раскрытия карточек (Read More)
     const cards = document.querySelectorAll('.project-card');
+    
     cards.forEach((card) => {
       const wrapper = card.querySelector('.project-card__description-wrapper') as HTMLElement;
       const btn = card.querySelector('.read-more-btn') as HTMLElement;
       
       if (!wrapper || !btn) return;
 
-      const checkOverflow = () => {
-          if (wrapper.scrollHeight <= wrapper.offsetHeight && !card.classList.contains('is-expanded')) {
-              btn.style.display = 'none';
-          } else {
-              btn.style.display = 'block';
-          }
-      };
+      // Используем ResizeObserver вместо setTimeout для точного расчета высоты на мобильных
+      const resizeObserver = new ResizeObserver(() => {
+        if (card.classList.contains('is-expanded')) {
+          btn.style.display = 'block';
+          return;
+        }
+        
+        // Сравниваем реальную высоту контента с ограничением по CSS
+        const isOverflowing = wrapper.scrollHeight > wrapper.clientHeight;
+        btn.style.display = isOverflowing ? 'block' : 'none';
+      });
 
-      setTimeout(checkOverflow, 250);
+      // Начинаем следить за оберткой текста
+      resizeObserver.observe(wrapper);
    
+      // Обработчик клика
       btn.onclick = (e) => {
         e.preventDefault();
         const isExpanded = card.classList.toggle('is-expanded');
         btn.textContent = isExpanded ? 'show less' : 'read more';
-        wrapper.style.maxHeight = ''; 
       };
     });
   }
  
+  // Запуск при первой загрузке и при смене страниц в Astro (View Transitions)
   initProjectsLogic();
   document.addEventListener('astro:after-swap', initProjectsLogic);
-  window.addEventListener('resize', initProjectsLogic);
 </script>

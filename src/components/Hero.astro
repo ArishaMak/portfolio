@@ -1,155 +1,179 @@
 ---
-import InfoCard from './InfoCard.astro';
 import '../assets/styles/sections/hero.css';
 
-const isMobile = Astro.clientWidth <= 480; // Проверяем ширину на сервере (Astro)
+const line1 = "JUNIOR";
+const line2chars = [
+  { text: "FULL", style: "outlined" },
+  { text: "STACK", style: "carpet" },
+];
+const line3 = "DEVELOPER";
 
-const textLines = isMobile 
-  ? ["Junior", "Frontend &", "Full-Stack", "Developer"] // Мобильная версия
-  : ["Junior", "Frontend & Full-Stack", "Developer"]; // Десктоп + планшет
-
-let globalCharCounter = 0;
+let counter1 = 0;
+let counter2 = 0;
+let counter3 = 0;
 ---
 
 <section class="section hero">
   <div class="hero__container page">
     <div class="hero__layout">
-      <h1 class="hero__title is-loading" aria-label="Junior Frontend & Full-Stack Developer">
-        {['shadow', 'main'].map((type) => {
-          globalCharCounter = 0;
-          
-          return (
-            <span class={`hero__title-${type}`} aria-hidden={type === 'shadow'}>
-              {textLines.map((line, lineIdx) => (
-                <>
-                  {line.split('').map((char) => {
-                    const delay = (globalCharCounter * 0.03).toFixed(3);
-                    const currentIndex = globalCharCounter;
-                    globalCharCounter++;
 
-                    return (
-                      <span 
-                        class="letter" 
-                        style={`--animation-delay: ${delay}s`}
-                        data-index={currentIndex}
-                      >
-                        {char === ' ' ? '\u00A0' : char}
-                      </span>
-                    );
-                  })}
-                  {/* Добавляем <br> между всеми строками на мобильной версии */}
-                  {lineIdx < textLines.length - 1 && <br />}
-                </>
-              ))}
-            </span>
-          )
-        })}
-      </h1>
-      <h2 class="sub">
-        <span 
-        class="typewriter-text" 
-        data-text="Available for Summer 2026 Internship (July–September full-time)\n& Ready to relocate to Warsaw / Kraków\nOpen to part-time collaboration from October while writing my diploma project."
-        ></span>
-      </h2>
-      <div class="hero__cards">
-        <InfoCard
-          title="About"
-          content="BSUIR Branch MRC 2023–2027\nYandex Practicum Fullstack 2025–2026\nPortfolio Works 2025–2026"
-        />
-        <InfoCard
-          title="Contact"
-          content="makovchikarina@icloud.com\n+375 29 501-81-09\ntg: @ichbinrisha"
-        />
-        <InfoCard
-          title="Information"
-          content="github.com/ArishaMak"
-        />
+      <div class="hero__topbar">
+        <span class="hero__name-label">Arina N. Makovchik</span>
+        <div class="hero__status">
+          <span class="hero__status-dot"></span>
+          MINSK, BELARUS · OPEN TO OFFICE RELOCATION
+        </div>
       </div>
+
+      <div class="hero__rule"></div>
+
+      <div class="hero__tag">
+        <span>Node.js</span>
+        <span class="hero__tag-sep">·</span>
+        <span>MongoDB</span>
+        <span class="hero__tag-sep">·</span>
+        <span>React</span>
+        <span class="hero__tag-sep">·</span>
+        <span>Angular</span>
+        <span class="hero__tag-sep">·</span>
+        <span>TypeScript</span>
+      </div>
+
+      <h1 class="hero__title" aria-label="Junior Fullstack Developer">
+
+        <span class="hero__title-line hero__title-line--plain is-loading" id="line1">
+          {["shadow","main"].map((type) => {
+            counter1 = 0;
+            return (
+              <span class={`hero__title-${type}`} aria-hidden={type === "shadow"}>
+                {line1.split("").map((char) => {
+                  const delay = (counter1 * 0.025).toFixed(3);
+                  const idx = counter1++;
+                  return (
+                    <span class="letter" style={`--animation-delay:${delay}s`} data-index={`1-${idx}`}>
+                      {char}
+                    </span>
+                  );
+                })}
+              </span>
+            );
+          })}
+        </span>
+
+        <span class="hero__title-line hero__title-line--mixed">
+          <span class="hero__word-outlined" aria-hidden="false">
+            {"FULL".split("").map((char, i) => (
+              <span
+                class="letter letter--outlined"
+                style={`--animation-delay:${(i * 0.025 + 0.2).toFixed(3)}s`}
+                data-index={`2-${i}`}
+              >{char}</span>
+            ))}
+          </span>
+          <span class="hero__word-carpet" aria-hidden="false">
+            {"STACK".split("").map((char, i) => (
+              <span
+                class="letter letter--carpet"
+                style={`--animation-delay:${(i * 0.025 + 0.35).toFixed(3)}s`}
+                data-index={`2c-${i}`}
+              >{char}</span>
+            ))}
+          </span>
+        </span>
+
+        <span class="hero__title-line hero__title-line--plain is-loading" id="line3">
+          {["shadow","main"].map((type) => {
+            counter3 = 0;
+            return (
+              <span class={`hero__title-${type}`} aria-hidden={type === "shadow"}>
+                {"DEVELOPER".split("").map((char) => {
+                  const delay = (counter3 * 0.025 + 0.45).toFixed(3);
+                  const idx = counter3++;
+                  return (
+                    <span class="letter" style={`--animation-delay:${delay}s`} data-index={`3-${idx}`}>
+                      {char}
+                    </span>
+                  );
+                })}
+              </span>
+            );
+          })}
+        </span>
+
+      </h1>
+
+      <div class="hero__bottom">
+        <div class="hero__bottom-left">
+          <p class="hero__exp-line">
+            Commercial experience&nbsp;·&nbsp;<span class="hero__exp-accent">EtaCar Systems (BuzzyBooth, US)</span>
+          </p>
+          <p class="hero__exp-line">
+            Yandex Practicum&nbsp;·&nbsp;<span class="hero__exp-accent">958h</span>&nbsp;·&nbsp;MRC BSUIR
+          </p>
+          <p class="hero__exp-line">
+            Open to relocation&nbsp;·&nbsp;<span class="hero__exp-accent">Poland&nbsp;·&nbsp;Germany</span>
+          </p>
+        </div>
+        <div class="hero__reloc">
+          <span class="hero__reloc-label">CURRENTLY IN MINSK</span>
+          <div class="hero__reloc-cities">
+            <span>Gybrid</span>
+            <span class="hero__reloc-sep">/</span>
+            <span>Office</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="hero__blob hero__blob--left-large"></div>
-    <div class="hero__blob hero__blob--right-large">
-      <div class="blob-layer--back"></div>
-      <div class="blob-layer--front"></div>
+    <!-- Scroll indicator -->
+    <div class="hero__scroll-indicator" aria-hidden="true">
+      <span>scroll</span>
+      <div class="hero__scroll-line"></div>
     </div>
-    <div class="hero__blob hero__blob--right-small"></div>
-    <div class="hero__blob hero__blob--left-large-hero"></div>
+
   </div>
 </section>
 
 <script>
   function initHero() {
-    const heroTitle = document.querySelector('.hero__title');
-    const mainTitle = document.querySelector('.hero__title-main');
-    const shadowTitle = document.querySelector('.hero__title-shadow');
-    const typewriterElem = document.querySelector('.typewriter-text');
-    const sidebarSwitch = document.querySelector('.sidebar-switch') as HTMLInputElement;
-
-    if (!heroTitle || !mainTitle || !shadowTitle || !typewriterElem) return;
+    const line1 = document.getElementById('line1');
+    const line3 = document.getElementById('line3');
+    const mainTitles = document.querySelectorAll('.hero__title-main');
+    const shadowTitles = document.querySelectorAll('.hero__title-shadow');
 
     let isStarted = false;
+    const sidebarSwitch = document.querySelector('.sidebar-switch') as HTMLInputElement;
 
-    // Основная функция запуска анимации
     function startSequence() {
       if (isStarted) return;
       isStarted = true;
-
-      // 1. Появление букв h1 (управляется CSS через .is-loading)
-      heroTitle.classList.remove('is-loading');
-
-      // 2. Запуск печатной машинки h2
-      const fullText = typewriterElem.getAttribute('data-text') || "";
-      let charIndex = 0;
-      typewriterElem.textContent = ""; // Очищаем перед стартом
-
-      function type() {
-        if (charIndex < fullText.length) {
-          if (fullText.substr(charIndex, 2) === "\\n") {
-            typewriterElem.innerHTML += "<br>";
-            charIndex += 2;
-          } else {
-            typewriterElem.innerHTML += fullText.charAt(charIndex);
-            charIndex++;
-          }
-          setTimeout(type, 35);
-        }
-      }
-      
-      // Небольшая задержка, чтобы h1 начал проявляться первым
-      setTimeout(type, 500);
+      line1?.classList.remove('is-loading');
+      line3?.classList.remove('is-loading');
     }
 
-    // Слушаем закрытие сайдбара
     if (sidebarSwitch) {
       sidebarSwitch.addEventListener('change', () => {
-        if (!sidebarSwitch.checked) {
-          // Запуск через 400мс после того, как шторка начала уезжать
-          setTimeout(startSequence, 400);
-        }
+        if (!sidebarSwitch.checked) setTimeout(startSequence, 400);
       });
     }
+    setTimeout(startSequence, 800);
 
-    // Резервный запуск (если пользователь не открыл меню в течение 2 сек)
-    setTimeout(startSequence, 2000);
-
-    // Ховер эффект для букв (делегирование)
-    mainTitle.addEventListener('mouseover', (e) => {
+    // jump-on-hover для всех букв
+    document.querySelector('.hero__title')?.addEventListener('mouseover', (e) => {
       const target = e.target as HTMLElement;
-      if (target.classList.contains('letter')) {
-        const idx = target.getAttribute('data-index');
-        const shadowLetter = shadowTitle.querySelector(`[data-index="${idx}"]`);
+      if (!target.classList.contains('letter')) return;
+      const idx = target.getAttribute('data-index');
 
-        [target, shadowLetter].forEach(el => {
-          if (el) {
-            el.classList.remove('jump-on-hover');
-            void (el as HTMLElement).offsetWidth; 
-            el.classList.add('jump-on-hover');
-          }
-        });
-      }
+      // находим пару shadow/main по data-index
+      document.querySelectorAll(`.letter[data-index="${idx}"]`).forEach(el => {
+        el.classList.remove('jump-on-hover');
+        void (el as HTMLElement).offsetWidth;
+        el.classList.add('jump-on-hover');
+      });
     });
   }
 
-  // Запуск при загрузке
   document.addEventListener('DOMContentLoaded', initHero);
+  document.addEventListener('astro:after-swap', initHero);
 </script>

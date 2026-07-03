@@ -28,7 +28,6 @@ const gridData = [
 <div class="wordsearch-wrapper">
   <div class="wordsearch-layout">
 
-    <!-- Левая колонка — список слов -->
     <div class="wordsearch-words-left">
       <ul class="wordsearch-col">
         {wordsToFind.slice(0, Math.ceil(wordsToFind.length / 2)).map(word => (
@@ -42,22 +41,16 @@ const gridData = [
       </ul>
     </div>
 
-    <!-- Правая часть -->
     <div class="wordsearch-right-section">
       <div class="wordsearch-grid-container">
         <div class="wordsearch-grid" id="wordsearch-grid"></div>
       </div>
-
-      <div class="memes-sidebar">
-        <div class="memes-grid">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div class="meme-frame" id={`meme-${i}`} data-active="false">
-              <img src="" alt="meme" loading="lazy" decoding="async" />
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
+  </div>
+  
+  <div class="wordsearch-footer-bar">
+    <span class="footer-hint">Hover any category to highlight · Find words in the grid</span>
+    <div class="footer-status-badge">INTERACTIVE GRID · HOVER OR TOUCH</div>
   </div>
 </div>
 
@@ -67,41 +60,27 @@ let isSelecting = false;
 let startRow = -1, startCol = -1;
 
 const foundWords = new Set();
-const foundCoords = new Set(); // Хранилище координат вида "row-col"
+const foundCoords = new Set();
 const gridEl = document.getElementById('wordsearch-grid');
-
 let cellMatrix = [];
 
-// грид рендер
 function renderGrid() {
+  if (!gridEl) return;
   gridEl.innerHTML = '';
   cellMatrix = [];
 
   const frag = document.createDocumentFragment();
-
-  let cellSize;
-  if (window.innerWidth <= 480) {
-    cellSize = 20;  // Мобильный ≤480px
-  } else if (window.innerWidth < 768) {
-    cellSize = 24;  // Планшет 481-767px
-  } else {
-    cellSize = 28;  // Десктоп ≥768px
-  }
-
-  gridEl.style.gridTemplateColumns = `repeat(${gridData[0].length}, minmax(${cellSize}px, 1fr))`;
+  gridEl.style.gridTemplateColumns = `repeat(${gridData[0].length}, 1fr)`;
 
   for (let r = 0; r < gridData.length; r++) {
     const rowArr = [];
-
     for (let c = 0; c < gridData[r].length; c++) {
       const cell = document.createElement('div');
-
       cell.className = 'wordsearch-cell';
       cell.textContent = gridData[r][c];
       cell.dataset.row = r;
       cell.dataset.col = c;
 
-      // Восстанавливаем класс found, если ячейка была найдена до ресайза
       if (foundCoords.has(`${r}-${c}`)) {
         cell.classList.add('found');
       }
@@ -109,100 +88,68 @@ function renderGrid() {
       frag.appendChild(cell);
       rowArr.push(cell);
     }
-
     cellMatrix.push(rowArr);
   }
-
   gridEl.appendChild(frag);
-  
-  // Восстанавливаем зачеркивания в списке слов
   foundWords.forEach(word => markWordInList(word));
 }
 
-// кроссворда логика
 function getDirection(r1, c1, r2, c2) {
-  return {
-    dr: Math.sign(r2 - r1),
-    dc: Math.sign(c2 - c1)
-  };
+  return { dr: Math.sign(r2 - r1), dc: Math.sign(c2 - c1) };
 }
 
 function isValidWord(cells) {
   if (cells.length < 3) return false;
-
   const word = cells.map(c => c.textContent).join('').toUpperCase();
   const rev = word.split('').reverse().join('');
-
   return wordsToFind.some(w => w === word || w === rev);
 }
 
-// выделения
 function clearTempHighlight() {
-  document.querySelectorAll('.temp-highlight')
-    .forEach(el => el.classList.remove('temp-highlight'));
+  document.querySelectorAll('.temp-highlight').forEach(el => el.classList.remove('temp-highlight'));
 }
 
 function highlightTemp() {
   clearTempHighlight();
-
-  for (let i = 0; i < selectedCells.length; i++) {
-    selectedCells[i].classList.add('temp-highlight');
-  }
+  selectedCells.forEach(cell => cell.classList.add('temp-highlight'));
 }
 
 function markAsFound(cells) {
-  for (let i = 0; i < cells.length; i++) {
-    const cell = cells[i];
+  cells.forEach(cell => {
     const r = cell.dataset.row;
     const c = cell.dataset.col;
-
-    // Сохраняем координату, чтобы она не стерлась при renderGrid
     foundCoords.add(`${r}-${c}`);
-
     cell.classList.add('found');
     cell.classList.remove('temp-highlight');
-  }
+  });
 }
 
 function markWordInList(word) {
   const upper = word.toUpperCase();
-  // Находим слово или его реверс в списке
   const reversed = upper.split('').reverse().join('');
-
-  document.querySelectorAll('.skill-word')
-    .forEach(li => {
-      if (li.dataset.word === upper || li.dataset.word === reversed) {
-        li.classList.add('found');
-      }
-    });
+  document.querySelectorAll('.skill-word').forEach(li => {
+    if (li.dataset.word === upper || li.dataset.word === reversed) {
+      li.classList.add('found');
+    }
+  });
 }
 
-// зачерк
 function checkWin() {
   if (foundWords.size === wordsToFind.length) {
     import('https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js')
-      .then(m => m.default({
-        particleCount: 200,
-        spread: 90,
-        origin: { y: 0.6 }
-      }));
-    setTimeout(() => {
-      alert("Congratulations! You found all my skills.");
-    }, 800);
+      .then(m => m.default({ particleCount: 150, spread: 80, origin: { y: 0.6 } }));
   }
 }
 
-// события мыши
+// Mouse handlers
 gridEl.addEventListener('mousedown', e => {
   const cell = e.target.closest('.wordsearch-cell');
   if (!cell || e.button !== 0) return;
   e.preventDefault();
-  clearTempHighlight();
-  selectedCells.length = 0;
   isSelecting = true;
   startRow = +cell.dataset.row;
   startCol = +cell.dataset.col;
-  selectedCells.push(cell);
+  selectedCells = [cell];
   highlightTemp();
 });
 
@@ -212,33 +159,24 @@ gridEl.addEventListener('mousemove', e => {
   if (!cell) return;
   const endRow = +cell.dataset.row;
   const endCol = +cell.dataset.col;
-  selectedCells.length = 0;
+  
+  selectedCells = [];
   const { dr, dc } = getDirection(startRow, startCol, endRow, endCol);
   
-  if (dr === 0 && dc === 0) {
-    selectedCells.push(cellMatrix[startRow][startCol]);
-  } else {
-    let r = startRow;
-    let c = startCol;
-    while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
-      const curCell = cellMatrix[r]?.[c];
-      if (curCell) selectedCells.push(curCell);
-      if (r === endRow && c === endCol) break;
-      r += dr;
-      c += dc;
-      if (Math.abs(r - startRow) > gridData.length || Math.abs(c - startCol) > gridData[0].length) break;
-    }
+  let r = startRow, c = startCol;
+  while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
+    if (cellMatrix[r]?.[c]) selectedCells.push(cellMatrix[r][c]);
+    if (r === endRow && c === endCol) break;
+    r += dr; c += dc;
   }
   highlightTemp();
 });
 
-gridEl.addEventListener('mouseup', () => {
+window.addEventListener('mouseup', () => {
   if (!isSelecting) return;
   isSelecting = false;
-  if (selectedCells.length >= 3 && isValidWord(selectedCells)) {
+  if (isValidWord(selectedCells)) {
     const wordStr = selectedCells.map(c => c.textContent).join('').toUpperCase();
-    
-    // Проверяем, какое именно слово из списка мы нашли (нормальное или реверс)
     const matchedWord = wordsToFind.find(w => w === wordStr || w === wordStr.split('').reverse().join(''));
     
     if (matchedWord && !foundWords.has(matchedWord)) {
@@ -249,23 +187,20 @@ gridEl.addEventListener('mouseup', () => {
     }
   }
   clearTempHighlight();
-  selectedCells.length = 0;
 });
 
-// на телефончик при касании
+// Touch handlers
 gridEl.addEventListener('touchstart', e => {
   const touch = e.touches[0];
   const cell = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.wordsearch-cell');
   if (!cell) return;
   e.preventDefault();
-  clearTempHighlight();
-  selectedCells.length = 0;
   isSelecting = true;
   startRow = +cell.dataset.row;
   startCol = +cell.dataset.col;
-  selectedCells.push(cell);
+  selectedCells = [cell];
   highlightTemp();
-}, { passive:false });
+}, { passive: false });
 
 gridEl.addEventListener('touchmove', e => {
   if (!isSelecting) return;
@@ -275,32 +210,25 @@ gridEl.addEventListener('touchmove', e => {
   if (!cell) return;
   const endRow = +cell.dataset.row;
   const endCol = +cell.dataset.col;
-  selectedCells.length = 0;
+
+  selectedCells = [];
   const { dr, dc } = getDirection(startRow, startCol, endRow, endCol);
 
-  if (dr === 0 && dc === 0) {
-    selectedCells.push(cellMatrix[startRow][startCol]);
-  } else {
-    let r = startRow;
-    let c = startCol;
-    while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
-      const curCell = cellMatrix[r]?.[c];
-      if (curCell) selectedCells.push(curCell);
-      if (r === endRow && c === endCol) break;
-      r += dr;
-      c += dc;
-    }
+  let r = startRow, c = startCol;
+  while (r >= 0 && r < gridData.length && c >= 0 && c < gridData[0].length) {
+    if (cellMatrix[r]?.[c]) selectedCells.push(cellMatrix[r][c]);
+    if (r === endRow && c === endCol) break;
+    r += dr; c += dc;
   }
   highlightTemp();
-}, { passive:false });
+}, { passive: false });
 
 gridEl.addEventListener('touchend', () => {
   if (!isSelecting) return;
   isSelecting = false;
-  if (selectedCells.length >= 3 && isValidWord(selectedCells)) {
+  if (isValidWord(selectedCells)) {
     const wordStr = selectedCells.map(c => c.textContent).join('').toUpperCase();
     const matchedWord = wordsToFind.find(w => w === wordStr || w === wordStr.split('').reverse().join(''));
-    
     if (matchedWord && !foundWords.has(matchedWord)) {
       markAsFound(selectedCells);
       markWordInList(matchedWord);
@@ -309,73 +237,16 @@ gridEl.addEventListener('touchend', () => {
     }
   }
   clearTempHighlight();
-  selectedCells.length = 0;
 });
 
-// карточки
-const memesFrames = document.querySelectorAll('.meme-frame');
-const memeImages = Array.from({ length: 27 }, (_, i) =>
-  `/images/flowers/fl${String(i+1).padStart(2,'0')}.jpg`
-);
-const memeCache = new Map();
-
-/* preload */
-for (let i = 0; i < memeImages.length; i++) {
-  const src = memeImages[i];
-  const img = new Image();
-  img.src = src;
-  memeCache.set(src, img);
-}
-
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-}
-
-function activateRandomMemes() {
-  memesFrames.forEach(frame => {
-    frame.dataset.active = "false";
-    const img = frame.querySelector('img');
-    if (img) img.style.opacity = "0";
-  });
-
-  const framesArr = [...memesFrames];
-  shuffle(framesArr);
-  const count = Math.floor(Math.random() * 4) + 3;
-  for (let i = 0; i < count; i++) {
-    const frame = framesArr[i];
-    const img = frame.querySelector('img');
-    if (!img) continue;
-    frame.dataset.active = "true";
-    const url = memeImages[Math.floor(Math.random() * memeImages.length)];
-
-    const cached = memeCache.get(url);
-    if (cached?.complete) {
-      img.src = url;
-      img.style.opacity = "1";
-    } else {
-      cached.onload = () => {
-        img.src = url;
-        img.style.opacity = "1";
-      };
-    }
-  }
-}
-
-// инициализация
 renderGrid();
-activateRandomMemes();
-setInterval(activateRandomMemes, 1800);
 
-// оптимизация ресайза
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     clearTempHighlight();
-    renderGrid(); // Теперь она восстанавливает найденные слова из foundCoords
-  }, 200);
+    renderGrid();
+  }, 150);
 });
 </script>

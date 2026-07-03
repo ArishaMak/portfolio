@@ -217,7 +217,7 @@ const processText = (text: string) => {
  
 <script>
   function initProjectsLogic() {
-    // 1. Инициализация Reveal-анимации
+    // 1. Инициализация Reveal-анимации появления карточек
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -229,7 +229,7 @@ const processText = (text: string) => {
  
     document.querySelectorAll('.projects .reveal').forEach(el => revealObserver.observe(el));
  
-    // 2. Логика для раскрытия карточек (Read More)
+    // 2. Логика для раскрытия карточек (Read More) и управления градиентом
     const cards = document.querySelectorAll('.project-card');
     
     cards.forEach((card) => {
@@ -238,22 +238,29 @@ const processText = (text: string) => {
       
       if (!wrapper || !btn) return;
 
-      // Используем ResizeObserver вместо setTimeout для точного расчета высоты на мобильных
+      // Следим за реальными размерами блока контента
       const resizeObserver = new ResizeObserver(() => {
         if (card.classList.contains('is-expanded')) {
           btn.style.display = 'block';
+          card.classList.remove('has-overflow'); // Убираем градиент при раскрытии
           return;
         }
         
-        // Сравниваем реальную высоту контента с ограничением по CSS
+        // Проверяем, выходит ли текст за рамки видимости
         const isOverflowing = wrapper.scrollHeight > wrapper.clientHeight;
-        btn.style.display = isOverflowing ? 'block' : 'none';
+        
+        if (isOverflowing) {
+          btn.style.display = 'block';
+          card.classList.add('has-overflow'); // Добавляем класс градиента только при переполнении
+        } else {
+          btn.style.display = 'none';
+          card.classList.remove('has-overflow'); // Убираем градиент и кнопку, если текст влез целиком
+        }
       });
 
-      // Начинаем следить за оберткой текста
       resizeObserver.observe(wrapper);
    
-      // Обработчик клика
+      // Обработка клика по кнопке
       btn.onclick = (e) => {
         e.preventDefault();
         const isExpanded = card.classList.toggle('is-expanded');
@@ -262,7 +269,7 @@ const processText = (text: string) => {
     });
   }
  
-  // Запуск при первой загрузке и при смене страниц в Astro (View Transitions)
+  // Инициализация при первой загрузке и поддержке View Transitions в Astro
   initProjectsLogic();
   document.addEventListener('astro:after-swap', initProjectsLogic);
 </script>

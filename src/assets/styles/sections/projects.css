@@ -195,20 +195,17 @@ body .text-accent {
     overflow-y: auto;
 }
 
-.project-card__description-wrapper::after {
+/* Умный градиент-затемнение: работает только тогда, когда текст не влез и карточка сжата */
+.project-card.has-overflow:not(.is-expanded) .project-card__description-wrapper::after {
     content: "";
+    display: block;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 45px;
     background: linear-gradient(transparent, var(--color-page-bg));
-    transition: opacity 0.3s;
     pointer-events: none;
-}
-
-.project-card.is-expanded .project-card__description-wrapper::after {
-    opacity: 0;
 }
 
 .read-more-btn {

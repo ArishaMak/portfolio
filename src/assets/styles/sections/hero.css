@@ -8,6 +8,7 @@
   width: 100%;
   overflow: hidden;
   box-sizing: border-box;
+  contain: layout;
 }
 
 .hero__container {
@@ -16,7 +17,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
+  justify-content: flex-start;
 }
 
 .hero__layout {
@@ -138,7 +139,7 @@
   background-clip: text;
   color: transparent;
   z-index: 2;
-  filter: var(--hero-filter, saturate(1.4) contrast(1.1)) var(--shadow-deep);
+  filter: var(--hero-filter, saturate(1.4) contrast(1.1));
 }
 
 .hero__title-shadow {
@@ -188,7 +189,6 @@
 
 .letter {
   display: inline-block;
-  will-change: transform;
   position: relative;
   animation-delay: var(--animation-delay, 0s);
   transition: transform 0.3s ease;
@@ -219,11 +219,13 @@
   .is-loading .letter {
     animation: bounceIn 0.7s cubic-bezier(0.36, 0, 0.66, -0.56) both;
     animation-delay: var(--animation-delay);
+    will-change: transform, opacity;
   }
 }
 
 .letter.jump-on-hover {
   animation: jump-single 0.45s ease-out forwards !important;
+  will-change: transform;
 }
 
 @keyframes bounceIn {
@@ -331,6 +333,7 @@
   opacity: 0.25;
   animation: scroll-line-anim 2.2s ease-in-out infinite;
   transform-origin: top;
+  will-change: transform, opacity;
 }
 
 @keyframes scroll-line-anim {
@@ -360,7 +363,7 @@
   .hero {
     height: auto;
   }
-  
+
   .hero__layout {
     padding-top: 1.5rem;
     padding-bottom: 2.5rem;
@@ -423,41 +426,4 @@
   .hero__reloc {
     display: none;
   }
-}
-
-.hero__title .letter,
-.hero__subtitle,
-.hero__cta-block {
-    opacity: 0;
-    transform: translateY(30px);
-    will-change: transform, opacity;
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.site-loaded .hero__title .letter {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.site-loaded .hero__title { transition-delay: 0.1s; }
-.site-loaded .hero__subtitle { 
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.3s; 
-}
-.site-loaded .hero__cta-block { 
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.5s; 
-}
-
-.letter.jump {
-    animation: letter-jump 0.4s ease;
-    animation-delay: var(--hover-delay, 0s) !important;
-}
-
-@keyframes letter-jump {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
 }

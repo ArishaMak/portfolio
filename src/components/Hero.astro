@@ -2,14 +2,9 @@
 import '../assets/styles/sections/hero.css';
 
 const line1 = "JUNIOR";
-const line2chars = [
-  { text: "FULL", style: "outlined" },
-  { text: "STACK", style: "carpet" },
-];
 const line3 = "DEVELOPER";
 
 let counter1 = 0;
-let counter2 = 0;
 let counter3 = 0;
 ---
 
@@ -41,6 +36,7 @@ let counter3 = 0;
 
       <h1 class="hero__title" aria-label="Junior Fullstack Developer">
 
+        <!-- LINE 1: JUNIOR -->
         <span class="hero__title-line hero__title-line--plain is-loading" id="line1">
           {["shadow","main"].map((type) => {
             counter1 = 0;
@@ -60,8 +56,9 @@ let counter3 = 0;
           })}
         </span>
 
-        <span class="hero__title-line hero__title-line--mixed">
-          <span class="hero__word-outlined" aria-hidden="false">
+        <!-- LINE 2: FULL outlined + STACK carpet — без JS анимации, всегда видны -->
+        <span class="hero__title-line hero__title-line--mixed" aria-hidden="false">
+          <span class="hero__word-outlined">
             {"FULL".split("").map((char, i) => (
               <span
                 class="letter letter--outlined"
@@ -70,7 +67,7 @@ let counter3 = 0;
               >{char}</span>
             ))}
           </span>
-          <span class="hero__word-carpet" aria-hidden="false">
+          <span class="hero__word-carpet">
             {"STACK".split("").map((char, i) => (
               <span
                 class="letter letter--carpet"
@@ -81,12 +78,13 @@ let counter3 = 0;
           </span>
         </span>
 
+        <!-- LINE 3: DEVELOPER -->
         <span class="hero__title-line hero__title-line--plain is-loading" id="line3">
           {["shadow","main"].map((type) => {
             counter3 = 0;
             return (
               <span class={`hero__title-${type}`} aria-hidden={type === "shadow"}>
-                {"DEVELOPER".split("").map((char) => {
+                {line3.split("").map((char) => {
                   const delay = (counter3 * 0.025 + 0.45).toFixed(3);
                   const idx = counter3++;
                   return (
@@ -117,7 +115,7 @@ let counter3 = 0;
         <div class="hero__reloc">
           <span class="hero__reloc-label">CURRENTLY IN MINSK</span>
           <div class="hero__reloc-cities">
-            <span>Gybrid</span>
+            <span>Hybrid</span>
             <span class="hero__reloc-sep">/</span>
             <span>Office</span>
           </div>
@@ -126,7 +124,6 @@ let counter3 = 0;
 
     </div>
 
-    <!-- Scroll indicator -->
     <div class="hero__scroll-indicator" aria-hidden="true">
       <span>scroll</span>
       <div class="hero__scroll-line"></div>
@@ -137,36 +134,46 @@ let counter3 = 0;
 
 <script>
   function initHero() {
-    const line1 = document.getElementById('line1');
-    const line3 = document.getElementById('line3');
-    const mainTitles = document.querySelectorAll('.hero__title-main');
-    const shadowTitles = document.querySelectorAll('.hero__title-shadow');
+    const line1El = document.getElementById('line1');
+    const line3El = document.getElementById('line3');
+    const titleEl = document.querySelector('.hero__title');
+    const sidebarSwitch = document.querySelector('.sidebar-switch') as HTMLInputElement;
+
+    if (!titleEl) return;
 
     let isStarted = false;
-    const sidebarSwitch = document.querySelector('.sidebar-switch') as HTMLInputElement;
+    let startTimer: ReturnType<typeof setTimeout>;
 
     function startSequence() {
       if (isStarted) return;
       isStarted = true;
-      line1?.classList.remove('is-loading');
-      line3?.classList.remove('is-loading');
+      line1El?.classList.remove('is-loading');
+      line3El?.classList.remove('is-loading');
     }
+
+    document.addEventListener('astro:before-swap', () => {
+      clearTimeout(startTimer);
+      isStarted = false;
+    }, { once: true });
 
     if (sidebarSwitch) {
       sidebarSwitch.addEventListener('change', () => {
-        if (!sidebarSwitch.checked) setTimeout(startSequence, 400);
+        if (!sidebarSwitch.checked) {
+          startTimer = setTimeout(startSequence, 400);
+        }
       });
     }
-    setTimeout(startSequence, 800);
 
-    // jump-on-hover для всех букв
-    document.querySelector('.hero__title')?.addEventListener('mouseover', (e) => {
+    startTimer = setTimeout(startSequence, 800);
+
+    titleEl.addEventListener('mouseover', (e) => {
       const target = e.target as HTMLElement;
       if (!target.classList.contains('letter')) return;
-      const idx = target.getAttribute('data-index');
 
-      // находим пару shadow/main по data-index
-      document.querySelectorAll(`.letter[data-index="${idx}"]`).forEach(el => {
+      const idx = target.getAttribute('data-index');
+      if (!idx) return;
+
+      titleEl.querySelectorAll(`.letter[data-index="${idx}"]`).forEach(el => {
         el.classList.remove('jump-on-hover');
         void (el as HTMLElement).offsetWidth;
         el.classList.add('jump-on-hover');
